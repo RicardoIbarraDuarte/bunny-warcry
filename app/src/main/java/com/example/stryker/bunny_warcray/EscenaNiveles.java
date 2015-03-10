@@ -12,20 +12,22 @@ import org.andengine.opengl.util.GLState;
  *
  * @author Roberto Martínez Román
  */
-/*
+
 public class EscenaNiveles extends EscenaBase{
     // *** Fondo
     private Sprite spriteFondo; //(el fondo de la escena, estático)
 
     // *** Botones del menú
-    private ButtonSprite btnJugar;
-    private ButtonSprite btnAcerca;
-    private ButtonSprite btnCreditos;
+    private ButtonSprite btnN0;
+    private ButtonSprite btnN1;
+    private ButtonSprite btnN2;
+    private ButtonSprite btnN3;
+    private ButtonSprite btnN4;
 
     @Override
     public void crearEscena() {
         // Creamos el sprite de manera óptima
-        spriteFondo = new Sprite(0,0, admRecursos.regionMenu,admRecursos.vbom) {
+        spriteFondo = new Sprite(0,0, admRecursos.regionFondoNivel,admRecursos.vbom) {
             @Override
             protected void preDraw(GLState pGLState, Camera pCamera) {
                 super.preDraw(pGLState, pCamera);
@@ -45,61 +47,31 @@ public class EscenaNiveles extends EscenaBase{
         setTouchAreaBindingOnActionDownEnabled(true);
 
         // *** Agrega los botones al Menú
-        btnJugar = new ButtonSprite(915,356,
-                admRecursos.regionBtnJugar,admRecursos.vbom) {
+        btnN0 = new ButtonSprite(915,356,
+                admRecursos.regionBtnN0,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
                     // Cambia a la escena de JUGAR
-                    admEscenas.crearEscenaNiveles();
-                    admEscenas.setEscena(TipoEscena.ESCENA_NIVELES);
-                    admEscenas.liberarEscenaMenu();
+                    admEscenas.crearEscenaJuego();
+                    admEscenas.setEscena(TipoEscena.ESCENA_JUEGO);
+                    admEscenas.liberarEscenaNiveles();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
 
-        registerTouchArea(btnJugar);
-        attachChild(btnJugar);
-        btnAcerca = new ButtonSprite(915,200,
-                admRecursos.regionBtnAcerca,admRecursos.vbom) {
-            // Aquí el código que ejecuta el botón cuando es presionado
-            @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-                if (pSceneTouchEvent.isActionUp()) {
-                    // Cambia a la escena de acerca de
-                    admEscenas.crearEscenaAcerca();
-                    admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                    admEscenas.liberarEscenaMenu();
-                }
-                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
-            }
-        };
+        registerTouchArea(btnN0);
+        attachChild(btnN0);
 
-        registerTouchArea(btnAcerca);
-        attachChild(btnAcerca);
-        btnCreditos = new ButtonSprite(1200,80,
-                admRecursos.regionBtnCreditos,admRecursos.vbom) {
-            // Aquí el código que ejecuta el botón cuando es presionado
-            @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-                if (pSceneTouchEvent.isActionUp()) {
-                    // Cambia a la escena de creditos
-                    admEscenas.crearEscenaCreditos();
-                    admEscenas.setEscena(TipoEscena.ESCENA_CREDITOS);
-                    admEscenas.liberarEscenaMenu();
-                }
-                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
-            }
-        };
-        btnCreditos.setScale(.4f);
-        registerTouchArea(btnCreditos);
-        attachChild(btnCreditos);
     }
 
     @Override
     public void onBackKeyPressed() {
+        admEscenas.crearEscenaMenu();
+        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
+        admEscenas.liberarEscenaNiveles();
 
     }
 
@@ -110,20 +82,8 @@ public class EscenaNiveles extends EscenaBase{
 
     @Override
     public void liberarEscena() {
-        // Liberar cada recurso usado en esta escena
-        // FONDO
-        spriteFondo.detachSelf();   // Se desconecta de la escena
-        spriteFondo.dispose();      // Libera la memoria
-        // Btn Jugar
-        btnJugar.detachSelf();
-        btnJugar.dispose();
-        btnAcerca.detachSelf();
-        btnAcerca.dispose();
-        btnCreditos.detachSelf();
-        btnCreditos.dispose();
 
         this.detachSelf();      // La escena se deconecta del engine
         this.dispose();         // Libera la memoria
     }
 }
-*/

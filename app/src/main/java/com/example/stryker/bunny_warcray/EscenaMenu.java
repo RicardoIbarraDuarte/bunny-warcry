@@ -51,8 +51,8 @@ public class EscenaMenu extends EscenaBase{
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
                     // Cambia a la escena de JUGAR
-                    admEscenas.crearEscenaJuego();
-                    admEscenas.setEscena(TipoEscena.ESCENA_JUEGO);
+                    admEscenas.crearEscenaNiveles();
+                    admEscenas.setEscena(TipoEscena.ESCENA_NIVELES);
                     admEscenas.liberarEscenaMenu();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);

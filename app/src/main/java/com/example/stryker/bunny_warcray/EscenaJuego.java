@@ -28,6 +28,8 @@ public class EscenaJuego extends EscenaBase
     private Personaje personaje;
     private DigitalOnScreenControl control;
     private ITextureRegion[] regionesPersonaje;
+    private ButtonSprite btnAtacar;
+    private boolean Ataque=false;
 
 
     @Override
@@ -60,6 +62,21 @@ public class EscenaJuego extends EscenaBase
         SpriteBackground fondo = new SpriteBackground(1,0.5f,0,Fondo);
         setBackground(fondo);
         setBackgroundEnabled(true);
+
+        btnAtacar = new ButtonSprite(915,356,
+                admRecursos.regionBtnAtacar,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    Ataque = true;
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        registerTouchArea(btnAtacar);
+        attachChild(btnAtacar);
 
         //dibujar enemigo
         hamster1.dibujarEnemigo();
@@ -100,10 +117,8 @@ public class EscenaJuego extends EscenaBase
                     personaje.setPersonaje(3);
                     attachChild(personaje.getPersonaje());
                 }
-
                 comprobarColission();
-
-
+                Log.i("hola","valor"+pSecondsElapsed);
             }
 
             @Override
@@ -130,8 +145,8 @@ public class EscenaJuego extends EscenaBase
 
             @Override
             public void onControlChange(BaseOnScreenControl pBaseOnScreenControl, float pValueX, float pValueY) {
-                float x = personaje.getPersonaje().getX()+20*pValueX;
-                float y = personaje.getPersonaje().getY()+20*pValueY;
+                float x = personaje.getPersonaje().getX()+personaje.velocidadPersonaje*pValueX;
+                float y = personaje.getPersonaje().getY()+personaje.velocidadPersonaje*pValueY;
                 if (x>1100 || x<180){
                     x=personaje.getPersonaje().getX();
                 }

@@ -194,6 +194,7 @@ public class EscenaJuego extends EscenaBase
         float ey3= hamster3.getEnemigo().getY();
         float px=personaje.getPersonaje().getX();
         float py=personaje.getPersonaje().getY();
+        float nacada =3;
 
 
         if (((ex1-px)*(ex1-px))+((ey1-py)*(ey1-py))

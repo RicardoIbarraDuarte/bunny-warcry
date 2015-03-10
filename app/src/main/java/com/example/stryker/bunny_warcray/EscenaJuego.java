@@ -3,20 +3,15 @@ package com.example.stryker.bunny_warcray;
 import android.util.Log;
 
 import org.andengine.engine.camera.Camera;
-import org.andengine.engine.camera.hud.controls.AnalogOnScreenControl;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.IUpdateHandler;
-import org.andengine.engine.handler.timer.ITimerCallback;
-import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.util.GLState;
-
-import java.util.Random;
 
 public class EscenaJuego extends EscenaBase
 {
@@ -29,7 +24,7 @@ public class EscenaJuego extends EscenaBase
     private DigitalOnScreenControl control;
     private ITextureRegion[] regionesPersonaje;
     private ButtonSprite btnAtacar;
-    private boolean Ataque=false;
+    private boolean ataque =false;
 
 
     @Override
@@ -69,11 +64,12 @@ public class EscenaJuego extends EscenaBase
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
-                    Ataque = true;
+                    ataque = true;
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
+        btnAtacar.setScale(2);
 
         registerTouchArea(btnAtacar);
         attachChild(btnAtacar);
@@ -213,16 +209,34 @@ public class EscenaJuego extends EscenaBase
 
         if (((ex1-px)*(ex1-px))+((ey1-py)*(ey1-py))
                 <(hamster1.radioImagen + personaje.radioImagen)*(hamster1.radioImagen + personaje.radioImagen)){
-            hamster1.getEnemigo().detachSelf();
+            if (ataque) {
+                hamster1.getEnemigo().detachSelf();
+            }
+            else{
+                personaje.getPersonaje().detachSelf();
+                personaje.direccion=4;
+            }
 
         }
         if (((ex2-px)*(ex2-px))+((ey2-py)*(ey2-py))
                 <(hamster2.radioImagen + personaje.radioImagen)*(hamster2.radioImagen + personaje.radioImagen)){
-            hamster2.getEnemigo().detachSelf();
+            if (ataque) {
+                hamster2.getEnemigo().detachSelf();
+            }
+            else{
+                personaje.getPersonaje().detachSelf();
+                personaje.direccion=4;
+            }
         }
         if (((ex3-px)*(ex3-px))+((ey3-py)*(ey3-py))
                 <(hamster3.radioImagen + personaje.radioImagen)*(hamster3.radioImagen + personaje.radioImagen)){
-            hamster3.getEnemigo().detachSelf();
+            if (ataque) {
+                hamster3.getEnemigo().detachSelf();
+            }
+            else{
+                personaje.getPersonaje().detachSelf();
+                personaje.direccion=4;
+            }
         }
     }
 }

@@ -201,9 +201,9 @@ public class AdministradorRecursos
             Log.d("cargarRecursosJuego", "No se puede cargar el boton");
         }
         btaBtnAtacar = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                120,157);
+                64,64);
         regionBtnAtacar = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnAtacar, actividadJuego.getAssets(),
-                "btnBtnN1.png", 1, 1);
+                "BotonControl.png", 1, 1);
         try {
             btaBtnAtacar.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
 

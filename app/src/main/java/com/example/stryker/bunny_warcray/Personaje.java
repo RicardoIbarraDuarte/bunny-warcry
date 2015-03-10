@@ -11,7 +11,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
  */
 public class Personaje {
     private Sprite personaje;
-    public float velocidadPersonaje = 50;
+    public float velocidadPersonaje = 10;
     public int direccion;
     public int direcAnte;
     private Sprite[] imgsPersonaje;

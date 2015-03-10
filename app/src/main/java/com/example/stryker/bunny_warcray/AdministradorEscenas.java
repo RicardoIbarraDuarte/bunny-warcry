@@ -156,7 +156,7 @@ public class AdministradorEscenas
         escenaJuego.liberarEscena();
         escenaJuego = null;
     }
-    /*
+
     //*** Crea la escena de juego
     public void crearEscenaNiveles() {
         // Carga los recursos
@@ -165,11 +165,12 @@ public class AdministradorEscenas
     }
 
     //*** Libera la escena de juego
-    public void liberarEscenaJuego() {
+    public void liberarEscenaNiveles() {
         admRecursos.liberarRecursosNiveles();
         escenaNiveles.liberarEscena();
         escenaNiveles = null;
     }
+    /*
     //*** Crea la escena de juego
     public void crearEscenaGameover() {
         // Carga los recursos

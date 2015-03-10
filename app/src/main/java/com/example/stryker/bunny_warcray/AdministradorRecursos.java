@@ -55,6 +55,8 @@ public class AdministradorRecursos
     public ITextureRegion regionFondoControl;
     private ITexture texturaBotonControl;
     public ITextureRegion regionBotonControl;
+    public ITiledTextureRegion regionBtnAtacar;
+    private BuildableBitmapTextureAtlas btaBtnAtacar;
     // Escena Acerca de (imagen estática)
     private ITexture texturaFondoAcerca;
     public ITextureRegion regionFondoAcerca;
@@ -198,6 +200,17 @@ public class AdministradorRecursos
         } catch (IOException e) {
             Log.d("cargarRecursosJuego", "No se puede cargar el boton");
         }
+        btaBtnAtacar = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                120,157);
+        regionBtnAtacar = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnAtacar, actividadJuego.getAssets(),
+                "btnBtnN1.png", 1, 1);
+        try {
+            btaBtnAtacar.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
+        }
+        btaBtnAtacar.load();
 
 
     }
@@ -355,22 +368,23 @@ public class AdministradorRecursos
 
         // Carga la imagen para el botón jugar
         btaBtnN0 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,150);
+                120,157);
         regionBtnN0 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN0, actividadJuego.getAssets(),
-                "BotonN0.png", 1, 1);
+                "btaBtnN0.png", 1, 1);
         try {
             btaBtnN0.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
 
         } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
-            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón ");
         }
         btaBtnN0.load();
-        // Fin de carga imagen botón jugar
+
+/*        // Fin de carga imagen botón jugar
         // Carga la imagen para el botón Acerca de
         btaBtnN1 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
                 400,150);
         regionBtnN1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN1, actividadJuego.getAssets(),
-                "BotonN1.png", 1, 1);
+                "btaBtnN1.png", 1, 1);
         try {
             btaBtnN1.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
 
@@ -412,6 +426,7 @@ public class AdministradorRecursos
             Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
         }
         btaBtnN4.load();
+        */
 
     }
 
@@ -422,7 +437,7 @@ public class AdministradorRecursos
         // botón jugar
         btaBtnN0.unload();
         regionBtnN0 = null;
-        btaBtnN1.unload();
+    /*    btaBtnN1.unload();
         regionBtnN1 = null;
         btaBtnN2.unload();
         regionBtnN2 = null;
@@ -430,5 +445,6 @@ public class AdministradorRecursos
         regionBtnN3 = null;
         btaBtnN4.unload();
         regionBtnN4 = null;
+        */
     }
 }

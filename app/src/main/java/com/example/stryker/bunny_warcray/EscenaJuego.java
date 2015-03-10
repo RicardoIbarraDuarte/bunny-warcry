@@ -118,6 +118,9 @@ public class EscenaJuego extends EscenaBase
 
     @Override
     public void onBackKeyPressed() {
+        admEscenas.crearEscenaMenu();
+        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
+        admEscenas.liberarEscenaJuego();
 
     }
     public void agregarJoystick() {
@@ -177,10 +180,7 @@ public class EscenaJuego extends EscenaBase
 
     @Override
     public void liberarEscena() {
-        // Liberar cada recurso usado en esta escena
-        Fondo.detachSelf();   // Se desconecta de la escena
-        Fondo.dispose();      // Libera la memoria
-        hamster1.liberar();
+
 
         this.detachSelf();      // La escena se deconecta del engine
         this.dispose();         // Libera la memoria
@@ -194,7 +194,6 @@ public class EscenaJuego extends EscenaBase
         float ey3= hamster3.getEnemigo().getY();
         float px=personaje.getPersonaje().getX();
         float py=personaje.getPersonaje().getY();
-        float nacada =3;
 
 
         if (((ex1-px)*(ex1-px))+((ey1-py)*(ey1-py))

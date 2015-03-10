@@ -1,0 +1,6 @@
+/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/classes/debug
+/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-62b6701b60c018ec505343c42a3c12e2e3eca10c.jar
+/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-773af8b839459b771649278c7c3d1d171554b801.jar
+/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/classes-3e06b67f449ae59daf657193c342ab57b25acf2b.jar
+/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/classes-957000a6dff294ca4604c206b1ea8b60a17529c3.jar
+/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/classes-ba0a257ec6bb1301516faa1df5a20aafe74c6001.jar

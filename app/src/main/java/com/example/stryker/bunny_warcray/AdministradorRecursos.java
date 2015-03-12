@@ -210,9 +210,9 @@ public class AdministradorRecursos
             Log.d("cargarRecursosJuego", "No se puede cargar el boton");
         }
         btaBtnAtacar = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                64,64);
+                296,296);
         regionBtnAtacar = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnAtacar, actividadJuego.getAssets(),
-                "BotonControl.png", 1, 1);
+                "BotonPalo.png", 1, 1);
         try {
             btaBtnAtacar.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
 
@@ -230,6 +230,36 @@ public class AdministradorRecursos
             Log.d("onCreateResources","No se puede cargar la imagen para el Sprite del perro Animado");
         }
         texturaPataqueFrente.load();
+
+        texturaPataqueDerecha = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),795,131);
+        regionPataqueDerecha = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                texturaPataqueDerecha,actividadJuego, "PataqueDerecha.png",5,1);
+        try {
+            texturaPataqueDerecha.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
+        } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("onCreateResources","No se puede cargar la imagen para el Sprite del perro Animado");
+        }
+        texturaPataqueDerecha.load();
+
+        texturaPataqueAtras = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),795,131);
+        regionPataqueAtras = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                texturaPataqueAtras,actividadJuego, "PataqueAtras.png",5,1);
+        try {
+            texturaPataqueAtras.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
+        } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("onCreateResources","No se puede cargar la imagen para el Sprite del perro Animado");
+        }
+        texturaPataqueAtras.load();
+
+        texturaPataqueIzquierda = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),795,131);
+        regionPataqueIzquierda = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                texturaPataqueIzquierda,actividadJuego, "PataqueIzquierda.png",5,1);
+        try {
+            texturaPataqueIzquierda.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
+        } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("onCreateResources","No se puede cargar la imagen para el Sprite del perro Animado");
+        }
+        texturaPataqueIzquierda.load();
 
 
     }

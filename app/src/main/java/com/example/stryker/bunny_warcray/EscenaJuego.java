@@ -28,6 +28,7 @@ public class EscenaJuego extends EscenaBase
     private ButtonSprite btnAtacar;
     private boolean ataque =false;
     private boolean ataqueA=false;
+    private float tiempoAtaque;
 
 
 
@@ -45,7 +46,7 @@ public class EscenaJuego extends EscenaBase
         regionesPersonaje = new ITextureRegion[]{admRecursos.regionPersonajeFrente,admRecursos.regionPersonajeAtras,admRecursos.regionPersonajeDerecha,admRecursos.regionPersonajeIzquierda};
         personaje = new Personaje();
         personaje.crearPersonaje(0,0,regionesPersonaje,admRecursos.vbom);
-        regionesPersonajeAtacando= new TiledTextureRegion[]{admRecursos.regionPataqueFrente};
+        regionesPersonajeAtacando= new TiledTextureRegion[]{admRecursos.regionPataqueFrente,admRecursos.regionPataqueAtras,admRecursos.regionPataqueDerecha,admRecursos.regionPataqueIzquierda};
         personaje.crearPersonajeAtacando(0,0,regionesPersonajeAtacando,admRecursos.vbom);
         //crear enemigo
         hamster1 = new EnemigoHamster();
@@ -57,7 +58,6 @@ public class EscenaJuego extends EscenaBase
 
         // Configuración de la imagen
         Fondo.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
-        Fondo.setScale(1);
 
         // Crea el fondo de la pantalla
         SpriteBackground fondo = new SpriteBackground(1,0.5f,0,Fondo);
@@ -69,14 +69,14 @@ public class EscenaJuego extends EscenaBase
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-                if (pSceneTouchEvent.isActionUp()) {
-                    ataque = true;
+                if (pSceneTouchEvent.isActionDown()) {
+                        ataque = true;
+                        tiempoAtaque=0;
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
-        btnAtacar.setScale(2);
-
+        btnAtacar.setScale(.4f);
         registerTouchArea(btnAtacar);
         attachChild(btnAtacar);
 
@@ -85,9 +85,9 @@ public class EscenaJuego extends EscenaBase
         hamster2.dibujarEnemigo();
         hamster3.dibujarEnemigo();
         personaje.dibujarPersonaje();
-        attachChild(hamster1.getEnemigo());
-        attachChild(hamster2.getEnemigo());
-        attachChild(hamster3.getEnemigo());
+        //attachChild(hamster1.getEnemigo());
+        //attachChild(hamster2.getEnemigo());
+        //attachChild(hamster3.getEnemigo());
         attachChild(personaje.getPersonaje());
         agregarJoystick();
 
@@ -97,10 +97,9 @@ public class EscenaJuego extends EscenaBase
 
 
         registerUpdateHandler(new IUpdateHandler() {
-            float tiempo;
+
             @Override
             public void onUpdate(float pSecondsElapsed) {
-                tiempo=pSecondsElapsed+pSecondsElapsed;
                 hamster1.movimientoEnemigo();
                 hamster2.movimientoEnemigo();
                 hamster3.movimientoEnemigo();
@@ -122,12 +121,13 @@ public class EscenaJuego extends EscenaBase
                     personaje.setPersonaje(3);
                     attachChild(personaje.getPersonaje());
                 }
-                comprobarColission();
+                //comprobarColission();
                 //Log.i("hola","valor"+pSecondsElapsed);
                 if (ataque){
                     atacarPersonaje();
+                    tiempoAtaque=pSecondsElapsed+tiempoAtaque;
                 }
-                if (tiempo>.5&&ataque){
+                if (tiempoAtaque>.5&&ataque){
                     ataque=false;
                     personaje.getPersonajeAtacando().detachSelf();
                     attachChild(personaje.getPersonaje());
@@ -160,37 +160,39 @@ public class EscenaJuego extends EscenaBase
 
             @Override
             public void onControlChange(BaseOnScreenControl pBaseOnScreenControl, float pValueX, float pValueY) {
-                float x = personaje.getPersonaje().getX()+personaje.velocidadPersonaje*pValueX;
-                float y = personaje.getPersonaje().getY()+personaje.velocidadPersonaje*pValueY;
-                if (x>1100 || x<180){
-                    x=personaje.getPersonaje().getX();
+                if (!ataque) {
+                    float x = personaje.getPersonaje().getX() + personaje.velocidadPersonaje * pValueX;
+                    float y = personaje.getPersonaje().getY() + personaje.velocidadPersonaje * pValueY;
+                    if (x > 1100 || x < 180) {
+                        x = personaje.getPersonaje().getX();
+                    }
+                    if (y > 540 || y < 160) {
+                        y = personaje.getPersonaje().getY();
+                    }
+                    personaje.getPersonaje().setPosition(x, y);
+
+                    if (pValueY == -1.0 && personaje.direcAnte != 0) {
+                        personaje.direccion = 0;
+
+                    }
+
+                    if (pValueY == 1.0 && personaje.direcAnte != 1) {
+                        personaje.direccion = 1;
+
+                    }
+                    if (pValueX == 1.0 && personaje.direcAnte != 2) {
+                        personaje.direccion = 2;
+
+                    }
+                    if (pValueX == -1.0 && personaje.direcAnte != 3) {
+                        personaje.direccion = 3;
+
+
+                    }
+
+                    //Log.i("valor","valor"+pValueX);
+                    //Log.i("valor","valor"+pValueY);
                 }
-                if (y>540 || y<160){
-                    y=personaje.getPersonaje().getY();
-                }
-                personaje.getPersonaje().setPosition(x,y);
-
-                if (pValueY==-1.0 && personaje.direcAnte!=0){
-                    personaje.direccion=0;
-
-                }
-
-                if (pValueY==1.0 && personaje.direcAnte!=1){
-                    personaje.direccion=1;
-
-                }
-                if (pValueX==1.0 && personaje.direcAnte!=2){
-                    personaje.direccion=2;
-
-                }
-                if (pValueX==-1.0 && personaje.direcAnte!=3){
-                    personaje.direccion=3;
-
-
-                }
-
-                //Log.i("valor","valor"+pValueX);
-                //Log.i("valor","valor"+pValueY);
             }
         });
         final Sprite botonControl = control.getControlKnob();
@@ -229,7 +231,6 @@ public class EscenaJuego extends EscenaBase
             }
             else{
                 personaje.getPersonaje().detachSelf();
-                personaje.direccion=4;
             }
 
         }
@@ -240,7 +241,6 @@ public class EscenaJuego extends EscenaBase
             }
             else{
                 personaje.getPersonaje().detachSelf();
-                personaje.direccion=4;
             }
         }
         if (((ex3-px)*(ex3-px))+((ey3-py)*(ey3-py))
@@ -250,7 +250,6 @@ public class EscenaJuego extends EscenaBase
             }
             else{
                 personaje.getPersonaje().detachSelf();
-                personaje.direccion=4;
             }
         }
     }

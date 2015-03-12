@@ -127,7 +127,7 @@ public class EscenaJuego extends EscenaBase
                     atacarPersonaje();
                     tiempoAtaque=pSecondsElapsed+tiempoAtaque;
                 }
-                if (tiempoAtaque>.5&&ataque){
+                if (tiempoAtaque>.3&&ataque){
                     ataque=false;
                     personaje.getPersonajeAtacando().detachSelf();
                     attachChild(personaje.getPersonaje());

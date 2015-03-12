@@ -19,6 +19,7 @@ public class EnemigoHamster {
     private float velocidadEnemigo = 3;
     private Sprite enemigo;
     public int radioImagen=54;
+    private boolean stalker=false;
 
 
     public Sprite getEnemigo() {
@@ -45,60 +46,75 @@ public class EnemigoHamster {
         enemigo.setScale(.4f);
         //attachChild(enemigo);
     }
-    public void movimientoEnemigo(){
-        if (direccion==1){
-            float enemigoX = enemigo.getX();
-            enemigoX = enemigoX+velocidadEnemigo;
-            if (enemigoX>1100){
-                direccion=0;
-            }
-            else{
-                enemigo.setX(enemigoX);
-            }
+    public void movimientoEnemigo(Sprite personaje){
+       /* float ex=enemigo.getX();
+        float ey=enemigo.getY();
+        float px=personaje.getX();
+        float py=personaje.getY();
+        float distanciaX=
+        if (((ex - px) * (ex - px)) + ((ey - py) * (ey - py))
+                < 40000 ){
+            stalker=true;
 
         }
-        if (direccion==2){
-            float enemigoX = enemigo.getX();
-            enemigoX = enemigoX-velocidadEnemigo;
-            if (enemigoX<180){
-                direccion=0;
-            }
-            else{
-                enemigo.setX(enemigoX);
-            }
+
+        if (stalker) {
+
 
         }
-        if (direccion==3){
-            float enemigoY = enemigo.getY();
-            enemigoY = enemigoY+velocidadEnemigo;
-            if (enemigoY>540){
-                direccion=0;
-            }
-            else{
-                enemigo.setY(enemigoY);
-            }
+        else {
 
-        }
-        if (direccion==4){
-            float enemigoY = enemigo.getY();
-            enemigoY = enemigoY-velocidadEnemigo;
-            if (enemigoY<160){
-                direccion=0;
+*/
+            if (direccion == 1) {
+                float enemigoX = enemigo.getX();
+                enemigoX = enemigoX + velocidadEnemigo;
+                if (enemigoX > 1100) {
+                    direccion = 0;
+                } else {
+                    enemigo.setX(enemigoX);
+                }
+
             }
-            else{
-                enemigo.setY(enemigoY);
+            if (direccion == 2) {
+                float enemigoX = enemigo.getX();
+                enemigoX = enemigoX - velocidadEnemigo;
+                if (enemigoX < 180) {
+                    direccion = 0;
+                } else {
+                    enemigo.setX(enemigoX);
+                }
+
+            }
+            if (direccion == 3) {
+                float enemigoY = enemigo.getY();
+                enemigoY = enemigoY + velocidadEnemigo;
+                if (enemigoY > 540) {
+                    direccion = 0;
+                } else {
+                    enemigo.setY(enemigoY);
+                }
+
+            }
+            if (direccion == 4) {
+                float enemigoY = enemigo.getY();
+                enemigoY = enemigoY - velocidadEnemigo;
+                if (enemigoY < 160) {
+                    direccion = 0;
+                } else {
+                    enemigo.setY(enemigoY);
+                }
+            }
+            tiempo++;
+            if (tiempo == 120 || direccion == 0) {
+                direccion = (int) ((Math.random() * 4) + 1);
+                while (direccion == direccionAnterior) {
+                    direccion = (int) ((Math.random() * 4) + 1);
+                }
+                tiempo = 0;
+                direccionAnterior = direccion;
             }
         }
-        tiempo++;
-        if (tiempo==120||direccion==0){
-            direccion = (int)((Math.random() * 4) + 1);
-            while (direccion==direccionAnterior){
-                direccion = (int)((Math.random() * 4) + 1);
-            }
-            tiempo=0;
-            direccionAnterior=direccion;
-        }
-    }
+
     public void liberar(){
         enemigo.detachSelf();   // Se desconecta de la escena
         enemigo.dispose();      // Libera la memoria

@@ -57,10 +57,17 @@ public class Personaje {
                 pGLState.enableDither();
             }
         };
+        Sprite personajeGolpeado= new Sprite(0,0,regionPersonaje[4],vbom) {
+            @Override
+            protected void preDraw(GLState pGLState, Camera pCamera) {
+                super.preDraw(pGLState, pCamera);
+                pGLState.enableDither();
+            }
+        };
 
 
 
-        imgsPersonaje = new Sprite []{personajeFrente,personajeAtras,personajeDerecha,personajeIzquierda};
+        imgsPersonaje = new Sprite []{personajeFrente,personajeAtras,personajeDerecha,personajeIzquierda,personajeGolpeado};
 
         personaje = imgsPersonaje[0];
         radioImagen= 66;
@@ -133,6 +140,12 @@ public class Personaje {
             personaje.setScale(.4f);
             radioImagen= 58;
             direcAnte=3;
+        }
+        if (img==4){
+            imgsPersonaje[4].setX(personaje.getX());
+            imgsPersonaje[4].setY(personaje.getY());
+            personaje.detachSelf();
+            personaje = imgsPersonaje[4];
         }
     }
     public void atacarPersonaje() {

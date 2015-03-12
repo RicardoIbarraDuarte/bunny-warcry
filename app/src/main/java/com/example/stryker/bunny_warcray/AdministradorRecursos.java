@@ -50,6 +50,8 @@ public class AdministradorRecursos
     public ITextureRegion regionPersonajeAtras;
     private ITexture texturaPersonajeDerecha;
     public ITextureRegion regionPersonajeDerecha;
+    private ITexture texturaPersonajeGolpeado;
+    public ITextureRegion regionPersonajeGolpeado;
     private ITexture texturaPersonajeIzquierda;
     public ITextureRegion regionPersonajeIzquierda;
     private ITexture texturaFondoControl;
@@ -166,6 +168,15 @@ public class AdministradorRecursos
                     actividadJuego.getAssets(), "personajeFrente.png");
             regionPersonajeFrente = TextureRegionFactory.extractFromTexture(texturaPersonajeFrente);
             texturaPersonajeFrente.load();
+        } catch (IOException e) {
+            Log.d("cargarRecursosJuego", "No se puede cargar el personaje");
+        }
+        try {
+            // Carga la imagen del personaje
+            texturaPersonajeGolpeado = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "ConejoGolpeado.png");
+            regionPersonajeGolpeado = TextureRegionFactory.extractFromTexture(texturaPersonajeGolpeado );
+            texturaPersonajeGolpeado.load();
         } catch (IOException e) {
             Log.d("cargarRecursosJuego", "No se puede cargar el personaje");
         }

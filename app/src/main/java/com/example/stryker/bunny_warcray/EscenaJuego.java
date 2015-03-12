@@ -11,6 +11,7 @@ import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
 public class EscenaJuego extends EscenaBase
@@ -23,8 +24,11 @@ public class EscenaJuego extends EscenaBase
     private Personaje personaje;
     private DigitalOnScreenControl control;
     private ITextureRegion[] regionesPersonaje;
+    private TiledTextureRegion[] regionesPersonajeAtacando;
     private ButtonSprite btnAtacar;
     private boolean ataque =false;
+    private boolean ataqueA=false;
+
 
 
     @Override
@@ -41,6 +45,8 @@ public class EscenaJuego extends EscenaBase
         regionesPersonaje = new ITextureRegion[]{admRecursos.regionPersonajeFrente,admRecursos.regionPersonajeAtras,admRecursos.regionPersonajeDerecha,admRecursos.regionPersonajeIzquierda};
         personaje = new Personaje();
         personaje.crearPersonaje(0,0,regionesPersonaje,admRecursos.vbom);
+        regionesPersonajeAtacando= new TiledTextureRegion[]{admRecursos.regionPataqueFrente};
+        personaje.crearPersonajeAtacando(0,0,regionesPersonajeAtacando,admRecursos.vbom);
         //crear enemigo
         hamster1 = new EnemigoHamster();
         hamster1.crearEnemigo(0,0,admRecursos.regionEnemigo,admRecursos.vbom);
@@ -85,13 +91,16 @@ public class EscenaJuego extends EscenaBase
         attachChild(personaje.getPersonaje());
         agregarJoystick();
 
+
         //Generar movimiento aleatorio del enemigo
 
 
 
         registerUpdateHandler(new IUpdateHandler() {
+            float tiempo;
             @Override
             public void onUpdate(float pSecondsElapsed) {
+                tiempo=pSecondsElapsed+pSecondsElapsed;
                 hamster1.movimientoEnemigo();
                 hamster2.movimientoEnemigo();
                 hamster3.movimientoEnemigo();
@@ -114,7 +123,17 @@ public class EscenaJuego extends EscenaBase
                     attachChild(personaje.getPersonaje());
                 }
                 comprobarColission();
-                Log.i("hola","valor"+pSecondsElapsed);
+                //Log.i("hola","valor"+pSecondsElapsed);
+                if (ataque){
+                    atacarPersonaje();
+                }
+                if (tiempo>.5&&ataque){
+                    ataque=false;
+                    personaje.getPersonajeAtacando().detachSelf();
+                    attachChild(personaje.getPersonaje());
+                    ataqueA=false;
+                }
+
             }
 
             @Override
@@ -150,10 +169,6 @@ public class EscenaJuego extends EscenaBase
                     y=personaje.getPersonaje().getY();
                 }
                 personaje.getPersonaje().setPosition(x,y);
-               // if ((pValueX==0.0 && pValueY==0.0) && personaje.direcAnte!=0){
-                //    personaje.direccion=0;
-
-                //}
 
                 if (pValueY==-1.0 && personaje.direcAnte!=0){
                     personaje.direccion=0;
@@ -237,6 +252,14 @@ public class EscenaJuego extends EscenaBase
                 personaje.getPersonaje().detachSelf();
                 personaje.direccion=4;
             }
+        }
+    }
+
+    public void atacarPersonaje() {
+        if (!ataqueA) {
+            personaje.atacarPersonaje();
+            attachChild(personaje.getPersonajeAtacando());
+            ataqueA=true;
         }
     }
 }

@@ -1,8 +1,10 @@
 package com.example.stryker.bunny_warcray;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
@@ -16,9 +18,14 @@ public class Personaje {
     public int direcAnte;
     private Sprite[] imgsPersonaje;
     public int radioImagen;
+    private AnimatedSprite[] pataque;
+    private AnimatedSprite personajeAtacando;
 
     public Sprite getPersonaje() {
-        return personaje;
+            return personaje;
+    }
+    public AnimatedSprite getPersonajeAtacando(){
+        return personajeAtacando;
     }
 
     public void crearPersonaje(float x, float y, ITextureRegion[] regionPersonaje, VertexBufferObjectManager vbom){
@@ -51,6 +58,8 @@ public class Personaje {
             }
         };
 
+
+
         imgsPersonaje = new Sprite []{personajeFrente,personajeAtras,personajeDerecha,personajeIzquierda};
 
         personaje = imgsPersonaje[3];
@@ -58,6 +67,16 @@ public class Personaje {
 
         direccion = 0;
         direcAnte = 0;
+
+    }
+    public void crearPersonajeAtacando(float x, float y, TiledTextureRegion[] regionAtaques, VertexBufferObjectManager vbom){
+        TiledTextureRegion regionPataqueFrente = regionAtaques[0];
+        AnimatedSprite pataqueFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[0].getHeight(),
+                regionAtaques[0],vbom);
+        pataqueFrente.animate(50,5);
+
+        pataque = new AnimatedSprite[]{pataqueFrente};
+
 
     }
 
@@ -102,6 +121,15 @@ public class Personaje {
             personaje.setScale(.4f);
             radioImagen= 58;
             direcAnte=3;
+        }
+    }
+    public void atacarPersonaje() {
+
+        if (direccion==0) {
+            pataque[0].setX(personaje.getX());
+            pataque[0].setY(personaje.getY());
+            personaje.detachSelf();
+            personajeAtacando=pataque[0];
         }
     }
 

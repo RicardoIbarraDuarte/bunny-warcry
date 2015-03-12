@@ -106,10 +106,9 @@ public class EscenaJuego extends EscenaBase
 
             @Override
             public void onUpdate(float pSecondsElapsed) {
-                hamster1.movimientoEnemigo();
-                hamster2.movimientoEnemigo();
-                hamster3.movimientoEnemigo();
-
+                hamster1.movimientoEnemigo(personaje.getPersonaje());
+                //hamster2.movimientoEnemigo();
+                //hamster3.movimientoEnemigo();
                 if (personaje.direccion==0 && personaje.direcAnte!=0){
                     personaje.setPersonaje(0);
                     attachChild(personaje.getPersonaje());

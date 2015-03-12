@@ -15,6 +15,7 @@ import org.andengine.opengl.texture.bitmap.AssetBitmapTexture;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.texture.region.TextureRegionFactory;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import java.io.IOException;
@@ -57,6 +58,14 @@ public class AdministradorRecursos
     public ITextureRegion regionBotonControl;
     public ITiledTextureRegion regionBtnAtacar;
     private BuildableBitmapTextureAtlas btaBtnAtacar;
+    private BuildableBitmapTextureAtlas texturaPataqueAtras;
+    public TiledTextureRegion regionPataqueAtras;
+    private BuildableBitmapTextureAtlas texturaPataqueIzquierda;
+    public TiledTextureRegion regionPataqueIzquierda;
+    private BuildableBitmapTextureAtlas texturaPataqueDerecha;
+    public TiledTextureRegion regionPataqueDerecha;
+    private BuildableBitmapTextureAtlas texturaPataqueFrente;
+    public TiledTextureRegion regionPataqueFrente;
     // Escena Acerca de (imagen estática)
     private ITexture texturaFondoAcerca;
     public ITextureRegion regionFondoAcerca;
@@ -211,6 +220,16 @@ public class AdministradorRecursos
             Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
         }
         btaBtnAtacar.load();
+
+        texturaPataqueFrente = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),795,131);
+        regionPataqueFrente = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                texturaPataqueFrente,actividadJuego, "PataqueFrente.png",5,1);
+        try {
+            texturaPataqueFrente.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
+        } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("onCreateResources","No se puede cargar la imagen para el Sprite del perro Animado");
+        }
+        texturaPataqueFrente.load();
 
 
     }

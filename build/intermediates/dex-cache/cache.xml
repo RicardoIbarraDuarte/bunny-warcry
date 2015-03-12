@@ -2,67 +2,39 @@
 <items version="2" >
 
     <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/exploded-aar/svn/andengine/unspecified/classes.jar"
+        jar="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="32dd063d60e1fb7ae44b8e3bee354b4b51adab96">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/classes-ba0a257ec6bb1301516faa1df5a20aafe74c6001.jar" />
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-7e212b71e6d121b19ab1dc752c3016f483cef456.jar" />
     </item>
     <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jar="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\exploded-aar\Bunny\andEngine\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e6ad204544e72d1688783f88b2cb40b44d104902">
+        <dex dex="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\pre-dexed\debug\classes-ef117bc4d0cb75ee1027ffaaa84e5a06f9e643af.jar" />
+    </item>
+    <item
+        jar="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\pre-dexed\debug\classes-a15268ae950eab00545d467293757e78437686d6.jar" />
+    </item>
+    <item
+        jar="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/classes-3e06b67f449ae59daf657193c342ab57b25acf2b.jar" />
+        <dex dex="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\pre-dexed\debug\classes-d84e66aefd5ee226ab220ea89e0eaca76a9f3467.jar" />
     </item>
     <item
-        jar="/Users/UAMI/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jar="C:\Users\Stryker\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-62b6701b60c018ec505343c42a3c12e2e3eca10c.jar" />
-    </item>
-    <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/classes-81241c68fccb6359467eb06d98dcd722c647c7a5.jar" />
-    </item>
-    <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/classes-3e367e6df2e546769063872253102ccc4c15614d.jar" />
-    </item>
-    <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/exploded-aar/Bunny_Warcry/andEngine/unspecified/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="082fe90c6ae701b92b4089c72c4bf4da6181c047">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/classes-a32319b834966dd3cc2843aaca1316915b8220f4.jar" />
-    </item>
-    <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/classes-957000a6dff294ca4604c206b1ea8b60a17529c3.jar" />
-    </item>
-    <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcray 2/bunny_warcray 2/svn/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-773af8b839459b771649278c7c3d1d171554b801.jar" />
-    </item>
-    <item
-        jar="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-7fd60f412aacd168cfd821d5c84021642bf2227f.jar" />
+        <dex dex="C:\Users\Stryker\AndroidStudioProjects\Bunny\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-8b24912d058b91e2b05443990141a90ab50c38e2.jar" />
     </item>
 
 </items>

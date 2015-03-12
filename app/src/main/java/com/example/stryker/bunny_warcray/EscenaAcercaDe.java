@@ -43,27 +43,14 @@ public class EscenaAcercaDe extends EscenaBase
         setTouchAreaBindingOnActionDownEnabled(true);
 
         // *** Agrega los botones al Menú
-        btnRegresar = new ButtonSprite(130,100,
-                admRecursos.regionBtnRegresar,admRecursos.vbom) {
-            // Aquí el código que ejecuta el botón cuando es presionado
-            @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-                if (pSceneTouchEvent.isActionUp()) {
-                    // Cambia a la escena de Menu
-                    admEscenas.crearEscenaMenu();
-                    admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-                    admEscenas.liberarEscenaAcercaDe();
-                }
-                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
-            }
-        };
 
-        registerTouchArea(btnRegresar);
-        attachChild(btnRegresar);
     }
 
     @Override
     public void onBackKeyPressed() {
+        admEscenas.crearEscenaMenu();
+        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
+        admEscenas.liberarEscenaAcercaDe();
 
     }
 
@@ -74,14 +61,6 @@ public class EscenaAcercaDe extends EscenaBase
 
     @Override
     public void liberarEscena() {
-        // Liberar cada recurso usado en esta escena
-        // FONDO
-        spriteFondo.detachSelf();   // Se desconecta de la escena
-        spriteFondo.dispose();      // Libera la memoria
-        // Btn Regresar
-        btnRegresar.detachSelf();
-        btnRegresar.dispose();
-
         this.detachSelf();      // La escena se deconecta del engine
         this.dispose();         // Libera la memoria
     }

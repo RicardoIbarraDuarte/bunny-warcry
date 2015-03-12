@@ -315,7 +315,7 @@ public class AdministradorRecursos
         try {
             // Carga la imagen de fondo de la pantalla del Menú
             texturaMenu = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "MenuFondo.png");
+                    actividadJuego.getAssets(), "FondoMenu.jpg");
             regionMenu = TextureRegionFactory.extractFromTexture(texturaMenu);
             texturaMenu.load();
         } catch (IOException e) {
@@ -326,9 +326,9 @@ public class AdministradorRecursos
 
         // Carga la imagen para el botón jugar
         btaBtnJugar = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,150);
+                368,120);
         regionBtnJugar = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnJugar, actividadJuego.getAssets(),
-                "Boton1.png", 1, 1);
+                "BotonJugar.png", 1, 1);
         try {
             btaBtnJugar.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
 
@@ -339,9 +339,9 @@ public class AdministradorRecursos
         // Fin de carga imagen botón jugar
         // Carga la imagen para el botón Acerca de
         btaBtnAcerca = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,150);
+                368,120);
         regionBtnAcerca = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnAcerca, actividadJuego.getAssets(),
-                "Boton2.png", 1, 1);
+                "BotonAcercaDe.png", 1, 1);
         try {
             btaBtnAcerca.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
 
@@ -351,9 +351,9 @@ public class AdministradorRecursos
         btaBtnAcerca.load();
         // Carga la imagen para el botón Creditos
         btaBtnCreditos = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,400);
+                296,296);
         regionBtnCreditos = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnCreditos, actividadJuego.getAssets(),
-                "Boton4.png", 1, 1);
+                "BotonCredito.jpg", 1, 1);
         try {
             btaBtnCreditos.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
 

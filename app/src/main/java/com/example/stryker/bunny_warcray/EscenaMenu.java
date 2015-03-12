@@ -44,7 +44,7 @@ public class EscenaMenu extends EscenaBase{
         setTouchAreaBindingOnActionDownEnabled(true);
 
         // *** Agrega los botones al Menú
-        btnJugar = new ButtonSprite(915,356,
+        btnJugar = new ButtonSprite(640,156,
                 admRecursos.regionBtnJugar,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
@@ -58,10 +58,11 @@ public class EscenaMenu extends EscenaBase{
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
+        btnJugar.setScale(.7f);
 
         registerTouchArea(btnJugar);
         attachChild(btnJugar);
-        btnAcerca = new ButtonSprite(915,200,
+        btnAcerca = new ButtonSprite(226,300,
                 admRecursos.regionBtnAcerca,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
@@ -75,6 +76,7 @@ public class EscenaMenu extends EscenaBase{
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
+        btnAcerca.setScale(.7f);
 
         registerTouchArea(btnAcerca);
         attachChild(btnAcerca);
@@ -109,18 +111,6 @@ public class EscenaMenu extends EscenaBase{
 
     @Override
     public void liberarEscena() {
-        // Liberar cada recurso usado en esta escena
-        // FONDO
-        spriteFondo.detachSelf();   // Se desconecta de la escena
-        spriteFondo.dispose();      // Libera la memoria
-        // Btn Jugar
-        btnJugar.detachSelf();
-        btnJugar.dispose();
-        btnAcerca.detachSelf();
-        btnAcerca.dispose();
-        btnCreditos.detachSelf();
-        btnCreditos.dispose();
-
         this.detachSelf();      // La escena se deconecta del engine
         this.dispose();         // Libera la memoria
     }

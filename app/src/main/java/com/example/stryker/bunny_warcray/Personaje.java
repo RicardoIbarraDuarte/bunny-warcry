@@ -73,19 +73,19 @@ public class Personaje {
 
         AnimatedSprite pataqueFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[0].getHeight(),
                 regionAtaques[0],vbom);
-        pataqueFrente.animate(50,5);
+
 
         AnimatedSprite pataqueAtras = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[1].getHeight(),
                 regionAtaques[1],vbom);
-        pataqueFrente.animate(50,5);
+
 
         AnimatedSprite pataqueDerecha = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[2].getHeight(),
                 regionAtaques[2],vbom);
-        pataqueFrente.animate(50,5);
+
 
         AnimatedSprite pataqueIzquierda = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[3].getHeight(),
                 regionAtaques[3],vbom);
-        pataqueFrente.animate(50,5);
+
 
         pataque = new AnimatedSprite[]{pataqueFrente,pataqueAtras,pataqueDerecha,pataqueIzquierda};
 
@@ -142,24 +142,28 @@ public class Personaje {
             pataque[0].setY(personaje.getY());
             personaje.detachSelf();
             personajeAtacando=pataque[0];
+            personajeAtacando.animate(50,1);
         }
         if (direccion==1) {
             pataque[1].setX(personaje.getX());
             pataque[1].setY(personaje.getY());
             personaje.detachSelf();
             personajeAtacando=pataque[1];
+            personajeAtacando.animate(50,1);
         }
         if (direccion==2) {
             pataque[2].setX(personaje.getX());
             pataque[2].setY(personaje.getY());
             personaje.detachSelf();
             personajeAtacando=pataque[2];
+            personajeAtacando.animate(50,1);
         }
         if (direccion==3) {
             pataque[3].setX(personaje.getX());
             pataque[3].setY(personaje.getY());
             personaje.detachSelf();
             personajeAtacando=pataque[3];
+            personajeAtacando.animate(50,1);
         }
     }
 

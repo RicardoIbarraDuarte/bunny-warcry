@@ -19,6 +19,7 @@ public class EscenaJuego extends EscenaBase
     private Sprite Fondo; //(el fondo de la escena, estático)
 
     private EnemigoHamster hamster1;
+    private boolean hamster1Vivo = true;
     private EnemigoHamster hamster2;
     private EnemigoHamster hamster3;
     private Personaje personaje;
@@ -29,6 +30,9 @@ public class EscenaJuego extends EscenaBase
     private boolean ataque =false;
     private boolean ataqueA=false;
     private float tiempoAtaque;
+    private float tiempoDaño=0;
+    private boolean dañado=true;
+
 
 
 
@@ -43,7 +47,7 @@ public class EscenaJuego extends EscenaBase
             }
         };
 
-        regionesPersonaje = new ITextureRegion[]{admRecursos.regionPersonajeFrente,admRecursos.regionPersonajeAtras,admRecursos.regionPersonajeDerecha,admRecursos.regionPersonajeIzquierda};
+        regionesPersonaje = new ITextureRegion[]{admRecursos.regionPersonajeFrente,admRecursos.regionPersonajeAtras,admRecursos.regionPersonajeDerecha,admRecursos.regionPersonajeIzquierda,admRecursos.regionPersonajeGolpeado};
         personaje = new Personaje();
         personaje.crearPersonaje(0,0,regionesPersonaje,admRecursos.vbom);
         regionesPersonajeAtacando= new TiledTextureRegion[]{admRecursos.regionPataqueFrente,admRecursos.regionPataqueAtras,admRecursos.regionPataqueDerecha,admRecursos.regionPataqueIzquierda};
@@ -64,14 +68,16 @@ public class EscenaJuego extends EscenaBase
         setBackground(fondo);
         setBackgroundEnabled(true);
 
-        btnAtacar = new ButtonSprite(915,356,
+        btnAtacar = new ButtonSprite(1100,150,
                 admRecursos.regionBtnAtacar,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
+                    if (dañado) {
                         ataque = true;
-                        tiempoAtaque=0;
+                        tiempoAtaque = 0;
+                    }
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -85,7 +91,7 @@ public class EscenaJuego extends EscenaBase
         hamster2.dibujarEnemigo();
         hamster3.dibujarEnemigo();
         personaje.dibujarPersonaje();
-        //attachChild(hamster1.getEnemigo());
+        attachChild(hamster1.getEnemigo());
         //attachChild(hamster2.getEnemigo());
         //attachChild(hamster3.getEnemigo());
         attachChild(personaje.getPersonaje());
@@ -121,7 +127,7 @@ public class EscenaJuego extends EscenaBase
                     personaje.setPersonaje(3);
                     attachChild(personaje.getPersonaje());
                 }
-                //comprobarColission();
+
                 //Log.i("hola","valor"+pSecondsElapsed);
                 if (ataque){
                     atacarPersonaje();
@@ -134,6 +140,16 @@ public class EscenaJuego extends EscenaBase
                     ataqueA=false;
                 }
 
+                comprobarColission();
+                if (!dañado){
+                    tiempoDaño=pSecondsElapsed+tiempoDaño;
+                }
+                if (tiempoDaño>.6){
+                    dañado=true;
+                    personaje.setPersonaje(0);
+                    attachChild(personaje.getPersonaje());
+                    tiempoDaño=0;
+                }
             }
 
             @Override
@@ -196,7 +212,9 @@ public class EscenaJuego extends EscenaBase
             }
         });
         final Sprite botonControl = control.getControlKnob();
-        botonControl.setScale(1.1f);
+        botonControl.setScale(2f);
+
+
         setChildScene(control);
 
     }
@@ -213,28 +231,31 @@ public class EscenaJuego extends EscenaBase
         this.detachSelf();      // La escena se deconecta del engine
         this.dispose();         // Libera la memoria
     }
-    public void comprobarColission(){
-        float ex1= hamster1.getEnemigo().getX();
-        float ex2= hamster2.getEnemigo().getX();
-        float ex3= hamster3.getEnemigo().getX();
-        float ey1= hamster1.getEnemigo().getY();
-        float ey2= hamster2.getEnemigo().getY();
-        float ey3= hamster3.getEnemigo().getY();
-        float px=personaje.getPersonaje().getX();
-        float py=personaje.getPersonaje().getY();
+    public void comprobarColission() {
+        float ex1 = hamster1.getEnemigo().getX();
+        float ex2 = hamster2.getEnemigo().getX();
+        float ex3 = hamster3.getEnemigo().getX();
+        float ey1 = hamster1.getEnemigo().getY();
+        float ey2 = hamster2.getEnemigo().getY();
+        float ey3 = hamster3.getEnemigo().getY();
+        float px = personaje.getPersonaje().getX();
+        float py = personaje.getPersonaje().getY();
 
 
-        if (((ex1-px)*(ex1-px))+((ey1-py)*(ey1-py))
-                <(hamster1.radioImagen + personaje.radioImagen)*(hamster1.radioImagen + personaje.radioImagen)){
+        if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
+                < (hamster1.radioImagen + personaje.radioImagen) * (hamster1.radioImagen + personaje.radioImagen)&&hamster1Vivo) {
             if (ataque) {
                 hamster1.getEnemigo().detachSelf();
-            }
-            else{
-                personaje.getPersonaje().detachSelf();
-            }
+                hamster1Vivo=false;
+            } else {
+                if (dañado) {
+                    personaje.setPersonaje(4);
+                    attachChild(personaje.getPersonaje());
+                    dañado = false;
+                }
 
-        }
-        if (((ex2-px)*(ex2-px))+((ey2-py)*(ey2-py))
+            }
+       /* if (((ex2-px)*(ex2-px))+((ey2-py)*(ey2-py))
                 <(hamster2.radioImagen + personaje.radioImagen)*(hamster2.radioImagen + personaje.radioImagen)){
             if (ataque) {
                 hamster2.getEnemigo().detachSelf();
@@ -251,6 +272,9 @@ public class EscenaJuego extends EscenaBase
             else{
                 personaje.getPersonaje().detachSelf();
             }
+        }
+        */
+
         }
     }
 

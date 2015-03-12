@@ -62,7 +62,7 @@ public class Personaje {
 
         imgsPersonaje = new Sprite []{personajeFrente,personajeAtras,personajeDerecha,personajeIzquierda};
 
-        personaje = imgsPersonaje[3];
+        personaje = imgsPersonaje[0];
         radioImagen= 66;
 
         direccion = 0;

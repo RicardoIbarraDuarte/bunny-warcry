@@ -47,10 +47,14 @@ public class EscenaJuego extends EscenaBase
             }
         };
 
-        regionesPersonaje = new ITextureRegion[]{admRecursos.regionPersonajeFrente,admRecursos.regionPersonajeAtras,admRecursos.regionPersonajeDerecha,admRecursos.regionPersonajeIzquierda,admRecursos.regionPersonajeGolpeado};
+        regionesPersonaje = new ITextureRegion[]{admRecursos.regionPersonajeFrente,
+                admRecursos.regionPersonajeAtras,admRecursos.regionPersonajeDerecha,
+                admRecursos.regionPersonajeIzquierda,admRecursos.regionPersonajeGolpeado};
         personaje = new Personaje();
         personaje.crearPersonaje(0,0,regionesPersonaje,admRecursos.vbom);
-        regionesPersonajeAtacando= new TiledTextureRegion[]{admRecursos.regionPataqueFrente,admRecursos.regionPataqueAtras,admRecursos.regionPataqueDerecha,admRecursos.regionPataqueIzquierda};
+        regionesPersonajeAtacando= new TiledTextureRegion[]{admRecursos.regionPataqueFrente,
+                admRecursos.regionPataqueAtras,admRecursos.regionPataqueDerecha,
+                admRecursos.regionPataqueIzquierda};
         personaje.crearPersonajeAtacando(0,0,regionesPersonajeAtacando,admRecursos.vbom);
         //crear enemigo
         hamster1 = new EnemigoHamster();
@@ -68,11 +72,11 @@ public class EscenaJuego extends EscenaBase
         setBackground(fondo);
         setBackgroundEnabled(true);
 
-        btnAtacar = new ButtonSprite(1100,150,
-                admRecursos.regionBtnAtacar,admRecursos.vbom) {
+        btnAtacar = new ButtonSprite(1100,150,admRecursos.regionBtnAtacar,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
                     if (dañado) {
                         ataque = true;
@@ -96,11 +100,6 @@ public class EscenaJuego extends EscenaBase
         //attachChild(hamster3.getEnemigo());
         attachChild(personaje.getPersonaje());
         agregarJoystick();
-
-
-        //Generar movimiento aleatorio del enemigo
-
-
 
         registerUpdateHandler(new IUpdateHandler() {
 
@@ -169,15 +168,17 @@ public class EscenaJuego extends EscenaBase
 
     }
     public void agregarJoystick() {
-        control = new DigitalOnScreenControl(180, 160, admRecursos.camara, admRecursos.regionFondoControl,
-                admRecursos.regionBotonControl, 0.03f,false,
+        control = new DigitalOnScreenControl(180, 160, admRecursos.camara,
+                admRecursos.regionFondoControl,admRecursos.regionBotonControl, 0.03f,false,
                 admRecursos.vbom, new DigitalOnScreenControl.IOnScreenControlListener(){
 
             @Override
             public void onControlChange(BaseOnScreenControl pBaseOnScreenControl, float pValueX, float pValueY) {
                 if (!ataque) {
-                    float x = personaje.getPersonaje().getX() + personaje.velocidadPersonaje * pValueX;
-                    float y = personaje.getPersonaje().getY() + personaje.velocidadPersonaje * pValueY;
+                    float x = personaje.getPersonaje().getX() + personaje.velocidadPersonaje *
+                            pValueX;
+                    float y = personaje.getPersonaje().getY() + personaje.velocidadPersonaje *
+                            pValueY;
                     if (x > 1100 || x < 180) {
                         x = personaje.getPersonaje().getX();
                     }
@@ -242,7 +243,8 @@ public class EscenaJuego extends EscenaBase
 
 
         if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
-                < (hamster1.radioImagen + personaje.radioImagen) * (hamster1.radioImagen + personaje.radioImagen)&&hamster1Vivo) {
+                < (hamster1.radioImagen + personaje.radioImagen) * (hamster1.radioImagen +
+                personaje.radioImagen)&&hamster1Vivo) {
             if (ataque) {
                 hamster1.getEnemigo().detachSelf();
                 hamster1Vivo=false;
@@ -255,7 +257,8 @@ public class EscenaJuego extends EscenaBase
 
             }
        /* if (((ex2-px)*(ex2-px))+((ey2-py)*(ey2-py))
-                <(hamster2.radioImagen + personaje.radioImagen)*(hamster2.radioImagen + personaje.radioImagen)){
+                <(hamster2.radioImagen + personaje.radioImagen)*(hamster2.radioImagen +
+                personaje.radioImagen)){
             if (ataque) {
                 hamster2.getEnemigo().detachSelf();
             }
@@ -264,7 +267,8 @@ public class EscenaJuego extends EscenaBase
             }
         }
         if (((ex3-px)*(ex3-px))+((ey3-py)*(ey3-py))
-                <(hamster3.radioImagen + personaje.radioImagen)*(hamster3.radioImagen + personaje.radioImagen)){
+                <(hamster3.radioImagen + personaje.radioImagen)*(hamster3.radioImagen +
+                personaje.radioImagen)){
             if (ataque) {
                 hamster3.getEnemigo().detachSelf();
             }

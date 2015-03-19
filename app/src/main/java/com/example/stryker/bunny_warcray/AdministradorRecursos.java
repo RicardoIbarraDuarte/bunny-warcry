@@ -23,7 +23,8 @@ import java.io.IOException;
 /**
  * Carga/Descarga los recurso del juego. Imágenes, Audios
  */
-public class AdministradorRecursos
+public class
+        AdministradorRecursos
 {
     // Instancia única de la clase
     private static final AdministradorRecursos INSTANCE =
@@ -77,8 +78,8 @@ public class AdministradorRecursos
     public ITextureRegion regionFondoCreditos;
 
     // Botón regrear
-    public ITiledTextureRegion regionBtnRegresar;
-    private BuildableBitmapTextureAtlas btaBtnRegresar;
+    //public ITiledTextureRegion regionBtnRegresar;
+    //private BuildableBitmapTextureAtlas btaBtnRegresar;
 
 
     // Escena Menú (imagen estática)
@@ -97,7 +98,7 @@ public class AdministradorRecursos
     // Escena niveles (imagen estática)
     private ITexture texturaFondoNivel;
     public ITextureRegion regionFondoNivel;
-    // Botón jugar del menú
+    // Botón niveles
     public ITiledTextureRegion regionBtnN0;
     private BuildableBitmapTextureAtlas btaBtnN0;
     public ITiledTextureRegion regionBtnN1;
@@ -207,7 +208,7 @@ public class AdministradorRecursos
         } catch (IOException e) {
             Log.d("cargarRecursosJuego", "No se puede cargar el personaje");
         }
-        // Carga la imagen para el botón arriba
+        // Carga la imagen para el joystick
         try {
             texturaFondoControl = new AssetBitmapTexture(actividadJuego.getTextureManager(),
                     actividadJuego.getAssets(),"BaseControl.png");
@@ -297,25 +298,11 @@ public class AdministradorRecursos
         } catch (IOException e) {
             Log.d("cargarRecursosMenu", "No se puede cargar el fondo");
         }
-        btaBtnRegresar = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                142,108);
-        regionBtnRegresar = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnRegresar, actividadJuego.getAssets(),
-                "Flecha.png", 1, 1);
-        try {
-            btaBtnRegresar.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,0,0));
-
-        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
-            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
-        }
-        btaBtnRegresar.load();
     }
     public void liberarRecursosAcercaDe() {
         // Fondo
         texturaFondoAcerca.unload();
         regionFondoAcerca = null;
-        // botón regresar
-        btaBtnRegresar.unload();
-        regionBtnRegresar = null;
     }
     // crear escena creditos
     public void cargarRecursosCreditos() {

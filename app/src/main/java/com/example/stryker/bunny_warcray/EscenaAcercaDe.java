@@ -10,16 +10,12 @@ import org.andengine.opengl.util.GLState;
 /**
  * Representa la escena con las opciones del menú principal
  *
- * @author Roberto Martínez Román
+ *
  */
 public class EscenaAcercaDe extends EscenaBase
 {
     // *** Fondo
     private Sprite spriteFondo; //(el fondo de la escena, estático)
-
-    // *** Botones del menú
-    private ButtonSprite btnRegresar;
-
 
     @Override
     public void crearEscena() {

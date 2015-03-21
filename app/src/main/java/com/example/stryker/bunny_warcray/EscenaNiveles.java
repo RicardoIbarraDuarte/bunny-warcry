@@ -23,6 +23,7 @@ public class EscenaNiveles extends EscenaBase{
     private ButtonSprite btnN2;
     private ButtonSprite btnN3;
     private ButtonSprite btnN4;
+    private ButtonSprite btnN5;
 
     @Override
     public void crearEscena() {
@@ -51,7 +52,8 @@ public class EscenaNiveles extends EscenaBase{
                 admRecursos.regionBtnN0,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
                     // Cambia a la escena de JUGAR
                     admEscenas.crearEscenaJuego();

@@ -171,14 +171,14 @@ public class AdministradorEscenas
         escenaNiveles = null;
     }
     /*
-    //*** Crea la escena de juego
+    //*** Crea la escena de juego game over
     public void crearEscenaGameover() {
         // Carga los recursos
         admRecursos.cargarRecursosGameover();
         escenaGameover = new EscenaGameOver();
     }
 
-    //*** Libera la escena de juego
+    //*** Libera la escena de juego game over
     public void liberarEscenaGaneover() {
         admRecursos.liberarRecursosGameover();
         escenaGameover.liberarEscena();

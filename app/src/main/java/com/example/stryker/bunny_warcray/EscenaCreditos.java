@@ -17,10 +17,6 @@ public class EscenaCreditos extends EscenaBase
     // *** Fondo
     private Sprite spriteFondo; //(el fondo de la escena, estático)
 
-    // *** Botones del menú
-    private ButtonSprite btnRegresar;
-
-
     @Override
     public void crearEscena() {
         // Creamos el sprite de manera óptima

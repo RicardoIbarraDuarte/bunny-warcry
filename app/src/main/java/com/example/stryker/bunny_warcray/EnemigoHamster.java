@@ -6,9 +6,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-/**
- * Created by Yamile Zahow on 27/02/2015.
- */
+
 public class EnemigoHamster {
 
     private int direccion;
@@ -26,7 +24,8 @@ public class EnemigoHamster {
         return enemigo;
     }
 
-    public void crearEnemigo(float x, float y, ITextureRegion regionEnemigo, VertexBufferObjectManager vbom){
+    public void crearEnemigo(float x, float y, ITextureRegion regionEnemigo,
+                             VertexBufferObjectManager vbom){
         enemigo= new Sprite(x,y, regionEnemigo,vbom) {
             @Override
             protected void preDraw(GLState pGLState, Camera pCamera) {

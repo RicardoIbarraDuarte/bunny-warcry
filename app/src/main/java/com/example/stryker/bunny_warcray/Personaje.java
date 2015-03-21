@@ -8,9 +8,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-/**
- * Created by Yamile Zahow on 27/02/2015.
- */
+
 public class Personaje {
     private Sprite personaje;
     public float velocidadPersonaje = 10;
@@ -28,7 +26,8 @@ public class Personaje {
         return personajeAtacando;
     }
 
-    public void crearPersonaje(float x, float y, ITextureRegion[] regionPersonaje, VertexBufferObjectManager vbom){
+    public void crearPersonaje(float x, float y, ITextureRegion[] regionPersonaje,
+                               VertexBufferObjectManager vbom){
         Sprite personajeFrente = new Sprite(0,0,regionPersonaje[0],vbom) {
             @Override
             protected void preDraw(GLState pGLState, Camera pCamera) {
@@ -67,7 +66,8 @@ public class Personaje {
 
 
 
-        imgsPersonaje = new Sprite []{personajeFrente,personajeAtras,personajeDerecha,personajeIzquierda,personajeGolpeado};
+        imgsPersonaje = new Sprite []{personajeFrente,personajeAtras,personajeDerecha,
+                personajeIzquierda,personajeGolpeado};
 
         personaje = imgsPersonaje[0];
         radioImagen= 66;
@@ -76,21 +76,26 @@ public class Personaje {
         direcAnte = 0;
 
     }
-    public void crearPersonajeAtacando(float x, float y, TiledTextureRegion[] regionAtaques, VertexBufferObjectManager vbom){
+    public void crearPersonajeAtacando(float x, float y, TiledTextureRegion[] regionAtaques,
+                                       VertexBufferObjectManager vbom){
 
-        AnimatedSprite pataqueFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[0].getHeight(),
+        AnimatedSprite pataqueFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[0].getHeight(),
                 regionAtaques[0],vbom);
 
 
-        AnimatedSprite pataqueAtras = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[1].getHeight(),
+        AnimatedSprite pataqueAtras = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[1].getHeight(),
                 regionAtaques[1],vbom);
 
 
-        AnimatedSprite pataqueDerecha = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[2].getHeight(),
+        AnimatedSprite pataqueDerecha = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[2].getHeight(),
                 regionAtaques[2],vbom);
 
 
-        AnimatedSprite pataqueIzquierda = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,regionAtaques[3].getHeight(),
+        AnimatedSprite pataqueIzquierda = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[3].getHeight(),
                 regionAtaques[3],vbom);
 
 

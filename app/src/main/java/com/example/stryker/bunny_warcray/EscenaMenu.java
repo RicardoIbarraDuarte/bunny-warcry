@@ -48,7 +48,8 @@ public class EscenaMenu extends EscenaBase{
                 admRecursos.regionBtnJugar,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
                     // Cambia a la escena de JUGAR
                     admEscenas.crearEscenaNiveles();
@@ -66,7 +67,8 @@ public class EscenaMenu extends EscenaBase{
                 admRecursos.regionBtnAcerca,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
                     // Cambia a la escena de acerca de
                     admEscenas.crearEscenaAcerca();
@@ -84,7 +86,8 @@ public class EscenaMenu extends EscenaBase{
                 admRecursos.regionBtnCreditos,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
                     // Cambia a la escena de creditos
                     admEscenas.crearEscenaCreditos();

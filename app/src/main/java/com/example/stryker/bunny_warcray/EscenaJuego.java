@@ -6,6 +6,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
@@ -32,6 +33,7 @@ public class EscenaJuego extends EscenaBase
     private float tiempoAtaque;
     private float tiempoDaño=0;
     private boolean dañado=true;
+    private Rectangle barraVida;
 
 
 
@@ -100,6 +102,19 @@ public class EscenaJuego extends EscenaBase
         //attachChild(hamster3.getEnemigo());
         attachChild(personaje.getPersonaje());
         agregarJoystick();
+        barraVida = new Rectangle(1100,520,300,55,admRecursos.vbom) {
+            // Este método se ejecuta cada vez que se actualiza el juego (fps)
+            @Override
+            protected void onManagedUpdate(float pSecondsElapsed) {
+                // El parámetro nos indica el tiempo entre llamadas
+                // Se usa para que la velocidad sea independiente del CPU
+
+                super.onManagedUpdate(pSecondsElapsed);
+            }
+
+        };
+        barraVida.setColor(1,0,0);  // RGB [0,1]
+        attachChild(barraVida);
 
         registerUpdateHandler(new IUpdateHandler() {
 
@@ -154,6 +169,7 @@ public class EscenaJuego extends EscenaBase
             public void reset() {
 
             }
+
         });
         //botones del movimiento
 
@@ -256,7 +272,7 @@ public class EscenaJuego extends EscenaBase
                 }
 
             }
-       /* if (((ex2-px)*(ex2-px))+((ey2-py)*(ey2-py))
+        if (((ex2-px)*(ex2-px))+((ey2-py)*(ey2-py))
                 <(hamster2.radioImagen + personaje.radioImagen)*(hamster2.radioImagen +
                 personaje.radioImagen)){
             if (ataque) {
@@ -276,7 +292,7 @@ public class EscenaJuego extends EscenaBase
                 personaje.getPersonaje().detachSelf();
             }
         }
-        */
+
 
         }
     }

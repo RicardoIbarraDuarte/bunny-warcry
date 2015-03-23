@@ -43,27 +43,9 @@ public class EnemigoHamster {
     public void dibujarEnemigo() {
         enemigo.setPosition(posicionX, posicionY);
         enemigo.setScale(.4f);
-        //attachChild(enemigo);
     }
     public void movimientoEnemigo(Sprite personaje){
-       /* float ex=enemigo.getX();
-        float ey=enemigo.getY();
-        float px=personaje.getX();
-        float py=personaje.getY();
-        float distanciaX=
-        if (((ex - px) * (ex - px)) + ((ey - py) * (ey - py))
-                < 40000 ){
-            stalker=true;
 
-        }
-
-        if (stalker) {
-
-
-        }
-        else {
-
-*/
             if (direccion == 1) {
                 float enemigoX = enemigo.getX();
                 enemigoX = enemigoX + velocidadEnemigo;

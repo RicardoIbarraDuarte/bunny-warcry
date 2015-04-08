@@ -17,7 +17,6 @@ import org.andengine.opengl.util.GLState;
 
 public class EscenaJuego extends EscenaBase
 {
-    private Sprite Fondo; //(el fondo de la escena, estático)
 
     private EnemigoHamster hamster1;
     private boolean hamster1Vivo = true;
@@ -34,20 +33,26 @@ public class EscenaJuego extends EscenaBase
     private float tiempoDaño=0;
     private boolean dañado=true;
     private Rectangle barraVida;
-
-
+    private Sprite Fondo;
+    private float anchoVida;
 
 
     @Override
     public void crearEscena() {
-        // Creamos el sprite de manera óptima
-        Fondo = new Sprite(0,0, admRecursos.regionFondoJuego,admRecursos.vbom) {
+        // Creamos el Fondo
+        Fondo = new Sprite(0,0,admRecursos.regionFondoJuego,admRecursos.vbom) {
             @Override
             protected void preDraw(GLState pGLState, Camera pCamera) {
                 super.preDraw(pGLState, pCamera);
                 pGLState.enableDither();
             }
         };
+
+        Fondo.setPosition(1280 / 2, 720 / 2);
+
+        SpriteBackground fondo = new SpriteBackground(1,0.3f,0.3f,Fondo);
+        setBackground(fondo);
+        setBackgroundEnabled(true);
 
         regionesPersonaje = new ITextureRegion[]{admRecursos.regionPersonajeFrente,
                 admRecursos.regionPersonajeAtras,admRecursos.regionPersonajeDerecha,
@@ -67,12 +72,10 @@ public class EscenaJuego extends EscenaBase
         hamster3.crearEnemigo(0,0,admRecursos.regionEnemigo,admRecursos.vbom);
 
         // Configuración de la imagen
-        Fondo.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
+
 
         // Crea el fondo de la pantalla
-        SpriteBackground fondo = new SpriteBackground(1,0.5f,0,Fondo);
-        setBackground(fondo);
-        setBackgroundEnabled(true);
+
 
         btnAtacar = new ButtonSprite(1100,150,admRecursos.regionBtnAtacar,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
@@ -102,17 +105,8 @@ public class EscenaJuego extends EscenaBase
         //attachChild(hamster3.getEnemigo());
         attachChild(personaje.getPersonaje());
         agregarJoystick();
-        barraVida = new Rectangle(1100,520,300,55,admRecursos.vbom) {
-            // Este método se ejecuta cada vez que se actualiza el juego (fps)
-            @Override
-            protected void onManagedUpdate(float pSecondsElapsed) {
-                // El parámetro nos indica el tiempo entre llamadas
-                // Se usa para que la velocidad sea independiente del CPU
-
-                super.onManagedUpdate(pSecondsElapsed);
-            }
-
-        };
+        anchoVida=300;
+        barraVida = new Rectangle(1100,520,anchoVida,55,admRecursos.vbom);
         barraVida.setColor(1,0,0);  // RGB [0,1]
         attachChild(barraVida);
 
@@ -163,6 +157,7 @@ public class EscenaJuego extends EscenaBase
                     attachChild(personaje.getPersonaje());
                     tiempoDaño=0;
                 }
+
             }
 
             @Override
@@ -268,32 +263,15 @@ public class EscenaJuego extends EscenaBase
                 if (dañado) {
                     personaje.setPersonaje(4);
                     attachChild(personaje.getPersonaje());
+                    detachChild(barraVida);
+                    anchoVida = anchoVida-100;
+                    barraVida = new Rectangle(1100,520,anchoVida,55,admRecursos.vbom);
+                    barraVida.setColor(1,0,0);  // RGB [0,1]
+                    attachChild(barraVida);
                     dañado = false;
                 }
 
             }
-        if (((ex2-px)*(ex2-px))+((ey2-py)*(ey2-py))
-                <(hamster2.radioImagen + personaje.radioImagen)*(hamster2.radioImagen +
-                personaje.radioImagen)){
-            if (ataque) {
-                hamster2.getEnemigo().detachSelf();
-            }
-            else{
-                personaje.getPersonaje().detachSelf();
-            }
-        }
-        if (((ex3-px)*(ex3-px))+((ey3-py)*(ey3-py))
-                <(hamster3.radioImagen + personaje.radioImagen)*(hamster3.radioImagen +
-                personaje.radioImagen)){
-            if (ataque) {
-                hamster3.getEnemigo().detachSelf();
-            }
-            else{
-                personaje.getPersonaje().detachSelf();
-            }
-        }
-
-
         }
     }
 

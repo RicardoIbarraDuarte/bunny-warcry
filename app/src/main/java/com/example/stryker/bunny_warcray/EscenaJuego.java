@@ -158,6 +158,12 @@ public class EscenaJuego extends EscenaBase
                     tiempoDaño=0;
                 }
 
+                if (anchoVida<=0){
+                    admEscenas.crearEscenaGameover();
+                    admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
+                    admEscenas.liberarEscenaGameover();
+                }
+
             }
 
             @Override

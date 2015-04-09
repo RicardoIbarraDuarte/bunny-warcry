@@ -39,6 +39,10 @@ public class
     private ITexture texturaSplash;
     public ITextureRegion regionSplash;
 
+    // Escena gameover (imagen estática)
+    private ITexture texturaGameover;
+    public ITextureRegion regionGameover;
+
     // Escena Juego
     private ITexture texturaFondoJuego;
     public ITextureRegion regionFondoJuego;
@@ -128,17 +132,17 @@ public class
     //*** Recursos de la pantalla de Splash
     public void cargarRecursosSplash() {
 
-        try {
-            // Carga la imagen de fondo de la pantalla Splash
-            texturaSplash = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "logoTec.png");
-            regionSplash = TextureRegionFactory.extractFromTexture(texturaSplash);
-            texturaSplash.load();
-        } catch (IOException e) {
+    try {
+        // Carga la imagen de fondo de la pantalla Splash
+        texturaSplash = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                actividadJuego.getAssets(), "logoTec.png");
+        regionSplash = TextureRegionFactory.extractFromTexture(texturaSplash);
+        texturaSplash.load();
+    } catch (IOException e) {
 
-            Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
-        }
+        Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
     }
+}
 
     public void liberarRecursosSplash() {
 
@@ -531,5 +535,24 @@ public class
         btaBtnN4.unload();
         regionBtnN4 = null;
         */
+    }
+    public void cargarRecursosGameover() {
+
+    try {
+        // Carga la imagen de fondo de la pantalla Splash
+        texturaGameover = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                actividadJuego.getAssets(), "logoTec.png");
+        regionGameover = TextureRegionFactory.extractFromTexture(texturaGameover);
+        texturaGameover.load();
+    } catch (IOException e) {
+
+        Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
+    }
+}
+
+    public void liberarRecursosGameover() {
+
+        texturaGameover.unload();
+        regionGameover = null;
     }
 }

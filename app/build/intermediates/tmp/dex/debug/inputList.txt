@@ -1,6 +1,6 @@
-/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/classes/debug
-/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-62b6701b60c018ec505343c42a3c12e2e3eca10c.jar
-/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-7fd60f412aacd168cfd821d5c84021642bf2227f.jar
-/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/classes-81241c68fccb6359467eb06d98dcd722c647c7a5.jar
-/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/classes-3e367e6df2e546769063872253102ccc4c15614d.jar
-/Users/UAMI/Desktop/Bunny_Warcry/app/build/intermediates/pre-dexed/debug/classes-a32319b834966dd3cc2843aaca1316915b8220f4.jar
+C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\classes\debug
+C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-08f717147f524364bda94737d5bb66dcf9bfeaa4.jar
+C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-347b1d016a31a6b8810594df85e42ee513da6c2f.jar
+C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\classes-08f1f074f1003c7d84886271162d7200ff42e1bb.jar
+C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\classes-aa8cd7a57436a590cc5542e143d59405eb8bc397.jar
+C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\classes-aa3b35f5bc9d38d40ea81da40e66b2fbc5b7c0d9.jar

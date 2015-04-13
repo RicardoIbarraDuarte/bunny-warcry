@@ -1,5 +1,8 @@
 package com.example.stryker.bunny_warcray;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
@@ -35,7 +38,11 @@ public class EscenaExperiencia extends EscenaBase{
         SpriteBackground fondo = new SpriteBackground(0,0,0,spriteFondo);
         setBackground(fondo);
         setBackgroundEnabled(true);
-        EscenaJuego
+
+        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                "personaje", Context.MODE_PRIVATE);
+        int ultimoMarcador = preferencias.getInt("alto",0);
+        ;
     }
 
     @Override

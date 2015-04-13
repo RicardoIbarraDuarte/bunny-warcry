@@ -48,6 +48,8 @@ public class
     public ITextureRegion regionFondoJuego;
     private ITexture texturaEnemigo;
     public ITextureRegion regionEnemigo;
+    private ITexture texturaPerro;
+    public ITextureRegion regionPerro;
     private ITexture texturaPersonajeFrente;
     public ITextureRegion regionPersonajeFrente;
     private ITexture texturaPersonajeAtras;
@@ -172,6 +174,17 @@ public class
                     actividadJuego.getAssets(), "Enemigos/Hamster/Hamster.png");
             regionEnemigo = TextureRegionFactory.extractFromTexture(texturaEnemigo);
             texturaEnemigo.load();
+        } catch (IOException e) {
+
+            Log.d("cargarRecursosJuego", "No se puede cargar el enemigo");
+        }
+        try {
+
+            // Carga la imagen del enemigo
+            texturaPerro = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "Enemigos/Hamster/HamsterCreep.png");
+            regionPerro = TextureRegionFactory.extractFromTexture(texturaPerro);
+            texturaPerro.load();
         } catch (IOException e) {
 
             Log.d("cargarRecursosJuego", "No se puede cargar el enemigo");

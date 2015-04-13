@@ -18,12 +18,12 @@ import org.andengine.opengl.util.GLState;
 public class EscenaJuego extends EscenaBase
 {
 
-    private boolean hamster1Vivo = true;
-    private boolean hamster2Vivo = true;
-    private boolean hamster3Vivo = true;
-    private EnemigoHamster hamster1;
-    private EnemigoHamster hamster2;
-    private EnemigoHamster hamster3;
+    private boolean Enemigo1Vivo = true;
+    private boolean Enemigo2Vivo = true;
+    private boolean Enemigo3Vivo = true;
+    private Enemigo Enemigo1;
+    private Enemigo Enemigo2;
+    private Enemigo Enemigo3;
     private Personaje personaje;
     private DigitalOnScreenControl control;
     private ITextureRegion[] regionesPersonaje;
@@ -75,6 +75,7 @@ public class EscenaJuego extends EscenaBase
         anchoVida=300;
         barraVida = new Rectangle(1100,520,anchoVida,55,admRecursos.vbom);
         barraVida.setColor(1,0,0);  // RGB [0,1]
+        barraVida.setAnchorCenterX(0);
         attachChild(barraVida);
 
         //Creamos boton de ataque
@@ -97,7 +98,7 @@ public class EscenaJuego extends EscenaBase
         attachChild(btnAtacar);
 
         //Creamos el nivel aleatorio y los enemigos
-        tipoNivel = 1; //(int)((Math.random() * 4) + 1);
+        tipoNivel = 2; //(int)((Math.random() * 4) + 1);
         generadorDenivel();
 
         registerUpdateHandler(new IUpdateHandler() {
@@ -217,23 +218,23 @@ public class EscenaJuego extends EscenaBase
     }
     public void comprobarColission() {
         if (tipoNivel==1) {
-            float ex1 = hamster1.getEnemigo().getX();
-            float ex2 = hamster2.getEnemigo().getX();
-            float ex3 = hamster3.getEnemigo().getX();
-            float ey1 = hamster1.getEnemigo().getY();
-            float ey2 = hamster2.getEnemigo().getY();
-            float ey3 = hamster3.getEnemigo().getY();
+            float ex1 = Enemigo1.getEnemigo().getX();
+            float ex2 = Enemigo2.getEnemigo().getX();
+            float ex3 = Enemigo3.getEnemigo().getX();
+            float ey1 = Enemigo1.getEnemigo().getY();
+            float ey2 = Enemigo2.getEnemigo().getY();
+            float ey3 = Enemigo3.getEnemigo().getY();
             float px = personaje.getPersonaje().getX();
             float py = personaje.getPersonaje().getY();
 
             if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
-                    < (hamster1.radioImagen + personaje.radioImagen) * (hamster1.radioImagen +
-                    personaje.radioImagen) && hamster1Vivo) {
+                    < (Enemigo1.radioImagen + personaje.radioImagen) * (Enemigo1.radioImagen +
+                    personaje.radioImagen) && Enemigo1Vivo) {
                 if (ataque) {
-                    hamster1.vida=hamster1.vida-personaje.fuerza;
-                    if (hamster1.vida<=0) {
-                        hamster1.getEnemigo().detachSelf();
-                        hamster1Vivo = false;
+                    Enemigo1.vida=Enemigo1.vida-personaje.fuerza;
+                    if (Enemigo1.vida<=0) {
+                        Enemigo1.getEnemigo().detachSelf();
+                        Enemigo1Vivo = false;
                         enemigosVivos = enemigosVivos - 1;
                     }
                 } else {
@@ -246,13 +247,13 @@ public class EscenaJuego extends EscenaBase
                 }
             }
             if (((ex2 - px) * (ex2 - px)) + ((ey2 - py) * (ey2 - py))
-                    < (hamster2.radioImagen + personaje.radioImagen) * (hamster2.radioImagen +
-                    personaje.radioImagen) && hamster2Vivo) {
+                    < (Enemigo2.radioImagen + personaje.radioImagen) * (Enemigo2.radioImagen +
+                    personaje.radioImagen) && Enemigo2Vivo) {
                 if (ataque) {
-                    hamster2.vida=hamster2.vida-personaje.fuerza;
-                    if (hamster2.vida<=0) {
-                        hamster2.getEnemigo().detachSelf();
-                        hamster2Vivo = false;
+                    Enemigo2.vida=Enemigo2.vida-personaje.fuerza;
+                    if (Enemigo2.vida<=0) {
+                        Enemigo2.getEnemigo().detachSelf();
+                        Enemigo2Vivo = false;
                         enemigosVivos = enemigosVivos - 1;
                     }
                 } else {
@@ -265,13 +266,13 @@ public class EscenaJuego extends EscenaBase
                 }
             }
             if (((ex3 - px) * (ex3 - px)) + ((ey3 - py) * (ey3 - py))
-                    < (hamster3.radioImagen + personaje.radioImagen) * (hamster3.radioImagen +
-                    personaje.radioImagen) && hamster3Vivo) {
+                    < (Enemigo3.radioImagen + personaje.radioImagen) * (Enemigo3.radioImagen +
+                    personaje.radioImagen) && Enemigo3Vivo) {
                 if (ataque) {
-                    hamster3.vida=hamster3.vida-personaje.fuerza;
-                    if (hamster3.vida<=0) {
-                        hamster3.getEnemigo().detachSelf();
-                        hamster3Vivo = false;
+                    Enemigo3.vida=Enemigo3.vida-personaje.fuerza;
+                    if (Enemigo3.vida<=0) {
+                        Enemigo3.getEnemigo().detachSelf();
+                        Enemigo3Vivo = false;
                         enemigosVivos = enemigosVivos - 1;
                     }
                 } else {
@@ -308,26 +309,43 @@ public class EscenaJuego extends EscenaBase
     }
     public void generadorDenivel(){
         if (tipoNivel==1) {
-            hamster1 = new EnemigoHamster();
-            hamster1.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
-            hamster2 = new EnemigoHamster();
-            hamster2.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
-            hamster3 = new EnemigoHamster();
-            hamster3.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
-            hamster1.dibujarEnemigo();
-            hamster2.dibujarEnemigo();
-            hamster3.dibujarEnemigo();
-            attachChild(hamster1.getEnemigo());
-            attachChild(hamster2.getEnemigo());
-            attachChild(hamster3.getEnemigo());
+
+            Enemigo1 = new EnemigoHamster();
+            Enemigo1.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+            Enemigo2 = new EnemigoHamster();
+            Enemigo2.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+            Enemigo3 = new EnemigoHamster();
+            Enemigo3.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+            Enemigo1.dibujarEnemigo();
+            Enemigo2.dibujarEnemigo();
+            Enemigo3.dibujarEnemigo();
+            attachChild(Enemigo1.getEnemigo());
+            attachChild(Enemigo2.getEnemigo());
+            attachChild(Enemigo3.getEnemigo());
             enemigosVivos=3;
+        }
+        if (tipoNivel==2){
+            Enemigo1 = new Perro();
+            Enemigo2 = new EnemigoHamster();
+            Enemigo1.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+            Enemigo2.crearEnemigo(0, 0, admRecursos.regionPerro, admRecursos.vbom);
+            Enemigo1.dibujarEnemigo();
+            Enemigo2.dibujarEnemigo();
+            attachChild(Enemigo1.getEnemigo());
+            attachChild(Enemigo2.getEnemigo());
+            enemigosVivos=2;
+
         }
     }
     public void movimientoEnemigos(){
         if (tipoNivel==1) {
-            hamster1.movimientoEnemigo();
-            hamster2.movimientoEnemigo();
-            hamster3.movimientoEnemigo();
+            Enemigo1.movimientoEnemigo();
+            Enemigo2.movimientoEnemigo();
+            Enemigo3.movimientoEnemigo();
+        }
+        if (tipoNivel==2){
+            Enemigo1.movimientoEnemigo();
+            Enemigo2.movimientoEnemigo();
         }
     }
     public void comprobarDireccionPersonaje(){
@@ -355,6 +373,7 @@ public class EscenaJuego extends EscenaBase
             anchoVida = personaje.vida * 300 / personaje.vidaTotal;
             barraVida = new Rectangle(1100, 520, anchoVida, 55, admRecursos.vbom);
             barraVida.setColor(1, 0, 0);  // RGB [0,1]
+            barraVida.setAnchorCenterX(0);
             attachChild(barraVida);
             personaje.vidaA=personaje.vida;
         }

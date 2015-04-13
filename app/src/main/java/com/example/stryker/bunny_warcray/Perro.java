@@ -9,7 +9,7 @@ import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 
-public class EnemigoHamster extends Enemigo {
+public class Perro extends Enemigo {
 
     private int direccion;
     private int direccionAnterior;
@@ -31,7 +31,7 @@ public class EnemigoHamster extends Enemigo {
         vida=2;
         radioImagen=54;
         fuerza=1;
-        velocidad=10;
+        velocidad=2;
 
     }
 
@@ -40,7 +40,6 @@ public class EnemigoHamster extends Enemigo {
         enemigo.setScale(.4f);
     }
     public void movimientoEnemigo(){
-        Log.i("movimientoenemigos", "caminando "+direccion);
 
             if (direccion == 1) {
                 float enemigoX = enemigo.getX();

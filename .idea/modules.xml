@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Bunny.iml" filepath="$PROJECT_DIR$/Bunny.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BunnyWarcry Final.iml" filepath="$PROJECT_DIR$/BunnyWarcry Final.iml" />
       <module fileurl="file://$PROJECT_DIR$/Bunny_Warcray.iml" filepath="$PROJECT_DIR$/Bunny_Warcray.iml" />
       <module fileurl="file://$PROJECT_DIR$/Bunny_Warcry.iml" filepath="$PROJECT_DIR$/Bunny_Warcry.iml" />
       <module fileurl="file://$PROJECT_DIR$/andengine/andEngine.iml" filepath="$PROJECT_DIR$/andengine/andEngine.iml" />

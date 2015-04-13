@@ -115,6 +115,9 @@ public class
     public ITiledTextureRegion regionBtnN5;
     private BuildableBitmapTextureAtlas btaBtnN5;
 
+    public ITextureRegion regionFondoExperiencia;
+    public ITexture texturaFondoExperiencia;
+
     public static AdministradorRecursos getInstance() {
         return INSTANCE;
     }
@@ -135,7 +138,7 @@ public class
     try {
         // Carga la imagen de fondo de la pantalla Splash
         texturaSplash = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                actividadJuego.getAssets(), "logoTec.png");
+                actividadJuego.getAssets(), "EscenaSplash/logoTec.png");
         regionSplash = TextureRegionFactory.extractFromTexture(texturaSplash);
         texturaSplash.load();
     } catch (IOException e) {
@@ -143,7 +146,6 @@ public class
         Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
     }
 }
-
     public void liberarRecursosSplash() {
 
         texturaSplash.unload();
@@ -156,7 +158,7 @@ public class
         try {
             // Carga la imagen de fondo de la pantalla juego
             texturaFondoJuego = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "FondoJuego.jpg");
+                    actividadJuego.getAssets(), "EscenaJuego/FondoJuego.jpg");
             regionFondoJuego = TextureRegionFactory.extractFromTexture(texturaFondoJuego);
             texturaFondoJuego.load();
         } catch (IOException e) {
@@ -167,7 +169,7 @@ public class
 
             // Carga la imagen del enemigo
             texturaEnemigo = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "enemigo.png");
+                    actividadJuego.getAssets(), "Enemigos/Hamster/Hamster.png");
             regionEnemigo = TextureRegionFactory.extractFromTexture(texturaEnemigo);
             texturaEnemigo.load();
         } catch (IOException e) {
@@ -178,7 +180,7 @@ public class
         try {
             // Carga la imagen del personajeFrente
             texturaPersonajeFrente = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "personajeFrente.png");
+                    actividadJuego.getAssets(), "Personaje/personajeFrente.png");
             regionPersonajeFrente = TextureRegionFactory.extractFromTexture(texturaPersonajeFrente);
             texturaPersonajeFrente.load();
         } catch (IOException e) {
@@ -189,7 +191,7 @@ public class
         try {
             // Carga la imagen del personajeGolpeado
             texturaPersonajeGolpeado = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "ConejoGolpeado.png");
+                    actividadJuego.getAssets(), "Personaje/ConejoGolpeado.png");
             regionPersonajeGolpeado = TextureRegionFactory.extractFromTexture
                     (texturaPersonajeGolpeado );
             texturaPersonajeGolpeado.load();
@@ -201,7 +203,7 @@ public class
         try {
             // Carga la imagen del personajeAtras
             texturaPersonajeAtras = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "personajeAtras.png");
+                    actividadJuego.getAssets(), "Personaje/personajeAtras.png");
             regionPersonajeAtras = TextureRegionFactory.extractFromTexture(texturaPersonajeAtras);
             texturaPersonajeAtras.load();
         } catch (IOException e) {
@@ -212,7 +214,7 @@ public class
         try {
             // Carga la imagen del personajeDerecha
             texturaPersonajeDerecha = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "personajeDerecha.png");
+                    actividadJuego.getAssets(), "Personaje/personajeDerecha.png");
             regionPersonajeDerecha = TextureRegionFactory.extractFromTexture
                     (texturaPersonajeDerecha);
             texturaPersonajeDerecha.load();
@@ -224,7 +226,7 @@ public class
         try {
             // Carga la imagen del personajeIzquierda
             texturaPersonajeIzquierda = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "personajeIzquierda.png");
+                    actividadJuego.getAssets(), "Personaje/personajeIzquierda.png");
             regionPersonajeIzquierda = TextureRegionFactory.extractFromTexture
                     (texturaPersonajeIzquierda);
             texturaPersonajeIzquierda.load();
@@ -235,9 +237,9 @@ public class
 
         try {
             texturaFondoControl = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(),"BaseControl.png");
+                    actividadJuego.getAssets(), "EscenaJuego/BaseControl.png");
             texturaBotonControl = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(),"BotonControl.png");
+                    actividadJuego.getAssets(), "EscenaJuego/BotonControl.png");
             regionFondoControl = TextureRegionFactory.extractFromTexture(texturaFondoControl);
             texturaFondoControl.load();
             regionBotonControl = TextureRegionFactory.extractFromTexture(texturaBotonControl);
@@ -250,7 +252,7 @@ public class
                 296,296);
         regionBtnAtacar = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnAtacar,
                 actividadJuego.getAssets(),
-                "BotonPalo.png", 1, 1);
+                "EscenaJuego/BotonPalo.png", 1, 1);
 
         try {
             btaBtnAtacar.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -265,7 +267,7 @@ public class
         texturaPataqueFrente = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
                 795,131);
         regionPataqueFrente = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                texturaPataqueFrente,actividadJuego, "PataqueFrente.png",5,1);
+                texturaPataqueFrente,actividadJuego, "Personaje/PataqueFrente.png",5,1);
         try {
             texturaPataqueFrente.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                     BitmapTextureAtlas>(0,0,0));
@@ -278,7 +280,7 @@ public class
         texturaPataqueDerecha = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
                 795,131);
         regionPataqueDerecha = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                texturaPataqueDerecha,actividadJuego, "PataqueDerecha.png",5,1);
+                texturaPataqueDerecha,actividadJuego, "Personaje/PataqueDerecha.png",5,1);
         try {
             texturaPataqueDerecha.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                     BitmapTextureAtlas>(0,0,0));
@@ -291,7 +293,7 @@ public class
         texturaPataqueAtras = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
                 795,131);
         regionPataqueAtras = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                texturaPataqueAtras,actividadJuego, "PataqueAtras.png",5,1);
+                texturaPataqueAtras,actividadJuego, "Personaje/PataqueAtras.png",5,1);
         try {
             texturaPataqueAtras.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                     BitmapTextureAtlas>(0,0,0));
@@ -304,7 +306,7 @@ public class
         texturaPataqueIzquierda = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager()
                 ,795,131);
         regionPataqueIzquierda = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                texturaPataqueIzquierda,actividadJuego, "PataqueIzquierda.png",5,1);
+                texturaPataqueIzquierda,actividadJuego, "Personaje/PataqueIzquierda.png",5,1);
         try {
             texturaPataqueIzquierda.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource
                     , BitmapTextureAtlas>(0,0,0));
@@ -315,7 +317,6 @@ public class
 
 
     }
-
     public void liberarRecursosJuego() {
         texturaFondoJuego.unload();
         regionFondoJuego = null;
@@ -327,12 +328,13 @@ public class
         regionBotonControl = null;
 
     }
+
     // crear escena acerca de
     public void cargarRecursosAcercaDe() {
         try {
             // Carga la imagen de fondo de la pantalla de Acerca
             texturaFondoAcerca = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "FondoAcercaDe.jpg");
+                    actividadJuego.getAssets(), "EscenaAcercaDe/FondoAcercaDe.jpg");
             regionFondoAcerca = TextureRegionFactory.extractFromTexture(texturaFondoAcerca);
             texturaFondoAcerca.load();
         } catch (IOException e) {
@@ -344,12 +346,13 @@ public class
         texturaFondoAcerca.unload();
         regionFondoAcerca = null;
     }
+
     // crear escena créditos
     public void cargarRecursosCreditos() {
         try {
             // Carga la imagen de fondo de la pantalla de créditos
             texturaFondoCreditos = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "FondoCreditos.jpg");
+                    actividadJuego.getAssets(), "EscenaCreditos/FondoCreditos.jpg");
             regionFondoCreditos = TextureRegionFactory.extractFromTexture(texturaFondoCreditos);
             texturaFondoCreditos.load();
         } catch (IOException e) {
@@ -362,14 +365,12 @@ public class
         regionFondoCreditos = null;
     }
 
-
-
     //*** Recursos de la pantalla de Menú
     public void cargarRecursosMenu() {
         try {
             // Carga la imagen de fondo de la pantalla del Menú
             texturaMenu = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "FondoMenu.jpg");
+                    actividadJuego.getAssets(), "EscenaMenu/FondoMenu.jpg");
             regionMenu = TextureRegionFactory.extractFromTexture(texturaMenu);
             texturaMenu.load();
         } catch (IOException e) {
@@ -383,7 +384,7 @@ public class
                 368,120);
         regionBtnJugar = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnJugar,
                 actividadJuego.getAssets(),
-                "BotonJugar.png", 1, 1);
+                "EscenaMenu/BotonJugar.png", 1, 1);
         try {
             btaBtnJugar.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                     BitmapTextureAtlas>(0,0,0));
@@ -398,7 +399,7 @@ public class
                 368,120);
         regionBtnAcerca = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnAcerca,
                 actividadJuego.getAssets(),
-                "BotonAcercaDe.png", 1, 1);
+                "EscenaMenu/BotonAcercaDe.png", 1, 1);
         try {
             btaBtnAcerca.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                     BitmapTextureAtlas>(0,0,0));
@@ -412,7 +413,7 @@ public class
                 296,296);
         regionBtnCreditos = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
                 btaBtnCreditos, actividadJuego.getAssets(),
-                "BotonCredito.jpg", 1, 1);
+                "EscenaMenu/BotonCredito.jpg", 1, 1);
         try {
             btaBtnCreditos.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                     BitmapTextureAtlas>(0,0,0));
@@ -423,7 +424,6 @@ public class
         btaBtnCreditos.load();
 
     }
-
     public void liberarRecursosMenu() {
         // Fondo
         texturaMenu.unload();
@@ -432,11 +432,12 @@ public class
         btaBtnJugar.unload();
         regionBtnJugar = null;
     }
+
     public void cargarRecursosNiveles() {
         try {
             // Carga la imagen de fondo de la pantalla del Menú
             texturaFondoNivel = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "fondoNiveles.jpg");
+                    actividadJuego.getAssets(), "EscenaNivel/fondoNiveles.jpg");
             regionFondoNivel = TextureRegionFactory.extractFromTexture(texturaFondoNivel);
             texturaFondoNivel.load();
         } catch (IOException e) {
@@ -450,7 +451,7 @@ public class
                 120,157);
         regionBtnN0 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN0,
                 actividadJuego.getAssets(),
-                "btaBtnN0.png", 1, 1);
+                "EscenaNivel/btaBtnN0.png", 1, 1);
         try {
             btaBtnN0.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                     BitmapTextureAtlas>(0,0,0));
@@ -518,7 +519,6 @@ public class
         */
 
     }
-
     public void liberarRecursosNiveles() {
         // Fondo
         texturaFondoNivel.unload();
@@ -536,12 +536,13 @@ public class
         regionBtnN4 = null;
         */
     }
+
     public void cargarRecursosGameover() {
 
     try {
         // Carga la imagen de fondo de la pantalla Splash
         texturaGameover = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                actividadJuego.getAssets(), "logoTec.png");
+                actividadJuego.getAssets(), "EscenaGameover/fondoGameover.jpg");
         regionGameover = TextureRegionFactory.extractFromTexture(texturaGameover);
         texturaGameover.load();
     } catch (IOException e) {
@@ -549,10 +550,26 @@ public class
         Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
     }
 }
-
     public void liberarRecursosGameover() {
-
         texturaGameover.unload();
         regionGameover = null;
+    }
+
+    public void cargarRecursosExperiencia() {
+
+        try {
+            // Carga la imagen de fondo de la pantalla Splash
+            texturaFondoExperiencia = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "EscenaExperiencia/fondoExperiencia.jpg");
+            regionFondoExperiencia = TextureRegionFactory.extractFromTexture(texturaFondoExperiencia);
+            texturaFondoExperiencia.load();
+        } catch (IOException e) {
+
+            Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
+        }
+    }
+    public void liberarRecursosExperiencia() {
+        texturaFondoExperiencia.unload();
+        regionFondoExperiencia = null;
     }
 }

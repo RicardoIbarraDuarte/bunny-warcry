@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-347b1d016a31a6b8810594df85e42ee513da6c2f.jar" />
-    </item>
-    <item
-        jar="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\exploded-aar\BunnyWarcry Final\andEngine\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="90d13e0cbab2ae5c8d8e64a8d756a9f033de87d9">
-        <dex dex="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\classes-aa3b35f5bc9d38d40ea81da40e66b2fbc5b7c0d9.jar" />
-    </item>
-    <item
-        jar="C:\Users\rodri_000\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-08f717147f524364bda94737d5bb66dcf9bfeaa4.jar" />
-    </item>
-    <item
-        jar="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jar="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\classes-08f1f074f1003c7d84886271162d7200ff42e1bb.jar" />
+        <dex dex="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/pre-dexed/debug/classes-12258c4d1cc409bf457fffe97874bb2a4abe99bd.jar" />
     </item>
     <item
-        jar="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jar="/Users/UAMI/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-62b6701b60c018ec505343c42a3c12e2e3eca10c.jar" />
+    </item>
+    <item
+        jar="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-4bde4487d4a928c57ff825491d1c7db95bed9759.jar" />
+    </item>
+    <item
+        jar="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\rodri_000\AndroidStudioProjects\BunnyWarcry Final\app\build\intermediates\pre-dexed\debug\classes-aa8cd7a57436a590cc5542e143d59405eb8bc397.jar" />
+        <dex dex="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/pre-dexed/debug/classes-aa0197cdedb074a22c857feed0803c416c3c6750.jar" />
+    </item>
+    <item
+        jar="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/exploded-aar/bunny_warcry/andEngine/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="83d895184673c3ab67cb6939a8827e801b96778c">
+        <dex dex="/Users/UAMI/Desktop/bunny_warcry/app/build/intermediates/pre-dexed/debug/classes-2768688947c45f5d71c263307fb94fa2628db722.jar" />
     </item>
 
 </items>

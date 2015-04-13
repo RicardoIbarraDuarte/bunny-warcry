@@ -65,11 +65,7 @@ public class EscenaGameover extends EscenaBase
 
     @Override
     public void liberarEscena() {
-        // Liberar cada recurso usado en esta escena
-        spriteFondo.detachSelf();   // Se desconecta de la escena
-        spriteFondo.dispose();      // Libera la memoria
-
         this.detachSelf();      // La escena se deconecta del engine
-        this.dispose();         // Libera la memoria
+        this.dispose();
     }
 }

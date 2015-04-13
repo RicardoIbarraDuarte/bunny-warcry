@@ -185,4 +185,17 @@ public class AdministradorEscenas
         escenaGameover = null;
     }
 
+    public void crearEscenaExperiencia() {
+        // Carga los recursos
+        admRecursos.cargarRecursosExperiencia();
+        escenaExperiencia = new EscenaExperiencia();
+    }
+
+    //*** Libera la escena de juego game over
+    public void liberarEscenaExperiencia() {
+        admRecursos.liberarRecursosExperiencia();
+        escenaExperiencia.liberarEscena();
+        escenaExperiencia = null;
+    }
+
 }

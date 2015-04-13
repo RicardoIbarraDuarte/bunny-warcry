@@ -18,6 +18,7 @@ public class EnemigoHamster {
     private Sprite enemigo;
     public int radioImagen=54;
     private boolean stalker=false;
+    public int vida;
 
 
     public Sprite getEnemigo() {
@@ -37,6 +38,7 @@ public class EnemigoHamster {
         direccionAnterior=direccion;
         posicionX = (int)((Math.random() * 539) + 159);
         posicionY = (int)((Math.random() * 549) + 179);
+        vida=2;
 
     }
 
@@ -44,7 +46,7 @@ public class EnemigoHamster {
         enemigo.setPosition(posicionX, posicionY);
         enemigo.setScale(.4f);
     }
-    public void movimientoEnemigo(Sprite personaje){
+    public void movimientoEnemigo(){
 
             if (direccion == 1) {
                 float enemigoX = enemigo.getX();

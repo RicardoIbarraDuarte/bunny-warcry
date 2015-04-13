@@ -12,8 +12,13 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 public class Personaje {
     private Sprite personaje;
     public float velocidadPersonaje = 10;
+    public int vidaTotal=3;
+    public int vida;
+    public int vidaA;
+    public int fuerza;
     public int direccion;
     public int direcAnte;
+    public float experiencia;
     private Sprite[] imgsPersonaje;
     public int radioImagen;
     private AnimatedSprite[] pataque;
@@ -74,6 +79,9 @@ public class Personaje {
 
         direccion = 0;
         direcAnte = 0;
+        vida=vidaTotal;
+        vidaA=vida;
+        fuerza=1;
 
     }
     public void crearPersonajeAtacando(float x, float y, TiledTextureRegion[] regionAtaques,
@@ -185,9 +193,11 @@ public class Personaje {
         }
     }
 
-    public void liberar(){
-        personaje.detachSelf();   // Se desconecta de la escena
-        personaje.dispose();      // Libera la memoria
+    public void setVida(){
+        vidaTotal=vidaTotal+1;
+    }
+    public float getExperiencia(){
+        return experiencia;
     }
 
 }

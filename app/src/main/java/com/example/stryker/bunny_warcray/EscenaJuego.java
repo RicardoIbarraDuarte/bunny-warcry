@@ -1,7 +1,5 @@
 package com.example.stryker.bunny_warcray;
 
-import android.util.Log;
-
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
@@ -21,9 +19,15 @@ public class EscenaJuego extends EscenaBase
     private boolean Enemigo1Vivo = true;
     private boolean Enemigo2Vivo = true;
     private boolean Enemigo3Vivo = true;
+    private boolean Enemigo4Vivo = true;
+    private boolean Enemigo5Vivo = true;
+    private boolean Enemigo6Vivo = true;
     private Enemigo Enemigo1;
     private Enemigo Enemigo2;
     private Enemigo Enemigo3;
+    private Enemigo Enemigo4;
+    private Enemigo Enemigo5;
+    private Enemigo Enemigo6;
     private Personaje personaje;
     private DigitalOnScreenControl control;
     private ITextureRegion[] regionesPersonaje;
@@ -39,6 +43,7 @@ public class EscenaJuego extends EscenaBase
     private float anchoVida;
     private float enemigosVivos;
     private int tipoNivel;
+    private boolean faseDos =false;
 
     @Override
     public void crearEscena() {
@@ -98,7 +103,7 @@ public class EscenaJuego extends EscenaBase
         attachChild(btnAtacar);
 
         //Creamos el nivel aleatorio y los enemigos
-        tipoNivel = 2; //(int)((Math.random() * 4) + 1);
+        tipoNivel = 1; //(int)((Math.random() * 4) + 1);
         generadorDenivel();
 
         registerUpdateHandler(new IUpdateHandler() {
@@ -118,6 +123,7 @@ public class EscenaJuego extends EscenaBase
                     ataqueA=false;
                 }
                 comprobarColission();
+                comprobarFase2();
                 if (dañado){
                     tiempoDaño=pSecondsElapsed+tiempoDaño;
                 }
@@ -218,70 +224,142 @@ public class EscenaJuego extends EscenaBase
     }
     public void comprobarColission() {
         if (tipoNivel==1) {
-            float ex1 = Enemigo1.getEnemigo().getX();
-            float ex2 = Enemigo2.getEnemigo().getX();
-            float ex3 = Enemigo3.getEnemigo().getX();
-            float ey1 = Enemigo1.getEnemigo().getY();
-            float ey2 = Enemigo2.getEnemigo().getY();
-            float ey3 = Enemigo3.getEnemigo().getY();
-            float px = personaje.getPersonaje().getX();
-            float py = personaje.getPersonaje().getY();
+            if (!faseDos) {
+                float ex1 = Enemigo1.getEnemigo().getX();
+                float ex2 = Enemigo2.getEnemigo().getX();
+                float ex3 = Enemigo3.getEnemigo().getX();
+                float ey1 = Enemigo1.getEnemigo().getY();
+                float ey2 = Enemigo2.getEnemigo().getY();
+                float ey3 = Enemigo3.getEnemigo().getY();
+                float px = personaje.getPersonaje().getX();
+                float py = personaje.getPersonaje().getY();
 
-            if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
-                    < (Enemigo1.radioImagen + personaje.radioImagen) * (Enemigo1.radioImagen +
-                    personaje.radioImagen) && Enemigo1Vivo) {
-                if (ataque) {
-                    Enemigo1.vida=Enemigo1.vida-personaje.fuerza;
-                    if (Enemigo1.vida<=0) {
-                        Enemigo1.getEnemigo().detachSelf();
-                        Enemigo1Vivo = false;
-                        enemigosVivos = enemigosVivos - 1;
-                    }
-                } else {
-                    if (!dañado) {
-                        personaje.setPersonaje(4);
-                        attachChild(personaje.getPersonaje());
-                        dañado = true;
-                    }
+                if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
+                        < (Enemigo1.radioImagen + personaje.radioImagen) * (Enemigo1.radioImagen +
+                        personaje.radioImagen) && Enemigo1Vivo) {
+                    if (ataque) {
+                        Enemigo1.vida = Enemigo1.vida - personaje.fuerza;
+                        if (Enemigo1.vida <= 0) {
+                            Enemigo1.getEnemigo().detachSelf();
+                            Enemigo1Vivo = false;
+                            enemigosVivos = enemigosVivos - 1;
+                        }
+                    } else {
+                        if (!dañado) {
+                            personaje.setPersonaje(4);
+                            attachChild(personaje.getPersonaje());
+                            dañado = true;
+                        }
 
+                    }
+                }
+                if (((ex2 - px) * (ex2 - px)) + ((ey2 - py) * (ey2 - py))
+                        < (Enemigo2.radioImagen + personaje.radioImagen) * (Enemigo2.radioImagen +
+                        personaje.radioImagen) && Enemigo2Vivo) {
+                    if (ataque) {
+                        Enemigo2.vida = Enemigo2.vida - personaje.fuerza;
+                        if (Enemigo2.vida <= 0) {
+                            Enemigo2.getEnemigo().detachSelf();
+                            Enemigo2Vivo = false;
+                            enemigosVivos = enemigosVivos - 1;
+                        }
+                    } else {
+                        if (!dañado) {
+                            personaje.setPersonaje(4);
+                            attachChild(personaje.getPersonaje());
+                            dañado = true;
+                        }
+
+                    }
+                }
+                if (((ex3 - px) * (ex3 - px)) + ((ey3 - py) * (ey3 - py))
+                        < (Enemigo3.radioImagen + personaje.radioImagen) * (Enemigo3.radioImagen +
+                        personaje.radioImagen) && Enemigo3Vivo) {
+                    if (ataque) {
+                        Enemigo3.vida = Enemigo3.vida - personaje.fuerza;
+                        if (Enemigo3.vida <= 0) {
+                            Enemigo3.getEnemigo().detachSelf();
+                            Enemigo3Vivo = false;
+                            enemigosVivos = enemigosVivos - 1;
+                        }
+                    } else {
+                        if (!dañado) {
+                            personaje.setPersonaje(4);
+                            attachChild(personaje.getPersonaje());
+                            dañado = true;
+                        }
+
+                    }
                 }
             }
-            if (((ex2 - px) * (ex2 - px)) + ((ey2 - py) * (ey2 - py))
-                    < (Enemigo2.radioImagen + personaje.radioImagen) * (Enemigo2.radioImagen +
-                    personaje.radioImagen) && Enemigo2Vivo) {
-                if (ataque) {
-                    Enemigo2.vida=Enemigo2.vida-personaje.fuerza;
-                    if (Enemigo2.vida<=0) {
-                        Enemigo2.getEnemigo().detachSelf();
-                        Enemigo2Vivo = false;
-                        enemigosVivos = enemigosVivos - 1;
-                    }
-                } else {
-                    if (!dañado) {
-                        personaje.setPersonaje(4);
-                        attachChild(personaje.getPersonaje());
-                        dañado = true;
-                    }
+            if (faseDos){
+                float ex4 = Enemigo4.getEnemigo().getX();
+                float ex5 = Enemigo5.getEnemigo().getX();
+                float ex6 = Enemigo6.getEnemigo().getX();
+                float ey4 = Enemigo4.getEnemigo().getY();
+                float ey5 = Enemigo5.getEnemigo().getY();
+                float ey6 = Enemigo6.getEnemigo().getY();
+                float px = personaje.getPersonaje().getX();
+                float py = personaje.getPersonaje().getY();
 
+
+
+                if (((ex4 - px) * (ex4 - px)) + ((ey4 - py) * (ey4 - py))
+                        < (Enemigo4.radioImagen + personaje.radioImagen) * (Enemigo4.radioImagen +
+                        personaje.radioImagen) && Enemigo4Vivo) {
+                    if (ataque) {
+                        Enemigo4.vida=Enemigo4.vida-personaje.fuerza;
+                        if (Enemigo4.vida<=0) {
+                            Enemigo4.getEnemigo().detachSelf();
+                            Enemigo4Vivo = false;
+                            enemigosVivos = enemigosVivos - 1;
+                        }
+                    } else {
+                        if (!dañado) {
+                            personaje.setPersonaje(4);
+                            attachChild(personaje.getPersonaje());
+                            dañado = true;
+                        }
+
+                    }
                 }
-            }
-            if (((ex3 - px) * (ex3 - px)) + ((ey3 - py) * (ey3 - py))
-                    < (Enemigo3.radioImagen + personaje.radioImagen) * (Enemigo3.radioImagen +
-                    personaje.radioImagen) && Enemigo3Vivo) {
-                if (ataque) {
-                    Enemigo3.vida=Enemigo3.vida-personaje.fuerza;
-                    if (Enemigo3.vida<=0) {
-                        Enemigo3.getEnemigo().detachSelf();
-                        Enemigo3Vivo = false;
-                        enemigosVivos = enemigosVivos - 1;
-                    }
-                } else {
-                    if (!dañado) {
-                        personaje.setPersonaje(4);
-                        attachChild(personaje.getPersonaje());
-                        dañado = true;
-                    }
+                if (((ex5 - px) * (ex5 - px)) + ((ey5 - py) * (ey5 - py))
+                        < (Enemigo5.radioImagen + personaje.radioImagen) * (Enemigo5.radioImagen +
+                        personaje.radioImagen) && Enemigo5Vivo) {
+                    if (ataque) {
+                        Enemigo5.vida=Enemigo5.vida-personaje.fuerza;
+                        if (Enemigo5.vida<=0) {
+                            Enemigo5.getEnemigo().detachSelf();
+                            Enemigo5Vivo = false;
+                            enemigosVivos = enemigosVivos - 1;
+                        }
+                    } else {
+                        if (!dañado) {
+                            personaje.setPersonaje(4);
+                            attachChild(personaje.getPersonaje());
+                            dañado = true;
+                        }
 
+                    }
+                }
+                if (((ex6 - px) * (ex6 - px)) + ((ey6 - py) * (ey6 - py))
+                        < (Enemigo6.radioImagen + personaje.radioImagen) * (Enemigo6.radioImagen +
+                        personaje.radioImagen) && Enemigo6Vivo) {
+                    if (ataque) {
+                        Enemigo6.vida=Enemigo6.vida-personaje.fuerza;
+                        if (Enemigo6.vida<=0) {
+                            Enemigo6.getEnemigo().detachSelf();
+                            Enemigo6Vivo = false;
+                            enemigosVivos = enemigosVivos - 1;
+                        }
+                    } else {
+                        if (!dañado) {
+                            personaje.setPersonaje(4);
+                            attachChild(personaje.getPersonaje());
+                            dañado = true;
+                        }
+
+                    }
                 }
             }
         }
@@ -316,16 +394,19 @@ public class EscenaJuego extends EscenaBase
             Enemigo2.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
             Enemigo3 = new EnemigoHamster();
             Enemigo3.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+
             Enemigo1.dibujarEnemigo();
             Enemigo2.dibujarEnemigo();
             Enemigo3.dibujarEnemigo();
+
             attachChild(Enemigo1.getEnemigo());
             attachChild(Enemigo2.getEnemigo());
             attachChild(Enemigo3.getEnemigo());
-            enemigosVivos=3;
+            enemigosVivos=6;
+
         }
         if (tipoNivel==2){
-            Enemigo1 = new Perro();
+            Enemigo1 = new EnemigoHamster();
             Enemigo2 = new EnemigoHamster();
             Enemigo1.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
             Enemigo2.crearEnemigo(0, 0, admRecursos.regionPerro, admRecursos.vbom);
@@ -342,6 +423,11 @@ public class EscenaJuego extends EscenaBase
             Enemigo1.movimientoEnemigo();
             Enemigo2.movimientoEnemigo();
             Enemigo3.movimientoEnemigo();
+            if (faseDos) {
+                Enemigo4.movimientoEnemigo();
+                Enemigo5.movimientoEnemigo();
+                Enemigo6.movimientoEnemigo();
+            }
         }
         if (tipoNivel==2){
             Enemigo1.movimientoEnemigo();
@@ -376,6 +462,27 @@ public class EscenaJuego extends EscenaBase
             barraVida.setAnchorCenterX(0);
             attachChild(barraVida);
             personaje.vidaA=personaje.vida;
+        }
+    }
+    public void comprobarFase2(){
+        if (tipoNivel==1) {
+            if (!faseDos) {
+                if (enemigosVivos == 3) {
+                    Enemigo4 = new EnemigoHamster();
+                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+                    Enemigo5 = new EnemigoHamster();
+                    Enemigo5.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+                    Enemigo6 = new EnemigoHamster();
+                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+                    Enemigo4.dibujarEnemigo();
+                    Enemigo5.dibujarEnemigo();
+                    Enemigo6.dibujarEnemigo();
+                    attachChild(Enemigo4.getEnemigo());
+                    attachChild(Enemigo5.getEnemigo());
+                    attachChild(Enemigo6.getEnemigo());
+                    faseDos=true;
+                }
+            }
         }
     }
 }

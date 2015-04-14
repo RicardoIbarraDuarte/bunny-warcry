@@ -40,7 +40,7 @@ public class EnemigoHamster extends Enemigo {
         enemigo.setScale(.4f);
     }
     public void movimientoEnemigo(){
-        Log.i("movimientoenemigos", "caminando "+direccion);
+
 
             if (direccion == 1) {
                 float enemigoX = enemigo.getX();

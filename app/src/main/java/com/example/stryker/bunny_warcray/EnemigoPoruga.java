@@ -1,7 +1,5 @@
 package com.example.stryker.bunny_warcray;
 
-import android.util.Log;
-
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
@@ -9,11 +7,16 @@ import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 
-public class EnemigoHamster extends Enemigo {
+public class EnemigoPoruga extends Enemigo {
 
     private int direccion;
     private int direccionAnterior;
     private int tiempo = 0;
+    private int tiempoAtaque = 0;
+    private boolean ataqueInicio=true;
+    private float xinicial;
+    private float yinicial;
+
 
     public void crearEnemigo(float x, float y, ITextureRegion regionEnemigo,
                              VertexBufferObjectManager vbom){
@@ -24,6 +27,7 @@ public class EnemigoHamster extends Enemigo {
                 pGLState.enableDither();
             }
         };
+
         direccion = (int)((Math.random() * 4) + 1);
         direccionAnterior=direccion;
         posicionX = (int)((Math.random() * 539) + 159);

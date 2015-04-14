@@ -16,6 +16,11 @@ public class AdministradorEscenas
     private EscenaBase escenaMenu;
     private EscenaBase escenaAcercaDe;
     private EscenaBase escenaJuego;
+    private EscenaBase escenaJuego1;
+    private EscenaBase escenaJuego2;
+    private EscenaBase escenaJuego3;
+    private EscenaBase escenaJuego4;
+    private EscenaBase escenaJuego0;
     private EscenaBase escenaCreditos;
     private EscenaBase escenaExperiencia;
     private EscenaBase escenaGameover;
@@ -85,6 +90,22 @@ public class AdministradorEscenas
             case ESCENA_NIVELES:
                 setEscenaBase(escenaNiveles);
                 break;
+            case ESCENA_JUEGO1:
+                setEscenaBase(escenaJuego1);
+                break;
+            case ESCENA_JUEGO2:
+                setEscenaBase(escenaJuego2);
+                break;
+            case ESCENA_JUEGO3:
+                setEscenaBase(escenaJuego3);
+                break;
+            case ESCENA_JUEGO4:
+                setEscenaBase(escenaJuego4);
+                break;
+            case ESCENA_JUEGO0:
+                setEscenaBase(escenaJuego0);
+                break;
+
         }
     }
 
@@ -152,6 +173,71 @@ public class AdministradorEscenas
 
     //*** Libera la escena de juego
     public void liberarEscenaJuego() {
+        admRecursos.liberarRecursosJuego();
+        escenaJuego.liberarEscena();
+        escenaJuego = null;
+    }
+
+    public void crearEscenaJuego1() {
+        // Carga los recursos
+        admRecursos.cargarRecursosJuego();
+        escenaJuego = new EscenaJuego();
+    }
+
+    //*** Libera la escena de juego
+    public void liberarEscenaJuego1() {
+        admRecursos.liberarRecursosJuego();
+        escenaJuego.liberarEscena();
+        escenaJuego = null;
+    }
+
+    public void crearEscenaJuego2() {
+        // Carga los recursos
+        admRecursos.cargarRecursosJuego();
+        escenaJuego = new EscenaJuego();
+    }
+
+    //*** Libera la escena de juego
+    public void liberarEscenaJuego2() {
+        admRecursos.liberarRecursosJuego();
+        escenaJuego.liberarEscena();
+        escenaJuego = null;
+    }
+
+    public void crearEscenaJuego3() {
+        // Carga los recursos
+        admRecursos.cargarRecursosJuego();
+        escenaJuego = new EscenaJuego();
+    }
+
+    //*** Libera la escena de juego
+    public void liberarEscenaJuego3() {
+        admRecursos.liberarRecursosJuego();
+        escenaJuego.liberarEscena();
+        escenaJuego = null;
+    }
+
+    public void crearEscenaJuego4() {
+        // Carga los recursos
+        admRecursos.cargarRecursosJuego();
+        escenaJuego = new EscenaJuego();
+    }
+
+    //*** Libera la escena de juego
+    public void liberarEscenaJuego4() {
+        admRecursos.liberarRecursosJuego();
+        escenaJuego.liberarEscena();
+        escenaJuego = null;
+    }
+
+    public void crearEscenaJuego0() {
+        // Carga los recursos
+        admRecursos.cargarRecursosJuego();
+        escenaJuego = new EscenaJuego();
+    }
+
+    //*** Libera la escena de juego
+    public void liberarEscenaJuego0() {
         admRecursos.liberarRecursosJuego();
         escenaJuego.liberarEscena();
         escenaJuego = null;

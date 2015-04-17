@@ -15,6 +15,7 @@ public class Enemigo {
     public float velocidad;
     public int fuerza;
     public int radioImagen;
+    public int radioImagenProyectil;
 
     public void crearEnemigo(float x, float y, ITextureRegion regionEnemigo,
                              VertexBufferObjectManager vbom){

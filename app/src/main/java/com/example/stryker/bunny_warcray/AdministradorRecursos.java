@@ -92,6 +92,12 @@ public class
     public TiledTextureRegion regionHamsterDerecha;
     public TiledTextureRegion[] regionesHamster;
 
+    private BuildableBitmapTextureAtlas texturaGuamomi;
+    public TiledTextureRegion regionGuamomi;
+    private ITexture texturaLagrimas;
+    public ITextureRegion regionLagrimas;
+    public TiledTextureRegion[] regionesGuamomi;
+
 
 
     // Escena Acerca de (imagen estática)
@@ -256,6 +262,22 @@ public class
     public void liberarRecursosJuego1() {
         liberarPersonaje();
         liberarEnemigos(1);
+        liberarUI();
+
+    }
+
+    public void cargarRecursosJuego2() {
+        cargarPersonajeAtacando();
+        cargarPersonajeCaminando();
+        cargarUI(1);
+        cargaEnemigos(2);
+
+
+
+    }
+    public void liberarRecursosJuego2() {
+        liberarPersonaje();
+        liberarEnemigos(2);
         liberarUI();
 
     }
@@ -966,6 +988,32 @@ public class
 
 
         if (x==2 || x==3 || x==4){
+            texturaGuamomi = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1600,389);
+            regionGuamomi = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaGuamomi,actividadJuego, "Enemigos/Guamomi/SpriteSheetGuamominormal.png",4,1);
+            try {
+                texturaGuamomi.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaGuamomi.load();
+
+            regionesGuamomi = new TiledTextureRegion[]{regionGuamomi};
+
+            try {
+                texturaLagrimas = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                        actividadJuego.getAssets(), "Enemigos/Guamomi/LagrimasGuamomi.png");
+                regionLagrimas = TextureRegionFactory.extractFromTexture(texturaLagrimas);
+                texturaLagrimas.load();
+            } catch (IOException e) {
+                Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
+            }
+
+
+
+
 
         }
         if (x==3 || x==4){

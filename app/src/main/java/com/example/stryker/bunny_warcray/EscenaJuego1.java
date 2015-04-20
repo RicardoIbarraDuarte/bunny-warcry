@@ -174,7 +174,7 @@ public class EscenaJuego1 extends EscenaBase
     public void onBackKeyPressed() {
         admEscenas.crearEscenaMenu();
         admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaJuego();
+        admEscenas.liberarEscenaJuego1();
 
     }
     public void agregarJoystick() {
@@ -409,7 +409,7 @@ public class EscenaJuego1 extends EscenaBase
         }
         if (enemigosVivos==0){
             if (tipoNivel==1) {
-                experienciaGanada=10;
+                experienciaGanada=60;
                 SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
                         "personaje", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencias.edit();

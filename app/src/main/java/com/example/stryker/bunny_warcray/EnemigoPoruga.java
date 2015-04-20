@@ -7,7 +7,7 @@ import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 
-public class EnemigoPoruga extends Enemigo {
+/*public class EnemigoPoruga extends Enemigo {
 
     private int direccion;
     private int direccionAnterior;
@@ -98,3 +98,4 @@ public class EnemigoPoruga extends Enemigo {
         }
 
 }
+*/

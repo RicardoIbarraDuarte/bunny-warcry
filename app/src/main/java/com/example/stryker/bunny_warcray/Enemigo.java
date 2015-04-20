@@ -1,7 +1,9 @@
 package com.example.stryker.bunny_warcray;
 
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 /**
@@ -10,14 +12,17 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 public class Enemigo {
     public int posicionX;
     public int posicionY;
-    public Sprite enemigo;
+    public AnimatedSprite enemigo;
     public int vida;
     public float velocidad;
     public int fuerza;
     public int radioImagen;
     public int radioImagenProyectil;
+    public int direccion;
+    public int direccionAnterior;
+    public boolean dibujar=false;
 
-    public void crearEnemigo(float x, float y, ITextureRegion regionEnemigo,
+    public void crearEnemigo(float x, float y, TiledTextureRegion[] regionHamster ,
                              VertexBufferObjectManager vbom){
 
     }

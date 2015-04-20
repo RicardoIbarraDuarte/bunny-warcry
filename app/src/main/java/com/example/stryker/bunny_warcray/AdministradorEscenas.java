@@ -180,15 +180,15 @@ public class AdministradorEscenas
 
     public void crearEscenaJuego1() {
         // Carga los recursos
-        admRecursos.cargarRecursosJuego();
-        escenaJuego = new EscenaJuego();
+        admRecursos.cargarRecursosJuego1();
+        escenaJuego1 = new EscenaJuego1();
     }
 
     //*** Libera la escena de juego
     public void liberarEscenaJuego1() {
-        admRecursos.liberarRecursosJuego();
-        escenaJuego.liberarEscena();
-        escenaJuego = null;
+        admRecursos.liberarRecursosJuego1();
+        escenaJuego1.liberarEscena();
+        escenaJuego1 = null;
     }
 
     public void crearEscenaJuego2() {

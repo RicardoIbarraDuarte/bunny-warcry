@@ -12,7 +12,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
-
+/*
 public class EscenaJuego2 extends EscenaBase
 {
 
@@ -52,8 +52,14 @@ public class EscenaJuego2 extends EscenaBase
     private float xinicial;
     private float yinicial;
     private int tiempoAtaqueEspera=100;
-    private int tiempoAtaqueEnemigo=0;
-    private boolean proyectilesvivos=false;
+    private int tiempoAtaquelagrima1=0;
+    private int tiempoAtaquelagrima2=0;
+    private int tiempoAtaquelagrima3=0;
+    private int tiempoAtaquelagrima4=0;
+    private boolean lagrima1viva=false;
+    private boolean lagrima2viva=false;
+    private boolean lagrima3viva=false;
+    private boolean lagrima4viva=false;
 
     @Override
     public void crearEscena() {
@@ -271,7 +277,7 @@ public class EscenaJuego2 extends EscenaBase
                 }
                 if (((pr1x - px) * (pr1x - px)) + ((pr1y - py) * (pr1y - py))
                         < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo1Vivo &&proyectilesvivos) {
+                        personaje.radioImagen) && Enemigo1Vivo &&lagrima1viva) {
                     if (!dañado) {
                         personaje.setPersonaje(4);
                         attachChild(personaje.getPersonaje());
@@ -282,7 +288,7 @@ public class EscenaJuego2 extends EscenaBase
                 }
                 if (((pr2x - px) * (pr2x - px)) + ((pr2y - py) * (pr2y - py))
                         < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo1Vivo &&proyectilesvivos) {
+                        personaje.radioImagen) && Enemigo1Vivo &&lagrima2viva) {
                     if (!dañado) {
                         personaje.setPersonaje(4);
                         attachChild(personaje.getPersonaje());
@@ -293,7 +299,7 @@ public class EscenaJuego2 extends EscenaBase
                 }
                 if (((pr3x - px) * (pr3x - px)) + ((pr3y - py) * (pr3y - py))
                         < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo1Vivo &&proyectilesvivos) {
+                        personaje.radioImagen) && Enemigo1Vivo &&lagrima3viva) {
                     if (!dañado) {
                         personaje.setPersonaje(4);
                         attachChild(personaje.getPersonaje());
@@ -304,7 +310,7 @@ public class EscenaJuego2 extends EscenaBase
                 }
                 if (((pr4x - px) * (pr4x - px)) + ((pr4y - py) * (pr4y - py))
                         < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo1Vivo &&proyectilesvivos) {
+                        personaje.radioImagen) && Enemigo1Vivo &&lagrima4viva) {
                     if (!dañado) {
                         personaje.setPersonaje(4);
                         attachChild(personaje.getPersonaje());
@@ -412,7 +418,7 @@ public class EscenaJuego2 extends EscenaBase
         if (tipoNivel==1) {
 
             Enemigo1= new EnemigoGua();
-            Enemigo1.crearEnemigo(0,0,admRecursos.regionPerro,admRecursos.vbom);
+//            Enemigo1.crearEnemigo(0,0,guamomi,admRecursos.vbom);
             Enemigo1.dibujarEnemigo();
             attachChild(Enemigo1.getEnemigo());
             lagrima1= new Sprite(0,0,admRecursos.regionBotonControl,admRecursos.vbom) {
@@ -422,14 +428,14 @@ public class EscenaJuego2 extends EscenaBase
                     pGLState.enableDither();
                 }
             };
-             lagrima2= new Sprite(0,0,admRecursos.regionBotonControl,admRecursos.vbom) {
+            lagrima2= new Sprite(0,0,admRecursos.regionBotonControl,admRecursos.vbom) {
                 @Override
                 protected void preDraw(GLState pGLState, Camera pCamera) {
                     super.preDraw(pGLState, pCamera);
                     pGLState.enableDither();
                 }
             };
-             lagrima3= new Sprite(0,0,admRecursos.regionBotonControl,admRecursos.vbom) {
+            lagrima3= new Sprite(0,0,admRecursos.regionBotonControl,admRecursos.vbom) {
                 @Override
                 protected void preDraw(GLState pGLState, Camera pCamera) {
                     super.preDraw(pGLState, pCamera);
@@ -443,7 +449,7 @@ public class EscenaJuego2 extends EscenaBase
                     pGLState.enableDither();
                 }
             };
-            enemigosVivos=1;
+            enemigosVivos=4;
 
 
         }
@@ -500,11 +506,11 @@ public class EscenaJuego2 extends EscenaBase
             if (!faseDos) {
                 if (enemigosVivos == 3) {
                     Enemigo4 = new EnemigoHamster();
-                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+              //      Enemigo4.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo5 = new EnemigoHamster();
-                    Enemigo5.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+              //      Enemigo5.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo6 = new EnemigoHamster();
-                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+               //     Enemigo6.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo4.dibujarEnemigo();
                     Enemigo5.dibujarEnemigo();
                     Enemigo6.dibujarEnemigo();
@@ -523,12 +529,77 @@ public class EscenaJuego2 extends EscenaBase
 
     }
     public void ataqueGuamomi(){
-        float x = Enemigo1.getEnemigo().getX();
-        float y = Enemigo1.getEnemigo().getY();
-        lagrima1.setX(x);
-        lagrima1.setY(y);
+        if (tiempoAtaquelagrima1==60){
+            float x = Enemigo1.getEnemigo().getX();
+            float y = Enemigo1.getEnemigo().getY();
+            lagrima1.setX(x);
+            lagrima1.setY(y);
+            attachChild(lagrima1);
+            lagrima1viva=true;
+
+        }
+        if (tiempoAtaquelagrima1==100){
+            detachChild(lagrima1);
+            lagrima1.detachSelf();
+            lagrima1viva=false;
+            tiempoAtaquelagrima1=0;
+        }
+        if (tiempoAtaquelagrima2==80){
+            float x = Enemigo1.getEnemigo().getX();
+            float y = Enemigo1.getEnemigo().getY();
+            lagrima2.setX(x);
+            lagrima2.setY(y);
+            attachChild(lagrima2);
+            lagrima2viva=true;
+
+        }
+        if (tiempoAtaquelagrima2==140){
+            detachChild(lagrima2);
+            lagrima2.detachSelf();
+            lagrima2viva=false;
+            tiempoAtaquelagrima2=0;
+        }
+        if (tiempoAtaquelagrima3==100){
+            float x = Enemigo1.getEnemigo().getX();
+            float y = Enemigo1.getEnemigo().getY();
+            lagrima3.setX(x);
+            lagrima3.setY(y);
+            attachChild(lagrima3);
+            lagrima3viva=true;
+
+        }
+        if (tiempoAtaquelagrima3==180){
+            detachChild(lagrima3);
+            lagrima3.detachSelf();
+            lagrima3viva=false;
+            tiempoAtaquelagrima3=0;
+        }
+        if (tiempoAtaquelagrima4==120){
+            float x = Enemigo1.getEnemigo().getX();
+            float y = Enemigo1.getEnemigo().getY();
+            lagrima4.setX(x);
+            lagrima4.setY(y);
+            attachChild(lagrima4);
+            lagrima4viva=true;
+
+        }
+        if (tiempoAtaquelagrima4==220){
+            detachChild(lagrima4);
+            lagrima4.detachSelf();
+            lagrima4viva=false;
+            tiempoAtaquelagrima4=0;
+        }
+
+        tiempoAtaquelagrima1++;
+        tiempoAtaquelagrima2++;
+        tiempoAtaquelagrima3++;
+        tiempoAtaquelagrima4++;
+
+
+
 
 
 
     }
 }
+*/

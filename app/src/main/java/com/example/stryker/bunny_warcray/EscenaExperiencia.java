@@ -3,12 +3,19 @@ package com.example.stryker.bunny_warcray;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.texture.ITexture;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.util.GLState;
+import org.andengine.util.adt.align.HorizontalAlign;
 
 public class EscenaExperiencia extends EscenaBase{
     // *** Fondo
@@ -31,8 +38,7 @@ public class EscenaExperiencia extends EscenaBase{
     private ButtonSprite btnBarraV;
     private ButtonSprite btnBarraVi;
     private ButtonSprite btnBarraL;
-
-
+    private Text txtPuntos;
 
 
     @Override
@@ -77,6 +83,7 @@ public class EscenaExperiencia extends EscenaBase{
         dibujarBarras();
         crearBotones();
         activarBotones();
+        crearPuntosTexto();
 
     }
 
@@ -436,6 +443,8 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Fuerza", fuerza);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
+                        detachChild(txtPuntos);
+                        crearPuntosTexto();
 
 
                     }
@@ -466,6 +475,8 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Velocidad", velocidad);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
+                        detachChild(txtPuntos);
+                        crearPuntosTexto();
                     }
 
                 }
@@ -493,6 +504,8 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Vida", vida);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
+                        detachChild(txtPuntos);
+                        crearPuntosTexto();
                     }
 
                 }
@@ -520,6 +533,8 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Laser", laser);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
+                        detachChild(txtPuntos);
+                        crearPuntosTexto();
                     }
 
                 }
@@ -538,6 +553,21 @@ public class EscenaExperiencia extends EscenaBase{
         attachChild(btnBarraVi);
         registerTouchArea(btnBarraL);
         attachChild(btnBarraL);
+
+    }
+    public void crearPuntosTexto(){
+        final ITexture fontTexture = new BitmapTextureAtlas(admRecursos.engine.getTextureManager(),1024,1024);
+
+        Font tipoLetra = FontFactory.createFromAsset(admRecursos.engine.getFontManager(),
+                fontTexture, admRecursos.actividadJuego.getAssets(), "Chalkboard.ttc", 30, true, 0xFFFFFFFF);
+        tipoLetra.load();
+        tipoLetra.prepareLetters("PuntosDisponibles: 0123456789".toCharArray());
+
+
+        Font tipo = tipoLetra;
+        txtPuntos = new Text(840,600,
+                tipo,"PuntosDisponibles: "+ puntosDisponibles,25,admRecursos.engine.getVertexBufferObjectManager());
+        attachChild(txtPuntos);
 
     }
 }

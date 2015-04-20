@@ -397,6 +397,12 @@ public class
         // botón jugar
         btaBtnJugar.unload();
         regionBtnJugar = null;
+        btaBtnAcerca.unload();
+        regionBtnAcerca = null;
+        btaBtnOpciones.unload();
+        regionBtnOpciones = null;
+        btaBtnCreditos.unload();
+        regionBtnCreditos = null;
     }
 
     public void cargarRecursosOpciones() {
@@ -459,11 +465,7 @@ public class
     }
     public void liberarRecursosOpciones() {
         // Fondo
-        texturaMenu.unload();
-        regionMenu = null;
-        // botón jugar
-        btaBtnJugar.unload();
-        regionBtnJugar = null;
+
     }
 
     public void cargarRecursosNiveles() {

@@ -12,7 +12,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
-
+/*
 public class EscenaJuego4 extends EscenaBase
 {
 
@@ -389,11 +389,11 @@ public class EscenaJuego4 extends EscenaBase
         if (tipoNivel==1) {
 
             Enemigo1 = new EnemigoHamster();
-            Enemigo1.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+            Enemigo1.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
             Enemigo2 = new EnemigoHamster();
-            Enemigo2.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+            Enemigo2.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
             Enemigo3 = new EnemigoHamster();
-            Enemigo3.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+            Enemigo3.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
 
             Enemigo1.dibujarEnemigo();
             Enemigo2.dibujarEnemigo();
@@ -408,8 +408,8 @@ public class EscenaJuego4 extends EscenaBase
         if (tipoNivel==2){
             Enemigo1 = new EnemigoHamster();
             Enemigo2 = new EnemigoHamster();
-            Enemigo1.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
-            Enemigo2.crearEnemigo(0, 0, admRecursos.regionPerro, admRecursos.vbom);
+            Enemigo1.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
+            Enemigo2.crearEnemigo(0, 0, admRecursos.regionHamstercreepy, admRecursos.vbom);
             Enemigo1.dibujarEnemigo();
             Enemigo2.dibujarEnemigo();
             attachChild(Enemigo1.getEnemigo());
@@ -469,11 +469,11 @@ public class EscenaJuego4 extends EscenaBase
             if (!faseDos) {
                 if (enemigosVivos == 3) {
                     Enemigo4 = new EnemigoHamster();
-                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo5 = new EnemigoHamster();
-                    Enemigo5.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+                    Enemigo5.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo6 = new EnemigoHamster();
-                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionEnemigo, admRecursos.vbom);
+                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo4.dibujarEnemigo();
                     Enemigo5.dibujarEnemigo();
                     Enemigo6.dibujarEnemigo();
@@ -487,3 +487,4 @@ public class EscenaJuego4 extends EscenaBase
     }
 }
 
+*/

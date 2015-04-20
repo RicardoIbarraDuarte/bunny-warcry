@@ -10,7 +10,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 
 public class Personaje {
-    private Sprite personaje;
+    private AnimatedSprite personaje;
     public float velocidadPersonaje = 10;
     public int vidaTotal=3;
     public int vida;
@@ -19,59 +19,39 @@ public class Personaje {
     public int direccion;
     public int direcAnte;
     public float experiencia;
-    private Sprite[] imgsPersonaje;
+    private AnimatedSprite[] imgsPersonaje;
+    private AnimatedSprite[] imgsPersonajeQuieto;
     public int radioImagen;
     private AnimatedSprite[] pataque;
-    private AnimatedSprite personajeAtacando;
+    public boolean quieto=true;
+    private int fps=80;
 
-    public Sprite getPersonaje() {
+    public AnimatedSprite getPersonaje() {
             return personaje;
     }
-    public AnimatedSprite getPersonajeAtacando(){
-        return personajeAtacando;
-    }
 
-    public void crearPersonaje(float x, float y, ITextureRegion[] regionPersonaje,
+    public void crearPersonaje(float x, float y, TiledTextureRegion[] regionPersonaje,
                                VertexBufferObjectManager vbom){
-        Sprite personajeFrente = new Sprite(0,0,regionPersonaje[0],vbom) {
-            @Override
-            protected void preDraw(GLState pGLState, Camera pCamera) {
-                super.preDraw(pGLState, pCamera);
-                pGLState.enableDither();
-            }
-        };
-        Sprite personajeAtras = new Sprite(0,0,regionPersonaje[1],vbom) {
-            @Override
-            protected void preDraw(GLState pGLState, Camera pCamera) {
-                super.preDraw(pGLState, pCamera);
-                pGLState.enableDither();
-            }
-        };
-        Sprite personajeDerecha = new Sprite(0,0,regionPersonaje[2],vbom) {
-            @Override
-            protected void preDraw(GLState pGLState, Camera pCamera) {
-                super.preDraw(pGLState, pCamera);
-                pGLState.enableDither();
-            }
-        };
-        Sprite personajeIzquierda= new Sprite(0,0,regionPersonaje[3],vbom) {
-            @Override
-            protected void preDraw(GLState pGLState, Camera pCamera) {
-                super.preDraw(pGLState, pCamera);
-                pGLState.enableDither();
-            }
-        };
-        Sprite personajeGolpeado= new Sprite(0,0,regionPersonaje[4],vbom) {
-            @Override
-            protected void preDraw(GLState pGLState, Camera pCamera) {
-                super.preDraw(pGLState, pCamera);
-                pGLState.enableDither();
-            }
-        };
+        AnimatedSprite personajeFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionPersonaje[0].getHeight(),
+                regionPersonaje[0],vbom);
+        AnimatedSprite personajeAtras = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionPersonaje[1].getHeight(),
+                regionPersonaje[1],vbom);
+        AnimatedSprite personajeDerecha = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionPersonaje[2].getHeight(),
+                regionPersonaje[2],vbom);
+        AnimatedSprite personajeIzquierda= new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionPersonaje[3].getHeight(),
+                regionPersonaje[3],vbom);
+
+        AnimatedSprite personajeGolpeado= new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionPersonaje[4].getHeight(),
+                regionPersonaje[4],vbom);
 
 
 
-        imgsPersonaje = new Sprite []{personajeFrente,personajeAtras,personajeDerecha,
+        imgsPersonaje = new AnimatedSprite []{personajeFrente,personajeAtras,personajeDerecha,
                 personajeIzquierda,personajeGolpeado};
 
         personaje = imgsPersonaje[0];
@@ -82,6 +62,7 @@ public class Personaje {
         vida=vidaTotal;
         vidaA=vida;
         fuerza=1;
+        personaje.animate(fps,100);
 
     }
     public void crearPersonajeAtacando(float x, float y, TiledTextureRegion[] regionAtaques,
@@ -112,9 +93,40 @@ public class Personaje {
 
     }
 
+    public void crearPersonajeQuieto(float x, float y, TiledTextureRegion[] regionAtaques,
+                                       VertexBufferObjectManager vbom){
+
+        AnimatedSprite quietoFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[0].getHeight(),
+                regionAtaques[0],vbom);
+        quietoFrente.setScale(1.1f);
+
+
+        AnimatedSprite quietoAtras = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[1].getHeight(),
+                regionAtaques[1],vbom);
+        quietoAtras.setScale(1.1f);
+
+
+        AnimatedSprite quietoDerecha = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[2].getHeight(),
+                regionAtaques[2],vbom);
+        quietoDerecha.setScale(1.1f);
+
+
+        AnimatedSprite quietoIzquierda = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regionAtaques[3].getHeight(),
+                regionAtaques[3],vbom);
+        quietoIzquierda.setScale(1.1f);
+
+
+        imgsPersonajeQuieto = new AnimatedSprite[]{quietoFrente,quietoAtras,quietoDerecha,quietoIzquierda};
+
+
+    }
     public void dibujarPersonaje(){
         personaje.setPosition(880,360);
-        personaje.setScale(.4f);
+
     }
     public void setPersonaje(int img){
 
@@ -123,42 +135,82 @@ public class Personaje {
             imgsPersonaje[0].setY(personaje.getY());
             personaje.detachSelf();
             personaje = imgsPersonaje[0];
-            personaje.setScale(.4f);
             radioImagen= 66;
             direcAnte= 0;
+            personaje.animate(fps,100);
         }
         if(img==1){
             imgsPersonaje[1].setX(personaje.getX());
             imgsPersonaje[1].setY(personaje.getY());
             personaje.detachSelf();
             personaje = imgsPersonaje[1];
-            personaje.setScale(.4f);
             radioImagen= 66;
             direcAnte=1;
+            personaje.animate(fps,100);
         }
         if(img==2){
             imgsPersonaje[2].setX(personaje.getX());
             imgsPersonaje[2].setY(personaje.getY());
             personaje.detachSelf();
             personaje = imgsPersonaje[2];
-            personaje.setScale(.4f);
             radioImagen= 58;
             direcAnte=2;
+            personaje.animate(fps,100);
         }
         if(img==3) {
             imgsPersonaje[3].setX(personaje.getX());
             imgsPersonaje[3].setY(personaje.getY());
             personaje.detachSelf();
-            personaje = imgsPersonaje[3];
-            personaje.setScale(.4f);
+            personaje = imgsPersonaje[3];;
             radioImagen= 58;
             direcAnte=3;
+            personaje.animate(fps,100);
         }
         if (img==4){
             imgsPersonaje[4].setX(personaje.getX());
             imgsPersonaje[4].setY(personaje.getY());
             personaje.detachSelf();
             personaje = imgsPersonaje[4];
+
+        }
+    }
+    public void setPersonajeQuieto(int img){
+
+        if(img==0) {
+            imgsPersonajeQuieto[0].setX(personaje.getX());
+            imgsPersonajeQuieto[0].setY(personaje.getY());
+            personaje.detachSelf();
+            personaje = imgsPersonajeQuieto[0];
+            radioImagen= 66;
+            direcAnte= 0;
+
+        }
+        if(img==1){
+            imgsPersonajeQuieto[1].setX(personaje.getX());
+            imgsPersonajeQuieto[1].setY(personaje.getY());
+            personaje.detachSelf();
+            personaje = imgsPersonajeQuieto[1];
+            radioImagen= 66;
+            direcAnte=1;
+
+        }
+        if(img==2){
+            imgsPersonajeQuieto[2].setX(personaje.getX());
+            imgsPersonajeQuieto[2].setY(personaje.getY());
+            personaje.detachSelf();
+            personaje = imgsPersonajeQuieto[2];
+            radioImagen= 58;
+            direcAnte=2;
+
+        }
+        if(img==3) {
+            imgsPersonajeQuieto[3].setX(personaje.getX());
+            imgsPersonajeQuieto[3].setY(personaje.getY());
+            personaje.detachSelf();
+            personaje = imgsPersonajeQuieto[3];;
+            radioImagen= 58;
+            direcAnte=3;
+
         }
     }
     public void atacarPersonaje() {
@@ -167,29 +219,29 @@ public class Personaje {
             pataque[0].setX(personaje.getX());
             pataque[0].setY(personaje.getY());
             personaje.detachSelf();
-            personajeAtacando=pataque[0];
-            personajeAtacando.animate(50,1);
+            personaje=pataque[0];
+            personaje.animate(50,1);
         }
         if (direccion==1) {
             pataque[1].setX(personaje.getX());
             pataque[1].setY(personaje.getY());
             personaje.detachSelf();
-            personajeAtacando=pataque[1];
-            personajeAtacando.animate(50,1);
+            personaje=pataque[1];
+            personaje.animate(50,1);
         }
         if (direccion==2) {
             pataque[2].setX(personaje.getX());
             pataque[2].setY(personaje.getY());
             personaje.detachSelf();
-            personajeAtacando=pataque[2];
-            personajeAtacando.animate(50,1);
+            personaje=pataque[2];
+            personaje.animate(50,1);
         }
         if (direccion==3) {
             pataque[3].setX(personaje.getX());
             pataque[3].setY(personaje.getY());
             personaje.detachSelf();
-            personajeAtacando=pataque[3];
-            personajeAtacando.animate(50,1);
+            personaje=pataque[3];
+            personaje.animate(50,1);
         }
     }
 

@@ -50,9 +50,11 @@ public class EscenaJuego1 extends EscenaBase
     private boolean faseDos =false;
     private Sprite barra;
     private int experienciaGanada;
+    private ControlJuego preferencia;
 
     @Override
     public void crearEscena() {
+        preferencia = admRecursos.actividadJuego;
         // Creamos el Fondo
         Fondo = new Sprite(0,0,admRecursos.regionFondoJuego,admRecursos.vbom) {
             @Override
@@ -71,6 +73,7 @@ public class EscenaJuego1 extends EscenaBase
                 admRecursos.regionCaminarAtras,admRecursos.regionCaminarDerecha,
                 admRecursos.regionCaminarIzquierda,admRecursos.regionPersonajeGolpeado};
         personaje = new Personaje();
+        personaje.crearStats(preferencia);
         personaje.crearPersonaje(0,0,regionesPersonaje,admRecursos.vbom);
         regionesPersonajeAtacando= new TiledTextureRegion[]{admRecursos.regionPataqueFrente,
                 admRecursos.regionPataqueAtras,admRecursos.regionPataqueDerecha,

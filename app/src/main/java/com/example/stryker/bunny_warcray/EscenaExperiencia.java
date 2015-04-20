@@ -21,6 +21,7 @@ public class EscenaExperiencia extends EscenaBase{
     private int experienciaTotal;
     private int experienciaGanada;
     private int puntosUsados;
+    private int puntosUsadosA;
     private int puntosDisponibles;
     private int puntosTotales;
     private int fuerza;
@@ -31,6 +32,10 @@ public class EscenaExperiencia extends EscenaBase{
     private Sprite barraV;
     private Sprite barraVi;
     private Sprite barraL;
+    private ButtonSprite btnBarraF;
+    private ButtonSprite btnBarraV;
+    private ButtonSprite btnBarraVi;
+    private ButtonSprite btnBarraL;
 
 
 
@@ -75,10 +80,8 @@ public class EscenaExperiencia extends EscenaBase{
         crearBarrasL();
 
         dibujarBarras();
-
-
-
-
+        crearBotones();
+        activarBotones();
 
     }
 
@@ -409,6 +412,137 @@ public class EscenaExperiencia extends EscenaBase{
         attachChild(barraV);
         attachChild(barraVi);
         attachChild(barraL);
+
+    }
+    public void borrarBarras(){
+        detachChild(barraF);
+        detachChild(barraV);
+        detachChild(barraVi);
+        detachChild(barraL);
+    }
+    public void crearBotones(){
+        btnBarraF = new ButtonSprite(826,374,admRecursos.regionbtnBarras,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    if (puntosDisponibles>0&&fuerza<=4){
+                        fuerza=fuerza+1;
+                        puntosDisponibles=puntosDisponibles-1;
+                        borrarBarras();
+                        crearBarrasF();
+                        dibujarBarras();
+                        puntosUsadosA=puntosUsadosA+1;
+
+                        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                                "personaje", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferencias.edit();
+                        editor.putInt("Fuerza", fuerza);
+                        editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
+                        editor.commit();
+
+
+                    }
+
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        btnBarraV = new ButtonSprite(826,462,admRecursos.regionbtnBarras,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    if (puntosDisponibles>0&&velocidad<=4){
+                        velocidad=velocidad+1;
+                        puntosDisponibles=puntosDisponibles-1;
+                        borrarBarras();
+                        crearBarrasV();
+                        dibujarBarras();
+                        puntosUsadosA=puntosUsadosA+1;
+
+                        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                                "personaje", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferencias.edit();
+                        editor.putInt("Velocidad", velocidad);
+                        editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
+                        editor.commit();
+                    }
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        btnBarraVi = new ButtonSprite(826,544,admRecursos.regionbtnBarras,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    if (puntosDisponibles>0&&vida<=4){
+                        vida=vida+1;
+                        puntosDisponibles=puntosDisponibles-1;
+                        borrarBarras();
+                        crearBarrasVi();
+                        dibujarBarras();
+                        puntosUsadosA=puntosUsadosA+1;
+
+                        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                                "personaje", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferencias.edit();
+                        editor.putInt("Vida", vida);
+                        editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
+                        editor.commit();
+                    }
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        btnBarraL = new ButtonSprite(826,285,admRecursos.regionbtnBarras,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    if (puntosDisponibles>0&&laser<=4){
+                        laser=laser+1;
+                        puntosDisponibles=puntosDisponibles-1;
+                        borrarBarras();
+                        crearBarrasL();
+                        dibujarBarras();
+                        puntosUsadosA=puntosUsadosA+1;
+
+                        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                                "personaje", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferencias.edit();
+                        editor.putInt("Laser", laser);
+                        editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
+                        editor.commit();
+                    }
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+
+    }
+    public void activarBotones(){
+        registerTouchArea(btnBarraF);
+        attachChild(btnBarraF);
+        registerTouchArea(btnBarraV);
+        attachChild(btnBarraV);
+        registerTouchArea(btnBarraVi);
+        attachChild(btnBarraVi);
+        registerTouchArea(btnBarraL);
+        attachChild(btnBarraL);
 
     }
 }

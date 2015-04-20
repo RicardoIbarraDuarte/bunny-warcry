@@ -153,6 +153,8 @@ public class
     private ITexture texturaBarranivel4;
     public ITextureRegion regionBarranivel5;
     private ITexture texturaBarranivel5;
+    public ITiledTextureRegion regionbtnBarras;
+    private BuildableBitmapTextureAtlas btaBarras;
 
 
     public static AdministradorRecursos getInstance() {
@@ -488,7 +490,7 @@ public class
             // Carga la imagen de fondo de la pantalla Splash
             texturaBarranivel0 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
                     actividadJuego.getAssets(), "EscenaExperiencia/BarraExp0.jpg");
-            regionBarranivel0 = TextureRegionFactory.extractFromTexture(texturaFondoExperiencia);
+            regionBarranivel0 = TextureRegionFactory.extractFromTexture(texturaBarranivel0);
             texturaBarranivel0.load();
         } catch (IOException e) {
 
@@ -498,7 +500,7 @@ public class
             // Carga la imagen de fondo de la pantalla Splash
             texturaBarranivel1 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
                     actividadJuego.getAssets(), "EscenaExperiencia/BarraExp1.jpg");
-            regionBarranivel1 = TextureRegionFactory.extractFromTexture(texturaFondoExperiencia);
+            regionBarranivel1 = TextureRegionFactory.extractFromTexture(texturaBarranivel1);
             texturaBarranivel1.load();
         } catch (IOException e) {
 
@@ -508,7 +510,7 @@ public class
             // Carga la imagen de fondo de la pantalla Splash
             texturaBarranivel2 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
                     actividadJuego.getAssets(), "EscenaExperiencia/BarraExp2.jpg");
-            regionBarranivel2 = TextureRegionFactory.extractFromTexture(texturaFondoExperiencia);
+            regionBarranivel2 = TextureRegionFactory.extractFromTexture( texturaBarranivel2);
             texturaBarranivel2.load();
         } catch (IOException e) {
 
@@ -518,7 +520,7 @@ public class
             // Carga la imagen de fondo de la pantalla Splash
             texturaBarranivel3 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
                     actividadJuego.getAssets(), "EscenaExperiencia/BarraExp3.jpg");
-            regionBarranivel3 = TextureRegionFactory.extractFromTexture(texturaFondoExperiencia);
+            regionBarranivel3 = TextureRegionFactory.extractFromTexture(texturaBarranivel3);
             texturaBarranivel3.load();
         } catch (IOException e) {
 
@@ -528,7 +530,7 @@ public class
             // Carga la imagen de fondo de la pantalla Splash
             texturaBarranivel4 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
                     actividadJuego.getAssets(), "EscenaExperiencia/BarraExp4.jpg");
-            regionBarranivel4 = TextureRegionFactory.extractFromTexture(texturaFondoExperiencia);
+            regionBarranivel4 = TextureRegionFactory.extractFromTexture(texturaBarranivel4);
             texturaBarranivel4.load();
         } catch (IOException e) {
 
@@ -538,12 +540,26 @@ public class
             // Carga la imagen de fondo de la pantalla Splash
             texturaBarranivel5 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
                     actividadJuego.getAssets(), "EscenaExperiencia/BarraExp5.jpg");
-            regionBarranivel5 = TextureRegionFactory.extractFromTexture(texturaFondoExperiencia);
+            regionBarranivel5 = TextureRegionFactory.extractFromTexture(texturaBarranivel5);
             texturaBarranivel5.load();
         } catch (IOException e) {
 
             Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
         }
+        btaBarras = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                296,296);
+        regionbtnBarras = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBarras,
+                actividadJuego.getAssets(),
+                "EscenaExperiencia/botomInvi.png", 1, 1);
+
+        try {
+            btaBarras.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón atacar");
+        }
+        btaBarras.load();
     }
     public void liberarRecursosExperiencia() {
         texturaFondoExperiencia.unload();

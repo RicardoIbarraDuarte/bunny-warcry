@@ -1,5 +1,8 @@
 package com.example.stryker.bunny_warcray;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
@@ -11,11 +14,12 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 public class Personaje {
     private AnimatedSprite personaje;
-    public float velocidadPersonaje = 10;
-    public int vidaTotal=3;
+    public float velocidadPersonaje;
+    public int vidaTotal;
     public int vida;
     public int vidaA;
     public int fuerza;
+    public int fuerzaLaser;
     public int direccion;
     public int direcAnte;
     public float experiencia;
@@ -25,6 +29,7 @@ public class Personaje {
     private AnimatedSprite[] pataque;
     public boolean quieto=true;
     private int fps=80;
+    public SharedPreferences preferencias;
 
     public AnimatedSprite getPersonaje() {
             return personaje;
@@ -61,7 +66,7 @@ public class Personaje {
         direcAnte = 0;
         vida=vidaTotal;
         vidaA=vida;
-        fuerza=1;
+
         personaje.animate(fps,100);
 
     }
@@ -244,12 +249,93 @@ public class Personaje {
             personaje.animate(50,1);
         }
     }
+    public void crearStats(ControlJuego preferencia){
+        int fuerzaB;
+        int velocidadB;
+        int vidaB;
+        int laserB;
+        SharedPreferences preferencias = preferencia.getSharedPreferences("personaje", Context.MODE_PRIVATE);
+        fuerzaB = preferencias.getInt("Fuerza",0);
+        velocidadB = preferencias.getInt("Velocidad",0);
+        vidaB = preferencias.getInt("Vida",0);
+        laserB = preferencias.getInt("Laser",0);
 
-    public void setVida(){
-        vidaTotal=vidaTotal+1;
-    }
-    public float getExperiencia(){
-        return experiencia;
+        if (fuerzaB==0){
+            fuerza=1;
+        }
+        if (fuerzaB==1){
+            fuerza=2;
+        }
+        if (fuerzaB==2){
+            fuerza=3;
+        }
+        if (fuerzaB==3){
+            fuerza=4;
+        }
+        if (fuerzaB==4){
+            fuerza=5;
+        }
+        if (fuerzaB==5){
+            fuerza=6;
+        }
+        if (velocidadB==0){
+            velocidadPersonaje=8;
+        }
+        if (velocidadB==1){
+            velocidadPersonaje=10;
+        }
+        if (velocidadB==2){
+            velocidadPersonaje=13;
+        }
+        if (velocidadB==3){
+            velocidadPersonaje=15;
+        }
+        if (velocidadB==4){
+            velocidadPersonaje=17;
+        }
+        if (velocidadB==5){
+            velocidadPersonaje=20;
+        }
+        if (vidaB==0){
+            vidaTotal=3;
+        }
+        if (vidaB==1){
+            vidaTotal=5;
+        }
+        if (vidaB==2){
+            vidaTotal=7;
+        }
+        if (vidaB==3){
+            vidaTotal=9;
+        }
+        if (vidaB==4){
+            vidaTotal=11;
+        }
+        if (vidaB==5){
+            vidaTotal=13;
+        }
+        if (laserB==0){
+            fuerzaLaser=1;
+        }
+        if (laserB==1){
+            fuerzaLaser=2;
+        }
+        if (laserB==2){
+            fuerzaLaser=3;
+        }
+        if (laserB==3){
+            fuerzaLaser=4;
+        }
+        if (laserB==4){
+            fuerzaLaser=5;
+        }
+        if (laserB==5){
+            fuerzaLaser=6;
+        }
+
+
+
+
     }
 
 }

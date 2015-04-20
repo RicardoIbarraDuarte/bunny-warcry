@@ -20,9 +20,6 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import java.io.IOException;
 
-/**
- * Carga/Descarga los recurso del juego. Imágenes, Audios
- */
 public class
         AdministradorRecursos
 {
@@ -113,6 +110,9 @@ public class
     public ITiledTextureRegion regionBtnJugar;
     private BuildableBitmapTextureAtlas btaBtnJugar;
 
+    public ITiledTextureRegion regionBtnOpciones;
+    private BuildableBitmapTextureAtlas btaBtnOpciones;
+
     // Botón acerca de del menú
     public ITiledTextureRegion regionBtnAcerca;
     private BuildableBitmapTextureAtlas btaBtnAcerca;
@@ -155,6 +155,18 @@ public class
     private ITexture texturaBarranivel5;
     public ITiledTextureRegion regionbtnBarras;
     private BuildableBitmapTextureAtlas btaBarras;
+
+
+    private ITexture texturaFondoOpciones;
+    public ITextureRegion regionFondoOpciones;
+
+
+    public ITiledTextureRegion regionBtnSonidoOff;
+    private BuildableBitmapTextureAtlas btaBtnSonidoOff;
+    public ITiledTextureRegion regionBtnSonidoOn;
+    private BuildableBitmapTextureAtlas btaBtnSonidoON;
+    public ITiledTextureRegion regionBtnBorrarStats;
+    private BuildableBitmapTextureAtlas btaBorrarStats;
 
 
     public static AdministradorRecursos getInstance() {
@@ -341,9 +353,89 @@ public class
             Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón creditos");
         }
         btaBtnCreditos.load();
+        btaBtnOpciones = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                348,146);
+        regionBtnOpciones = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                btaBtnOpciones, actividadJuego.getAssets(),
+                "EscenaMenu/BotonOpciones.png", 1, 1);
+        try {
+            btaBtnOpciones.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón creditos");
+        }
+        btaBtnOpciones.load();
 
     }
     public void liberarRecursosMenu() {
+        // Fondo
+        texturaMenu.unload();
+        regionMenu = null;
+        // botón jugar
+        btaBtnJugar.unload();
+        regionBtnJugar = null;
+    }
+
+    public void cargarRecursosOpciones() {
+        try {
+            // Carga la imagen de fondo de la pantalla del Menú
+            texturaFondoOpciones = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "EscenaOpciones/FondoOpciones.jpg");
+            regionFondoOpciones = TextureRegionFactory.extractFromTexture(texturaFondoOpciones);
+            texturaFondoOpciones.load();
+        } catch (IOException e) {
+            //System.out.print(e.toString());
+            Log.d("cargarRecursosMenu","No se puede cargar el fondoMenu");
+
+        }
+
+        // Carga la imagen para el botón jugar
+        btaBtnSonidoOff = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                296,296);
+        regionBtnSonidoOff = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnSonidoOff,
+                actividadJuego.getAssets(),
+                "EscenaOpciones/BotonSonidoOff.png", 1, 1);
+        try {
+            btaBtnSonidoOff.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
+        }
+        btaBtnSonidoOff.load();
+        // Fin de carga imagen botón jugar
+        // Carga la imagen para el botón Acerca de
+        btaBtnSonidoON = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                296,296);
+        regionBtnSonidoOn = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnSonidoON ,
+                actividadJuego.getAssets(),
+                "EscenaOpciones/BotonSonidoOn.png", 1, 1);
+        try {
+            btaBtnSonidoON .build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón acerca de");
+        }
+        btaBtnSonidoON .load();
+        // Carga la imagen para el botón Creditos
+        btaBorrarStats = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                296,296);
+        regionBtnBorrarStats = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                btaBorrarStats, actividadJuego.getAssets(),
+                "EscenaOpciones/BotonBorrarStats.png", 1, 1);
+        try {
+            btaBorrarStats.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón creditos");
+        }
+        btaBorrarStats.load();
+
+    }
+    public void liberarRecursosOpciones() {
         // Fondo
         texturaMenu.unload();
         regionMenu = null;
@@ -547,7 +639,7 @@ public class
             Log.d("cargarRecursosSplash", "No se puede cargar el fondo tec");
         }
         btaBarras = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                296,296);
+                251,33);
         regionbtnBarras = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBarras,
                 actividadJuego.getAssets(),
                 "EscenaExperiencia/botomInvi.png", 1, 1);

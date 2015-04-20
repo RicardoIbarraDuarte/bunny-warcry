@@ -25,6 +25,7 @@ public class AdministradorEscenas
     private EscenaBase escenaExperiencia;
     private EscenaBase escenaGameover;
     private EscenaBase escenaNiveles;
+    private EscenaBase escenaOpciones;
 
 
     // El tipo de escena que se está mostrando
@@ -105,6 +106,9 @@ public class AdministradorEscenas
             case ESCENA_JUEGO0:
                 setEscenaBase(escenaJuego0);
                 break;
+            case ESCENA_OPCIONES:
+                setEscenaBase(escenaOpciones);
+                break;
 
         }
     }
@@ -129,13 +133,24 @@ public class AdministradorEscenas
         admRecursos.cargarRecursosMenu();
         escenaMenu = new EscenaMenu();
     }
-
     //*** Libera la escena de Menú
     public void liberarEscenaMenu() {
         admRecursos.liberarRecursosMenu();
         escenaMenu.liberarEscena();
         escenaMenu = null;
     }
+
+    public void crearEscenaOpciones() {
+        // Carga los recursos
+        admRecursos.cargarRecursosOpciones();
+        escenaOpciones= new EscenaOpciones();
+    }
+    public void liberarEscenaOpciones() {
+        admRecursos.liberarRecursosOpciones();
+        escenaOpciones.liberarEscena();
+        escenaOpciones = null;
+    }
+
     //*** Crea la escena de Acerca de
     public void crearEscenaAcerca() {
         // Carga los recursos

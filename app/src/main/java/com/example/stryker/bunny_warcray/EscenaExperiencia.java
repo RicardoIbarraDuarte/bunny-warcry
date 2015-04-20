@@ -10,11 +10,6 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
-/**
- * Representa la escena con las opciones del menú principal
- *
- * @author Roberto Martínez Román
- */
 public class EscenaExperiencia extends EscenaBase{
     // *** Fondo
     private Sprite spriteFondo; //(el fondo de la escena, estático)

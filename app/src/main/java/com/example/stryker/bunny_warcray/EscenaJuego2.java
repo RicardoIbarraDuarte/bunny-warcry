@@ -635,7 +635,7 @@ public class EscenaJuego2 extends EscenaBase
         if (personaje.vida<=0){
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
-            admEscenas.liberarEscenaJuego1();
+            admEscenas.liberarEscenaJuego2();
         }
         if (enemigosVivos==0){
             if (tipoNivel==1) {
@@ -648,7 +648,7 @@ public class EscenaJuego2 extends EscenaBase
             }
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
-            admEscenas.liberarEscenaJuego1();
+            admEscenas.liberarEscenaJuego2();
         }
     }
     public void generadorDenivel(){
@@ -699,7 +699,7 @@ public class EscenaJuego2 extends EscenaBase
 
             attachChild(Enemigo2.getEnemigo());
             attachChild(Enemigo3.getEnemigo());
-            enemigosVivos=6;
+            enemigosVivos=0;
 
         }
         if (tipoNivel==2){
@@ -929,7 +929,7 @@ public class EscenaJuego2 extends EscenaBase
                 lagrima1.setY(y);
                 lagrima1.setScale(.5f);
                 attachChild(lagrima1);
-                lagrima1.setZIndex(Enemigo1.getEnemigo().getZIndex() - 1);
+                lagrima1.setZIndex(-1);
                 lagrima1viva = true;
 
             }
@@ -946,7 +946,7 @@ public class EscenaJuego2 extends EscenaBase
                 lagrima2.setY(y);
                 lagrima2.setScale(.5f);
                 attachChild(lagrima2);
-                lagrima2.setZIndex(Enemigo1.getEnemigo().getZIndex() - 1);
+                lagrima2.setZIndex(-1);
                 lagrima2viva = true;
 
             }
@@ -963,7 +963,7 @@ public class EscenaJuego2 extends EscenaBase
                 lagrima3.setY(y);
                 lagrima3.setScale(.5f);
                 attachChild(lagrima3);
-                lagrima3.setZIndex(Enemigo1.getEnemigo().getZIndex() - 1);
+                lagrima3.setZIndex(-1);
                 lagrima3viva = true;
 
             }
@@ -980,7 +980,7 @@ public class EscenaJuego2 extends EscenaBase
                 lagrima4.setY(y);
                 lagrima4.setScale(.5f);
                 attachChild(lagrima4);
-                lagrima4.setZIndex(Enemigo1.getEnemigo().getZIndex() - 1);
+                lagrima4.setZIndex(-1);
                 lagrima4viva = true;
 
             }
@@ -995,6 +995,7 @@ public class EscenaJuego2 extends EscenaBase
             tiempoAtaquelagrima2++;
             tiempoAtaquelagrima3++;
             tiempoAtaquelagrima4++;
+            sortChildren();
         }
 
 

@@ -1,5 +1,8 @@
 package com.example.stryker.bunny_warcray;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
@@ -12,20 +15,19 @@ import org.andengine.opengl.util.GLState;
  *
  * @author Roberto Martínez Román
  */
-public class EscenaMenu extends EscenaBase{
+public class EscenaOpciones extends EscenaBase{
     // *** Fondo
     private Sprite spriteFondo; //(el fondo de la escena, estático)
 
     // *** Botones del menú
-    private ButtonSprite btnJugar;
-    private ButtonSprite btnAcerca;
-    private ButtonSprite btnCreditos;
-    private ButtonSprite btnOpciones;
+    private ButtonSprite btnSonidoOff;
+    private ButtonSprite btnSonidoOn;
+    private ButtonSprite btnBorrarStats;
 
     @Override
     public void crearEscena() {
         // Creamos el sprite de manera óptima
-        spriteFondo = new Sprite(0,0, admRecursos.regionMenu,admRecursos.vbom) {
+        spriteFondo = new Sprite(0,0, admRecursos.regionFondoOpciones,admRecursos.vbom) {
             @Override
             protected void preDraw(GLState pGLState, Camera pCamera) {
                 super.preDraw(pGLState, pCamera);
@@ -45,94 +47,80 @@ public class EscenaMenu extends EscenaBase{
         setTouchAreaBindingOnActionDownEnabled(true);
 
         // *** Agrega los botones al Menú
-        btnJugar = new ButtonSprite(640,156,
-                admRecursos.regionBtnJugar,admRecursos.vbom) {
+        btnSonidoOff = new ButtonSprite(1014,398,
+                admRecursos.regionBtnSonidoOff,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
-                    // Cambia a la escena de JUGAR
-                    admEscenas.crearEscenaNiveles();
-                    admEscenas.setEscena(TipoEscena.ESCENA_NIVELES);
-                    admEscenas.liberarEscenaMenu();
+
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
-        btnJugar.setScale(.8f);
+        btnSonidoOff.setScale(.5f);
 
-
-        registerTouchArea(btnJugar);
-        attachChild(btnJugar);
-        btnAcerca = new ButtonSprite(226,300,
-                admRecursos.regionBtnAcerca,admRecursos.vbom) {
+        registerTouchArea(btnSonidoOff);
+        attachChild(btnSonidoOff);
+        btnSonidoOn = new ButtonSprite(825,398,
+                admRecursos.regionBtnSonidoOn,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
-                    // Cambia a la escena de acerca de
-                    admEscenas.crearEscenaAcerca();
-                    admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                    admEscenas.liberarEscenaMenu();
+
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
+        btnSonidoOn.setScale(.5f);
 
-        btnAcerca.setScale(.8f);
-
-        registerTouchArea(btnAcerca);
-        attachChild(btnAcerca);
-        btnCreditos = new ButtonSprite(1200,80,
-                admRecursos.regionBtnCreditos,admRecursos.vbom) {
+        registerTouchArea(btnSonidoOn);
+        attachChild(btnSonidoOn);
+        btnBorrarStats = new ButtonSprite(825,233,
+                admRecursos.regionBtnBorrarStats,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
-                    // Cambia a la escena de creditos
-                    admEscenas.crearEscenaCreditos();
-                    admEscenas.setEscena(TipoEscena.ESCENA_CREDITOS);
-                    admEscenas.liberarEscenaMenu();
+                    SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                            "personaje", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferencias.edit();
+                    editor.putInt("ExperienciaTotal", 0);
+                    editor.putInt("ExperienciaGanada", 0);
+                    editor.putInt("PuntosUsados", 0);
+                    editor.putInt("Fuerza", 0);
+                    editor.putInt("Velocidad", 0);
+                    editor.putInt("Vida", 0);
+                    editor.putInt("Laser", 0);
+                    editor.commit();
+
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
-        btnCreditos.setScale(.7f);
 
-        registerTouchArea(btnCreditos);
-        attachChild(btnCreditos);
-        btnOpciones = new ButtonSprite(1000,300,
-                admRecursos.regionBtnOpciones,admRecursos.vbom) {
-            // Aquí el código que ejecuta el botón cuando es presionado
-            @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
-                    pTouchAreaLocalY) {
-                if (pSceneTouchEvent.isActionUp()) {
-                    // Cambia a la escena de creditos
-                    admEscenas.crearEscenaOpciones();
-                    admEscenas.setEscena(TipoEscena.ESCENA_OPCIONES);
-                    admEscenas.liberarEscenaMenu();
-                }
-                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
-            }
-        };
-        btnOpciones.setScale(.8f);
+        btnBorrarStats.setScale(.5f);
 
-        registerTouchArea(btnOpciones);
-        attachChild(btnOpciones);
+        registerTouchArea(btnBorrarStats);
+        attachChild(btnBorrarStats);
     }
 
     @Override
     public void onBackKeyPressed() {
+        admEscenas.crearEscenaMenu();
+        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
+        admEscenas.liberarEscenaOpciones();
+
 
     }
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_MENU;
+        return TipoEscena.ESCENA_OPCIONES;
     }
 
     @Override

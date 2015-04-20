@@ -1,13 +1,15 @@
 package com.example.stryker.bunny_warcray;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 
-/*public class EnemigoGua extends Enemigo {
+public class EnemigoGua extends Enemigo {
 
     private int direccion;
     private int direccionAnterior;
@@ -16,17 +18,19 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
     private boolean ataqueInicio=true;
     private float xinicial;
     private float yinicial;
+    private int fps=80;
+    private AnimatedSprite[] guaregiones;
 
 
-    public void crearEnemigo(float x, float y, ITextureRegion regionEnemigo,
+    public void crearEnemigo(float x, float y, TiledTextureRegion[] regiongua,
                              VertexBufferObjectManager vbom){
-        enemigo= new Sprite(x,y, regionEnemigo,vbom) {
-            @Override
-            protected void preDraw(GLState pGLState, Camera pCamera) {
-                super.preDraw(pGLState, pCamera);
-                pGLState.enableDither();
-            }
-        };
+        AnimatedSprite gua = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                regiongua[0].getHeight(),
+                regiongua[0],vbom);
+
+        guaregiones= new AnimatedSprite[]{gua};
+
+
 
         direccion = (int)((Math.random() * 4) + 1);
         direccionAnterior=direccion;
@@ -37,12 +41,16 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
         fuerza=1;
         velocidad=5;
         radioImagenProyectil=60;
+        enemigo=guaregiones[0];
+        enemigo.animate(fps,100);
+
+
 
     }
 
     public void dibujarEnemigo() {
-        enemigo.setPosition(posicionX, posicionY);
         enemigo.setScale(.4f);
+        enemigo.setPosition(posicionX, posicionY);
     }
     public void movimientoEnemigo(){
 
@@ -99,4 +107,3 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 }
 
-*/

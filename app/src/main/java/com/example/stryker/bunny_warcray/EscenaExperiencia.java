@@ -443,7 +443,7 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Fuerza", fuerza);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
-                        detachChild(txtPuntos);
+                        txtPuntos.detachSelf();
                         crearPuntosTexto();
 
 
@@ -475,7 +475,7 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Velocidad", velocidad);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
-                        detachChild(txtPuntos);
+                        txtPuntos.detachSelf();
                         crearPuntosTexto();
                     }
 
@@ -504,7 +504,7 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Vida", vida);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
-                        detachChild(txtPuntos);
+                        txtPuntos.detachSelf();
                         crearPuntosTexto();
                     }
 
@@ -533,7 +533,7 @@ public class EscenaExperiencia extends EscenaBase{
                         editor.putInt("Laser", laser);
                         editor.putInt("PuntosUsados",puntosUsados+puntosUsadosA);
                         editor.commit();
-                        detachChild(txtPuntos);
+                        txtPuntos.detachSelf();
                         crearPuntosTexto();
                     }
 
@@ -566,7 +566,7 @@ public class EscenaExperiencia extends EscenaBase{
 
         Font tipo = tipoLetra;
         txtPuntos = new Text(840,600,
-                tipo,"PuntosDisponibles: "+ puntosDisponibles,25,admRecursos.engine.getVertexBufferObjectManager());
+                tipo,"Puntos Disponibles: "+ puntosDisponibles,25,admRecursos.engine.getVertexBufferObjectManager());
         attachChild(txtPuntos);
 
     }

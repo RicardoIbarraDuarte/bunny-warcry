@@ -56,8 +56,8 @@ public class EscenaNiveles extends EscenaBase{
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
                     // Cambia a la escena de JUGAR
-                    admEscenas.crearEscenaJuego2();
-                    admEscenas.setEscena(TipoEscena.ESCENA_JUEGO2);
+                    admEscenas.crearEscenaJuego3();
+                    admEscenas.setEscena(TipoEscena.ESCENA_JUEGO3);
                     admEscenas.liberarEscenaNiveles();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);

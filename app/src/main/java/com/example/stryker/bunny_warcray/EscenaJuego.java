@@ -1,4 +1,5 @@
-/*package com.example.stryker.bunny_warcray;
+/*
+package com.example.stryker.bunny_warcray;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
@@ -35,7 +36,7 @@ public class EscenaJuego extends EscenaBase
     private ButtonSprite btnAtacar;
     private boolean ataque =false;
     private boolean ataqueA=false;
-    private float tiempoAtaque=0;
+    private float tiempoAtaque;
     private float tiempoDaño=0;
     private boolean dañado=false;
     private Rectangle barraVida;
@@ -44,22 +45,8 @@ public class EscenaJuego extends EscenaBase
     private float enemigosVivos;
     private int tipoNivel;
     private boolean faseDos =false;
-    public Sprite lagrima1;
-    public Sprite lagrima2;
-    public Sprite lagrima3;
-    public Sprite lagrima4;
-    private boolean ataqueInicio=true;
-    private float xinicial;
-    private float yinicial;
-    private int tiempoAtaqueEspera=100;
-    private int tiempoAtaquelagrima1=0;
-    private int tiempoAtaquelagrima2=0;
-    private int tiempoAtaquelagrima3=0;
-    private int tiempoAtaquelagrima4=0;
-    private boolean lagrima1viva=false;
-    private boolean lagrima2viva=false;
-    private boolean lagrima3viva=false;
-    private boolean lagrima4viva=false;
+    private boolean yamiOculta=false;
+    private float tiempoAtaqueyami=0;
 
     @Override
     public void crearEscena() {
@@ -122,12 +109,12 @@ public class EscenaJuego extends EscenaBase
         tipoNivel = 1; //(int)((Math.random() * 4) + 1);
         generadorDenivel();
 
-
         registerUpdateHandler(new IUpdateHandler() {
 
             @Override
             public void onUpdate(float pSecondsElapsed) {
                 movimientoEnemigos();
+                ataqueYami();
                 comprobarDireccionPersonaje();
                 if (ataque){
                     atacarPersonaje();
@@ -140,7 +127,6 @@ public class EscenaJuego extends EscenaBase
                     ataqueA=false;
                 }
                 comprobarColission();
-                ataqueEnemigos();
                 comprobarFase2();
                 if (dañado){
                     tiempoDaño=pSecondsElapsed+tiempoDaño;
@@ -247,18 +233,10 @@ public class EscenaJuego extends EscenaBase
                 float ey1 = Enemigo1.getEnemigo().getY();
                 float px = personaje.getPersonaje().getX();
                 float py = personaje.getPersonaje().getY();
-                float pr1x=  lagrima1.getX();
-                float pr1y=  lagrima1.getY();
-                float pr2x=  lagrima2.getX();
-                float pr2y=  lagrima2.getY();
-                float pr3x=  lagrima3.getX();
-                float pr3y=  lagrima3.getY();
-                float pr4x=  lagrima4.getX();
-                float pr4y=  lagrima4.getY();
 
                 if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
                         < (Enemigo1.radioImagen + personaje.radioImagen) * (Enemigo1.radioImagen +
-                        personaje.radioImagen) && Enemigo1Vivo) {
+                        personaje.radioImagen) && Enemigo1Vivo && !yamiOculta) {
                     if (ataque) {
                         Enemigo1.vida = Enemigo1.vida - personaje.fuerza;
                         if (Enemigo1.vida <= 0) {
@@ -275,8 +253,6 @@ public class EscenaJuego extends EscenaBase
 
                     }
                 }
-
-
             }
             if (faseDos){
                 float ex4 = Enemigo4.getEnemigo().getX();
@@ -374,18 +350,34 @@ public class EscenaJuego extends EscenaBase
     public void generadorDenivel(){
         if (tipoNivel==1) {
 
+            Enemigo1 = new EnemigoHamster();
+            Enemigo1.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
 
-            enemigosVivos=4;
+            Enemigo1.dibujarEnemigo();
 
+
+            attachChild(Enemigo1.getEnemigo());
+
+            enemigosVivos=6;
 
         }
         if (tipoNivel==2){
+            Enemigo1 = new EnemigoHamster();
+            Enemigo2 = new EnemigoHamster();
+            Enemigo1.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
+            Enemigo2.crearEnemigo(0, 0, admRecursos.regionHamstercreepy, admRecursos.vbom);
+            Enemigo1.dibujarEnemigo();
+            Enemigo2.dibujarEnemigo();
+            attachChild(Enemigo1.getEnemigo());
+            attachChild(Enemigo2.getEnemigo());
+            enemigosVivos=2;
 
         }
     }
     public void movimientoEnemigos(){
         if (tipoNivel==1) {
-            Enemigo1.movimientoEnemigo();
+            // Enemigo1.movimientoEnemigo();
+
             if (faseDos) {
                 Enemigo4.movimientoEnemigo();
                 Enemigo5.movimientoEnemigo();
@@ -432,11 +424,11 @@ public class EscenaJuego extends EscenaBase
             if (!faseDos) {
                 if (enemigosVivos == 3) {
                     Enemigo4 = new EnemigoHamster();
-                    //      Enemigo4.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
+                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo5 = new EnemigoHamster();
-                    //      Enemigo5.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
+                    Enemigo5.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo6 = new EnemigoHamster();
-                    //     Enemigo6.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
+                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionHamster, admRecursos.vbom);
                     Enemigo4.dibujarEnemigo();
                     Enemigo5.dibujarEnemigo();
                     Enemigo6.dibujarEnemigo();
@@ -449,84 +441,40 @@ public class EscenaJuego extends EscenaBase
         }
     }
     public void ataqueEnemigos(){
-        if (tipoNivel==1){
-            ataqueGuamomi();
-        }
-
+        ataqueYami();
     }
-    public void ataqueGuamomi(){
-        if (tiempoAtaquelagrima1==60){
-            float x = Enemigo1.getEnemigo().getX();
-            float y = Enemigo1.getEnemigo().getY();
-            lagrima1.setX(x);
-            lagrima1.setY(y);
-            attachChild(lagrima1);
-            lagrima1viva=true;
+    public void ataqueYami(){
+        if (Enemigo1Vivo) {
+            if (tiempoAtaqueyami == 70) {
+                detachChild(Enemigo1.getEnemigo());
+                yamiOculta = true;
 
+            }
+            if (tiempoAtaqueyami==200){
+                float x=personaje.getPersonaje().getX();
+                float y=personaje.getPersonaje().getY();
+                if (personaje.direccion==0){
+                    y=y+Enemigo1.radioImagen-10;
+                }
+                if (personaje.direccion==1){
+                    y=y-Enemigo1.radioImagen+10;
+                }
+                if (personaje.direccion==2){
+                    x=x-Enemigo1.radioImagen+10;
+                }
+                if (personaje.direccion==3){
+                    x=x+Enemigo1.radioImagen-10;
+                }
+                Enemigo1.getEnemigo().setX(x);
+                Enemigo1.getEnemigo().setY(y);
+            }
+            if (tiempoAtaqueyami==220){
+                attachChild(Enemigo1.getEnemigo());
+                yamiOculta=false;
+                tiempoAtaqueyami=0;
+            }
+            tiempoAtaqueyami++;
         }
-        if (tiempoAtaquelagrima1==100){
-            detachChild(lagrima1);
-            lagrima1.detachSelf();
-            lagrima1viva=false;
-            tiempoAtaquelagrima1=0;
-        }
-        if (tiempoAtaquelagrima2==80){
-            float x = Enemigo1.getEnemigo().getX();
-            float y = Enemigo1.getEnemigo().getY();
-            lagrima2.setX(x);
-            lagrima2.setY(y);
-            attachChild(lagrima2);
-            lagrima2viva=true;
-
-        }
-        if (tiempoAtaquelagrima2==140){
-            detachChild(lagrima2);
-            lagrima2.detachSelf();
-            lagrima2viva=false;
-            tiempoAtaquelagrima2=0;
-        }
-        if (tiempoAtaquelagrima3==100){
-            float x = Enemigo1.getEnemigo().getX();
-            float y = Enemigo1.getEnemigo().getY();
-            lagrima3.setX(x);
-            lagrima3.setY(y);
-            attachChild(lagrima3);
-            lagrima3viva=true;
-
-        }
-        if (tiempoAtaquelagrima3==180){
-            detachChild(lagrima3);
-            lagrima3.detachSelf();
-            lagrima3viva=false;
-            tiempoAtaquelagrima3=0;
-        }
-        if (tiempoAtaquelagrima4==120){
-            float x = Enemigo1.getEnemigo().getX();
-            float y = Enemigo1.getEnemigo().getY();
-            lagrima4.setX(x);
-            lagrima4.setY(y);
-            attachChild(lagrima4);
-            lagrima4viva=true;
-
-        }
-        if (tiempoAtaquelagrima4==220){
-            detachChild(lagrima4);
-            lagrima4.detachSelf();
-            lagrima4viva=false;
-            tiempoAtaquelagrima4=0;
-        }
-
-        tiempoAtaquelagrima1++;
-        tiempoAtaquelagrima2++;
-        tiempoAtaquelagrima3++;
-        tiempoAtaquelagrima4++;
-
-
-
-
-
-
     }
 }
-
 */

@@ -48,8 +48,46 @@ public class EscenaNiveles extends EscenaBase{
         setTouchAreaBindingOnActionDownEnabled(true);
 
         // *** Agrega los botones al Menú
-        btnN0 = new ButtonSprite(915,356,
-                admRecursos.regionBtnN0,admRecursos.vbom) {
+        btnN1 = new ButtonSprite(215,356,
+                admRecursos.regionBtnN1,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    // Cambia a la escena de JUGAR
+                    admEscenas.crearEscenaJuego1();
+                    admEscenas.setEscena(TipoEscena.ESCENA_JUEGO1);
+                    admEscenas.liberarEscenaNiveles();
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        registerTouchArea(btnN1);
+        attachChild(btnN1);
+
+        btnN2 = new ButtonSprite(415,356,
+                admRecursos.regionBtnN2,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    // Cambia a la escena de JUGAR
+                    admEscenas.crearEscenaJuego2();
+                    admEscenas.setEscena(TipoEscena.ESCENA_JUEGO2);
+                    admEscenas.liberarEscenaNiveles();
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        registerTouchArea(btnN2);
+        attachChild(btnN2);
+
+        btnN3 = new ButtonSprite(615,356,
+                admRecursos.regionBtnN3,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
@@ -64,8 +102,8 @@ public class EscenaNiveles extends EscenaBase{
             }
         };
 
-        registerTouchArea(btnN0);
-        attachChild(btnN0);
+        registerTouchArea(btnN3);
+        attachChild(btnN3);
 
     }
 
@@ -79,7 +117,7 @@ public class EscenaNiveles extends EscenaBase{
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_MENU;
+        return TipoEscena.ESCENA_NIVELES;
     }
 
     @Override

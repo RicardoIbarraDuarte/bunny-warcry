@@ -98,6 +98,12 @@ public class
     public ITextureRegion regionLagrimas;
     public TiledTextureRegion[] regionesGuamomi;
 
+    private BuildableBitmapTextureAtlas texturaYamiDerecha;
+    public TiledTextureRegion regionYamiDerecha;
+    private BuildableBitmapTextureAtlas texturaYamiIzquierda;
+    public TiledTextureRegion regionYamiIzquierda;
+    public TiledTextureRegion[] regionesYami;
+
 
 
     // Escena Acerca de (imagen estática)
@@ -266,6 +272,22 @@ public class
 
     }
 
+    public void cargarRecursosJuego3() {
+        cargarPersonajeAtacando();
+        cargarPersonajeCaminando();
+        cargarUI(2);
+        cargaEnemigos(3);
+
+
+
+    }
+    public void liberarRecursosJuego3() {
+        liberarPersonaje();
+        liberarEnemigos(3);
+        liberarUI();
+
+    }
+
     public void cargarRecursosJuego2() {
         cargarPersonajeAtacando();
         cargarPersonajeCaminando();
@@ -281,6 +303,7 @@ public class
         liberarUI();
 
     }
+
 
     // crear escena acerca de
     public void cargarRecursosAcercaDe() {
@@ -899,7 +922,7 @@ public class
             try {
                 // Carga la imagen de fondo de la pantalla juego
                 texturaFondoJuego = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                        actividadJuego.getAssets(), "EscenaJuego/FondoJuego2.jpg");
+                        actividadJuego.getAssets(), "EscenaJuego/FondoJuego2.png");
                 regionFondoJuego = TextureRegionFactory.extractFromTexture(texturaFondoJuego);
                 texturaFondoJuego.load();
             } catch (IOException e) {
@@ -1019,6 +1042,32 @@ public class
 
         }
         if (x==3 || x==4){
+            texturaYamiDerecha = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    795,163);
+            regionYamiDerecha = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaYamiDerecha,actividadJuego, "Enemigos/Jamieltopo/Jami el topoDerecha.png",5,1);
+            try {
+                texturaYamiDerecha.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaYamiDerecha.load();
+
+            texturaYamiIzquierda = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    795,163);
+            regionYamiIzquierda = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaYamiIzquierda,actividadJuego, "Enemigos/Jamieltopo/Jami el topoIzquierda.png",5,1);
+            try {
+                texturaYamiIzquierda.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaYamiIzquierda.load();
+
+            regionesYami =  new TiledTextureRegion[]{regionYamiDerecha, regionYamiIzquierda};
+
 
         }
         if (x==4){
@@ -1070,6 +1119,10 @@ public class
 
 
         if (x==2 || x==3 || x==4){
+            texturaGuamomi.unload();
+            regionGuamomi=null;
+            texturaLagrimas.unload();
+            regionLagrimas=null;
 
         }
         if (x==3 || x==4){

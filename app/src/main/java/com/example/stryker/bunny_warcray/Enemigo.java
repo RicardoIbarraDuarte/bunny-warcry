@@ -42,6 +42,7 @@ public class Enemigo {
     public void dibujarEnemigo(){
 
     }
+    public void animarYami(){}
 
 
 }

@@ -92,11 +92,23 @@ public class
     public TiledTextureRegion regionHamsterDerecha;
     public TiledTextureRegion[] regionesHamster;
 
+    private BuildableBitmapTextureAtlas texturaPorugaFrente;
+    public TiledTextureRegion regionPorugaFrente;
+    private BuildableBitmapTextureAtlas texturaPorugaAtras;
+    public TiledTextureRegion regionPorugaAtras;
+    private BuildableBitmapTextureAtlas texturaPorugaIzquierda;
+    public TiledTextureRegion regionPorugaIzquierda;
+    private BuildableBitmapTextureAtlas texturaPorugaDerecha;
+    public TiledTextureRegion regionPorugaDerecha;
+    public TiledTextureRegion[] regionesPoruga;
+
     private BuildableBitmapTextureAtlas texturaGuamomi;
     public TiledTextureRegion regionGuamomi;
     private ITexture texturaLagrimas;
     public ITextureRegion regionLagrimas;
     public TiledTextureRegion[] regionesGuamomi;
+    private ITexture texturaOdio;
+    public ITextureRegion regionOdio;
 
     private BuildableBitmapTextureAtlas texturaYamiDerecha;
     public TiledTextureRegion regionYamiDerecha;
@@ -1072,6 +1084,63 @@ public class
 
         }
         if (x==4){
+            texturaPorugaFrente = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1888,390);
+            regionPorugaFrente = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaFrente,actividadJuego, "Enemigos/Poruga/spritesheet-poruga-delante",5,1);
+            try {
+                texturaPorugaFrente.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaFrente.load();
+
+            texturaPorugaIzquierda = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1600,400);
+            regionPorugaIzquierda = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaIzquierda,actividadJuego, "Enemigos/Poruga/poruga izquierda",4,1);
+            try {
+                texturaPorugaIzquierda.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaIzquierda.load();
+
+            texturaPorugaDerecha = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    585,125);
+            regionPorugaDerecha = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaDerecha,actividadJuego, "Enemigos/Poruga/poruga derecha",4,1);
+            try {
+                texturaPorugaDerecha.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaDerecha.load();
+
+            texturaPorugaAtras = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    592,116);
+            regionPorugaAtras = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaAtras,actividadJuego, "Enemigos/Poruga/spritesheet-poruga-atras.png",5,1);
+            try {
+                texturaPorugaAtras.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaAtras.load();
+
+            regionesPoruga = new TiledTextureRegion[]{regionPorugaFrente,regionPorugaAtras,regionPorugaDerecha,regionPorugaIzquierda};
+            try {
+                texturaOdio = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                        actividadJuego.getAssets(), "Enemigos/poruga/proyectil poruga.png");
+                regionOdio = TextureRegionFactory.extractFromTexture(texturaLagrimas);
+                texturaOdio.load();
+            } catch (IOException e) {
+                Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
+            }
 
         }
     }

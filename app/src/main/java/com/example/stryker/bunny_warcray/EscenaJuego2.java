@@ -699,7 +699,7 @@ public class EscenaJuego2 extends EscenaBase
 
             attachChild(Enemigo2.getEnemigo());
             attachChild(Enemigo3.getEnemigo());
-            enemigosVivos=0;
+            enemigosVivos=6;
 
         }
         if (tipoNivel==2){

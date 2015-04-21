@@ -285,7 +285,7 @@ public class EscenaJuego3 extends EscenaBase {
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_JUEGO2;
+        return TipoEscena.ESCENA_JUEGO3;
     }
 
     @Override
@@ -308,23 +308,26 @@ public class EscenaJuego3 extends EscenaBase {
                 float px = personaje.getPersonaje().getX();
                 float py = personaje.getPersonaje().getY();
 
-                if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
-                        < (Enemigo1.radioImagen + personaje.radioImagen) * (Enemigo1.radioImagen +
-                        personaje.radioImagen) && Enemigo1Vivo) {
-                    if (ataque) {
-                        Enemigo1.vida = Enemigo1.vida - personaje.fuerza;
-                        if (Enemigo1.vida <= 0) {
-                            Enemigo1.getEnemigo().detachSelf();
-                            Enemigo1Vivo = false;
-                            enemigosVivos = enemigosVivos - 1;
-                        }
-                    } else {
-                        if (!dañado) {
-                            personaje.setPersonaje(4);
-                            attachChild(personaje.getPersonaje());
-                            dañado = true;
-                        }
+                if (!yamiOculta) {
 
+                    if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
+                            < (Enemigo1.radioImagen + personaje.radioImagen) * (Enemigo1.radioImagen +
+                            personaje.radioImagen) && Enemigo1Vivo) {
+                        if (ataque) {
+                            Enemigo1.vida = Enemigo1.vida - personaje.fuerza;
+                            if (Enemigo1.vida <= 0) {
+                                Enemigo1.getEnemigo().detachSelf();
+                                Enemigo1Vivo = false;
+                                enemigosVivos = enemigosVivos - 1;
+                            }
+                        } else {
+                            if (!dañado) {
+                                personaje.setPersonaje(4);
+                                attachChild(personaje.getPersonaje());
+                                dañado = true;
+                            }
+
+                        }
                     }
                 }
                 if (((ex2 - px) * (ex2 - px)) + ((ey2 - py) * (ey2 - py))
@@ -377,24 +380,26 @@ public class EscenaJuego3 extends EscenaBase {
                 float px = personaje.getPersonaje().getX();
                 float py = personaje.getPersonaje().getY();
 
+                if (!yamiOculta) {
 
-                if (((ex4 - px) * (ex4 - px)) + ((ey4 - py) * (ey4 - py))
-                        < (Enemigo4.radioImagen + personaje.radioImagen) * (Enemigo4.radioImagen +
-                        personaje.radioImagen) && Enemigo4Vivo) {
-                    if (ataque) {
-                        Enemigo4.vida = Enemigo4.vida - personaje.fuerza;
-                        if (Enemigo4.vida <= 0) {
-                            Enemigo4.getEnemigo().detachSelf();
-                            Enemigo4Vivo = false;
-                            enemigosVivos = enemigosVivos - 1;
-                        }
-                    } else {
-                        if (!dañado) {
-                            personaje.setPersonaje(4);
-                            attachChild(personaje.getPersonaje());
-                            dañado = true;
-                        }
+                    if (((ex4 - px) * (ex4 - px)) + ((ey4 - py) * (ey4 - py))
+                            < (Enemigo4.radioImagen + personaje.radioImagen) * (Enemigo4.radioImagen +
+                            personaje.radioImagen) && Enemigo4Vivo) {
+                        if (ataque) {
+                            Enemigo4.vida = Enemigo4.vida - personaje.fuerza;
+                            if (Enemigo4.vida <= 0) {
+                                Enemigo4.getEnemigo().detachSelf();
+                                Enemigo4Vivo = false;
+                                enemigosVivos = enemigosVivos - 1;
+                            }
+                        } else {
+                            if (!dañado) {
+                                personaje.setPersonaje(4);
+                                attachChild(personaje.getPersonaje());
+                                dañado = true;
+                            }
 
+                        }
                     }
                 }
                 if (((ex5 - px) * (ex5 - px)) + ((ey5 - py) * (ey5 - py))

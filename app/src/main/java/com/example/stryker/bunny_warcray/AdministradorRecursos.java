@@ -519,13 +519,13 @@ public class
         }
         btaBtnN0.load();
 
-/*        // Fin de carga imagen botón jugar
+
         // Carga la imagen para el botón Acerca de
         btaBtnN1 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,150);
+                120,157);
         regionBtnN1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN1,
         actividadJuego.getAssets(),
-                "btaBtnN1.png", 1, 1);
+                "EscenaNivel/btaBtnN1.png", 1, 1);
         try {
             btaBtnN1.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
             BitmapTextureAtlas>(0,0,0));
@@ -536,10 +536,10 @@ public class
         btaBtnN1.load();
         // Carga la imagen para el botón Creditos
         btaBtnN2 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,400);
+                120,157);
         regionBtnN2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN2,
         actividadJuego.getAssets(),
-                "BotonN2.png", 1, 1);
+                "EscenaNivel/BotonN2.png", 1, 1);
         try {
             btaBtnN2.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
             BitmapTextureAtlas>(0,0,0));
@@ -549,10 +549,10 @@ public class
         }
         btaBtnN2.load();
         btaBtnN3 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,400);
+                120,157);
         regionBtnN3 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN3,
         actividadJuego.getAssets(),
-                "BotonN3.png", 1, 1);
+                "EscenaNivel/BotonN3.png", 1, 1);
         try {
             btaBtnN3.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
             BitmapTextureAtlas>(0,0,0));
@@ -561,11 +561,11 @@ public class
             Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
         }
         btaBtnN3.load();
-        btaBtnN4 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
-                400,400);
+       /* btaBtnN4 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                120,157);
         regionBtnN4 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN4,
         actividadJuego.getAssets(),
-                "BotonN4.png", 1, 1);
+                "EscenaNivel/BotonN4.png", 1, 1);
         try {
             btaBtnN4.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
             BitmapTextureAtlas>(0,0,0));
@@ -575,6 +575,7 @@ public class
         }
         btaBtnN4.load();
         */
+
 
     }
     public void liberarRecursosNiveles() {

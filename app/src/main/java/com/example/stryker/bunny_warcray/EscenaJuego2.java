@@ -1008,7 +1008,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima5.setY(y);
                     lagrima5.setScale(.5f);
                     attachChild(lagrima5);
-                    lagrima5.setZIndex(Enemigo4.getEnemigo().getZIndex() - 1);
+                    lagrima5.setZIndex(-1);
                     lagrima5viva = true;
 
                 }
@@ -1025,7 +1025,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima6.setY(y);
                     lagrima6.setScale(.5f);
                     attachChild(lagrima6);
-                    lagrima6.setZIndex(Enemigo4.getEnemigo().getZIndex() - 1);
+                    lagrima6.setZIndex(-1);
                     lagrima6viva = true;
 
                 }
@@ -1042,7 +1042,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima7.setY(y);
                     lagrima7.setScale(.5f);
                     attachChild(lagrima7);
-                    lagrima7.setZIndex(Enemigo4.getEnemigo().getZIndex() - 1);
+                    lagrima7.setZIndex(-1);
                     lagrima7viva = true;
 
                 }
@@ -1059,7 +1059,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima8.setY(y);
                     lagrima8.setScale(.5f);
                     attachChild(lagrima8);
-                    lagrima8.setZIndex(Enemigo4.getEnemigo().getZIndex() - 1);
+                    lagrima8.setZIndex(-1);
                     lagrima8viva = true;
 
                 }
@@ -1073,6 +1073,7 @@ public class EscenaJuego2 extends EscenaBase
                 tiempoAtaquelagrima6++;
                 tiempoAtaquelagrima7++;
                 tiempoAtaquelagrima8++;
+                sortChildren();
 
             }
             if (Enemigo5Vivo) {
@@ -1083,7 +1084,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima9.setY(y);
                     lagrima9.setScale(.5f);
                     attachChild(lagrima9);
-                    lagrima9.setZIndex(Enemigo5.getEnemigo().getZIndex() - 1);
+                    lagrima9.setZIndex(-1);
                     lagrima9viva = true;
 
                 }
@@ -1100,7 +1101,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima10.setY(y);
                     lagrima10.setScale(.5f);
                     attachChild(lagrima10);
-                    lagrima10.setZIndex(Enemigo5.getEnemigo().getZIndex() - 1);
+                    lagrima10.setZIndex(-1);
                     lagrima10viva = true;
 
                 }
@@ -1117,7 +1118,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima11.setY(y);
                     lagrima11.setScale(.5f);
                     attachChild(lagrima11);
-                    lagrima11.setZIndex(Enemigo5.getEnemigo().getZIndex() - 1);
+                    lagrima11.setZIndex(-1);
                     lagrima11viva = true;
 
                 }
@@ -1134,7 +1135,7 @@ public class EscenaJuego2 extends EscenaBase
                     lagrima12.setY(y);
                     lagrima12.setScale(.5f);
                     attachChild(lagrima12);
-                    lagrima12.setZIndex(Enemigo5.getEnemigo().getZIndex() - 1);
+                    lagrima12.setZIndex(-1);
                     lagrima12viva = true;
 
                 }
@@ -1150,6 +1151,7 @@ public class EscenaJuego2 extends EscenaBase
                 tiempoAtaquelagrima10++;
                 tiempoAtaquelagrima11++;
                 tiempoAtaquelagrima12++;
+                sortChildren();
             }
 
         }

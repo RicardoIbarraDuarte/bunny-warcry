@@ -397,7 +397,7 @@ public class
         try {
             // Carga la imagen de fondo de la pantalla de Acerca
             texturaFondoAcerca = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "EscenaAcercaDe/FondoAcercaDe.jpg");
+                    actividadJuego.getAssets(), "EscenaAcercaDe/AcercaDeMusica.png");
             regionFondoAcerca = TextureRegionFactory.extractFromTexture(texturaFondoAcerca);
             texturaFondoAcerca.load();
         } catch (IOException e) {

@@ -24,6 +24,7 @@ public class EscenaNiveles extends EscenaBase{
     private ButtonSprite btnN3;
     private ButtonSprite btnN4;
     private ButtonSprite btnN5;
+    private ButtonSprite btnEx;
 
     @Override
     public void crearEscena() {
@@ -122,6 +123,25 @@ public class EscenaNiveles extends EscenaBase{
 
         registerTouchArea(btnN4);
         attachChild(btnN4);
+        btnEx = new ButtonSprite(815,116,
+                admRecursos.regionbtaExperiencia,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    // Cambia a la escena de JUGAR
+                    admEscenas.crearEscenaExperiencia();
+                    admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
+                    admEscenas.liberarEscenaNiveles();
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        btnEx.setScale(.8f);
+
+        registerTouchArea(btnEx);
+        attachChild(btnEx);
 
     }
 

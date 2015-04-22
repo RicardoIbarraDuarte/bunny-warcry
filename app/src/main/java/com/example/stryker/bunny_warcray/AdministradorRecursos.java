@@ -573,7 +573,7 @@ public class
             Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
         }
         btaBtnN3.load();
-       /* btaBtnN4 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+        btaBtnN4 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
                 120,157);
         regionBtnN4 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN4,
         actividadJuego.getAssets(),
@@ -586,7 +586,20 @@ public class
             Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
         }
         btaBtnN4.load();
-        */
+        btaBtnN5 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                120,157);
+        regionBtnN4 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN4,
+                actividadJuego.getAssets(),
+                "EscenaNivel/BotonN4.png", 1, 1);
+        try {
+            btaBtnN4.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón jugar");
+        }
+        btaBtnN4.load();
+
 
 
     }

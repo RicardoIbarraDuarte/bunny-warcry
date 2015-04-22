@@ -618,7 +618,7 @@ public class
         btaBtnN5.load();
         btaExperiencia = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
                 348,146);
-        regionbtaExperiencia = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnN5,
+        regionbtaExperiencia = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaExperiencia,
                 actividadJuego.getAssets(),
                 "EscenaNivel/BotonEx.png", 1, 1);
         try {

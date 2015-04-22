@@ -49,7 +49,26 @@ public class EscenaNiveles extends EscenaBase{
         setTouchAreaBindingOnActionDownEnabled(true);
 
         // *** Agrega los botones al Menú
-        btnN1 = new ButtonSprite(215,356,
+        btnN0 = new ButtonSprite(715,506,
+                admRecursos.regionBtnN0,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()) {
+                    // Cambia a la escena de JUGAR
+                    admEscenas.crearEscenaJuego0();
+                    admEscenas.setEscena(TipoEscena.ESCENA_JUEGO0);
+                    admEscenas.liberarEscenaNiveles();
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        registerTouchArea(btnN0);
+        attachChild(btnN0);
+
+
+        btnN1 = new ButtonSprite(215,306,
                 admRecursos.regionBtnN1,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
@@ -68,7 +87,7 @@ public class EscenaNiveles extends EscenaBase{
         registerTouchArea(btnN1);
         attachChild(btnN1);
 
-        btnN2 = new ButtonSprite(415,356,
+        btnN2 = new ButtonSprite(415,306,
                 admRecursos.regionBtnN2,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
@@ -87,7 +106,7 @@ public class EscenaNiveles extends EscenaBase{
         registerTouchArea(btnN2);
         attachChild(btnN2);
 
-        btnN3 = new ButtonSprite(615,356,
+        btnN3 = new ButtonSprite(615,306,
                 admRecursos.regionBtnN3,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
@@ -105,7 +124,7 @@ public class EscenaNiveles extends EscenaBase{
 
         registerTouchArea(btnN3);
         attachChild(btnN3);
-        btnN4 = new ButtonSprite(815,356,
+        btnN4 = new ButtonSprite(815,306,
                 admRecursos.regionBtnN4,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override

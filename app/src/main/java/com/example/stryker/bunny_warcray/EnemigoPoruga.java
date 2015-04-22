@@ -19,26 +19,32 @@ public class EnemigoPoruga extends Enemigo {
     private int fps=80;
 
     public void crearEnemigo(float x, float y, TiledTextureRegion[] regionPoruga,
-                             VertexBufferObjectManager vbom){
+                             VertexBufferObjectManager vbom) {
 
-        AnimatedSprite porugaFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+        AnimatedSprite porugaFrente = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2,
                 regionPoruga[0].getHeight(),
-                regionPoruga[0],vbom);
+                regionPoruga[0], vbom);
+
+        porugaFrente.setScale(.4f);
+
 
 
         AnimatedSprite porugaAtras = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
                 regionPoruga[1].getHeight(),
                 regionPoruga[1],vbom);
+        porugaAtras.setScale(.4f);
 
 
         AnimatedSprite porugaDerecha = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
                 regionPoruga[2].getHeight(),
                 regionPoruga[2],vbom);
+        porugaDerecha.setScale(.4f);
 
 
         AnimatedSprite porugaIzquierda = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
                 regionPoruga[3].getHeight(),
                 regionPoruga[3],vbom);
+        porugaIzquierda.setScale(.4f);
 
 
         poruga = new AnimatedSprite[]{porugaFrente,porugaAtras,porugaDerecha,porugaIzquierda};

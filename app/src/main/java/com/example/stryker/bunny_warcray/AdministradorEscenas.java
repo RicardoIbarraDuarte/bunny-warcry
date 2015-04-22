@@ -244,21 +244,21 @@ public class AdministradorEscenas
         escenaJuego4.liberarEscena();
         escenaJuego4 = null;
     }
-/*
+
     public void crearEscenaJuego0() {
         // Carga los recursos
-        admRecursos.cargarRecursosJuego();
-        escenaJuego = new EscenaJuego();
+        admRecursos.cargarRecursosJuego0();
+        escenaJuego0 = new EscenaJuego0();
     }
 
     //*** Libera la escena de juego
     public void liberarEscenaJuego0() {
-        admRecursos.liberarRecursosJuego();
-        escenaJuego.liberarEscena();
-        escenaJuego = null;
+        admRecursos.liberarRecursosJuego0();
+        escenaJuego0.liberarEscena();
+        escenaJuego0 = null;
     }
 
-*/
+
     //*** Crea la escena de juego
     public void crearEscenaNiveles() {
         // Carga los recursos

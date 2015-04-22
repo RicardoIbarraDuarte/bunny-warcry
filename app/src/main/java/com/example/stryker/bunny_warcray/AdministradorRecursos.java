@@ -43,6 +43,14 @@ public class
     // Escena Juegos
     private ITexture texturaFondoJuego;
     public ITextureRegion regionFondoJuego;
+    private ITexture texturaFondo1;
+    public ITextureRegion regionFondo1;
+    private ITexture texturaFondo2;
+    public ITextureRegion regionFondo2;
+    private ITexture texturaFondo3;
+    public ITextureRegion regionFondo3;
+    private ITexture texturaFondo4;
+    public ITextureRegion regionFondo4;
     private ITexture texturaHamster;
     public ITextureRegion regionHamster;
     private ITexture texturaHamstercreepy;
@@ -227,6 +235,56 @@ public class
 
         texturaSplash.unload();
         regionSplash = null;
+    }
+
+    public void cargarRecursosJuego0() {
+        try {
+            // Carga la imagen de fondo de la pantalla juego
+            texturaFondo1 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "EscenaNivel0/parte1.jpg");
+            regionFondo1 = TextureRegionFactory.extractFromTexture(texturaFondo1);
+            texturaFondo1.load();
+        } catch (IOException e) {
+
+            Log.d("cargarRecursosJuego", "No se puede cargar el fondo");
+        }
+        try {
+            // Carga la imagen de fondo de la pantalla juego
+            texturaFondo2 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "EscenaNivel0/parte2.jpg");
+            regionFondo2 = TextureRegionFactory.extractFromTexture(texturaFondo2);
+            texturaFondo2.load();
+        } catch (IOException e) {
+
+            Log.d("cargarRecursosJuego", "No se puede cargar el fondo");
+        }
+        try {
+            // Carga la imagen de fondo de la pantalla juego
+            texturaFondo3 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "EscenaNivel0/parte3.jpg");
+            regionFondo3 = TextureRegionFactory.extractFromTexture(texturaFondo3);
+            texturaFondo3.load();
+        } catch (IOException e) {
+
+            Log.d("cargarRecursosJuego", "No se puede cargar el fondo");
+        }
+        try {
+            // Carga la imagen de fondo de la pantalla juego
+            texturaFondo4 = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "EscenaNivel0/parte4.jpg");
+            regionFondo4 = TextureRegionFactory.extractFromTexture(texturaFondo4);
+            texturaFondo4.load();
+        } catch (IOException e) {
+
+            Log.d("cargarRecursosJuego", "No se puede cargar el fondo");
+        }
+
+    }
+    public void liberarRecursosJuego0() {
+        texturaFondo1.unload();
+        regionFondo1 = null;
+
+
     }
 
     //*** Recursos de la pantalla de juego

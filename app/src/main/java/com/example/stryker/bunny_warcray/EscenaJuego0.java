@@ -1,5 +1,8 @@
 package com.example.stryker.bunny_warcray;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
@@ -25,10 +28,16 @@ public class EscenaJuego0 extends EscenaBase
     private float tiempotranscurrido=0;
 
     private boolean musicaGeneral;
+    private ControlJuego preferencia;
 
 
     @Override
     public void crearEscena() {
+        SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",false);
+        if (musicaGeneral){
+            admRecursos.actividadJuego.musicaJuego0.play();
+        }
 
         // Creamos el Fondo
         Fondo = new Sprite(0,0,admRecursos.regionFondo1,admRecursos.vbom) {
@@ -92,6 +101,7 @@ public class EscenaJuego0 extends EscenaBase
                     admEscenas.crearEscenaNiveles();
                     admEscenas.setEscena(TipoEscena.ESCENA_NIVELES);
                     admEscenas.liberarEscenaJuego0();
+                    admRecursos.actividadJuego.musicaJuego0.stop();
 
                 }
 
@@ -114,6 +124,7 @@ public class EscenaJuego0 extends EscenaBase
         admEscenas.crearEscenaNiveles();
         admEscenas.setEscena(TipoEscena.ESCENA_NIVELES);
         admEscenas.liberarEscenaJuego0();
+        admRecursos.actividadJuego.musicaJuego0.stop();
 
     }
 

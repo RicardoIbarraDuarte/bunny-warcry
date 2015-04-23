@@ -1,5 +1,7 @@
 package com.example.stryker.bunny_warcray;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.andengine.audio.music.Music;
@@ -28,10 +30,21 @@ public class EscenaMenu extends EscenaBase{
     private ButtonSprite btnCreditos;
     private ButtonSprite btnOpciones;
 
-    private Music musicaFondo;
+
+
 
     @Override
     public void crearEscena() {
+        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()){
+            admRecursos.actividadJuego.musicaMenu.play();
+
+        }
+       /* boolean musicaMenu;
+        boolean musicaGeneral;
+        SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaMenu = preferencias.getBoolean("musicaMenu",false);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+
 
         try {
             musicaFondo = MusicFactory.createMusicFromAsset(admRecursos.engine.getMusicManager(),
@@ -41,7 +54,12 @@ public class EscenaMenu extends EscenaBase{
             Log.i("cargarSonidos", "No se puede cargar demo.ogg");
         }
         // Reproducir
-        musicaFondo.play();
+        if (!musicaMenu&&musicaGeneral) {
+            musicaFondo.play();
+            SharedPreferences.Editor editor = preferencias.edit();
+            editor.putBoolean("musicaMenu", true);
+            editor.commit();
+        } */
 
 
         // Creamos el sprite de manera óptima
@@ -160,4 +178,7 @@ public class EscenaMenu extends EscenaBase{
         this.detachSelf();      // La escena se deconecta del engine
         this.dispose();         // Libera la memoria
     }
+    /*public Music getMusicaFondo(){
+        return musicaFondo;
+    }*/
 }

@@ -51,9 +51,102 @@ public class EscenaJuego1 extends EscenaBase
     private Sprite barra;
     private int experienciaGanada;
     private ControlJuego preferencia;
+    private TiledTextureRegion[] EnemigoImagen1;
+    private TiledTextureRegion[] EnemigoImagen2;
+    private TiledTextureRegion[] EnemigoImagen3;
+    private TiledTextureRegion[] EnemigoImagen4;
+    private TiledTextureRegion[] EnemigoImagen5;
+    private TiledTextureRegion[] EnemigoImagen6;
+    private int randomCreepy;
+    private boolean musicaGeneral;
+
 
     @Override
     public void crearEscena() {
+
+
+
+        Enemigo1= new EnemigoHamster();
+        Enemigo2= new EnemigoHamster();
+        Enemigo3= new EnemigoHamster();
+        Enemigo4= new EnemigoHamster();
+        Enemigo5= new EnemigoHamster();
+        Enemigo6= new EnemigoHamster();
+        Enemigo1.setRadios();
+        Enemigo2.setRadios();
+        Enemigo3.setRadios();
+        Enemigo4.setRadios();
+        Enemigo5.setRadios();
+        Enemigo6.setRadios();
+
+        int contador=0;
+        while (contador<=6){
+            randomCreepy=(int)((Math.random() * 10) + 1);
+            if (contador==1&&randomCreepy<=8){
+                EnemigoImagen1=admRecursos.regionesHamster;
+                Enemigo1.radioImagen=Enemigo1.radioImagenN;
+
+            }
+            if (contador==1&&randomCreepy>=9){
+                EnemigoImagen1=admRecursos.regionesHamsterC;
+                Enemigo1.radioImagen=Enemigo1.radioImagenC;
+
+
+            }
+            if (contador==2&&randomCreepy<=8){
+                EnemigoImagen2=admRecursos.regionesHamster;
+                Enemigo2.radioImagen=Enemigo2.radioImagenN;
+
+            }
+            if (contador==2&&randomCreepy>=9){
+                EnemigoImagen2=admRecursos.regionesHamsterC;
+                Enemigo2.radioImagen=Enemigo2.radioImagenC;
+
+            }
+            if (contador==3&&randomCreepy<=8){
+                EnemigoImagen3=admRecursos.regionesHamster;
+                Enemigo3.radioImagen=Enemigo3.radioImagenN;
+
+            }
+            if (contador==3&&randomCreepy>=9){
+                EnemigoImagen3=admRecursos.regionesHamsterC;
+                Enemigo3.radioImagen=Enemigo3.radioImagenC;
+
+            }
+            if (contador==4&&randomCreepy<=8){
+                EnemigoImagen4=admRecursos.regionesHamster;
+                Enemigo4.radioImagen=Enemigo4.radioImagenN;
+
+            }
+            if (contador==4&&randomCreepy>=9){
+                EnemigoImagen4=admRecursos.regionesHamsterC;
+                Enemigo4.radioImagen=Enemigo4.radioImagenC;
+
+            }
+            if (contador==5&&randomCreepy<=8){
+                EnemigoImagen5=admRecursos.regionesHamster;
+                Enemigo5.radioImagen=Enemigo5.radioImagenN;
+
+            }
+            if (contador==5&&randomCreepy>=9){
+                EnemigoImagen5=admRecursos.regionesHamsterC;
+                Enemigo5.radioImagen=Enemigo5.radioImagenC;
+
+            }
+            if (contador==6&&randomCreepy<=8){
+                EnemigoImagen6=admRecursos.regionesHamster;
+                Enemigo6.radioImagen=Enemigo6.radioImagenN;
+
+            }
+            if (contador==6&&randomCreepy>=9){
+                EnemigoImagen6=admRecursos.regionesHamsterC;
+                Enemigo6.radioImagen=Enemigo6.radioImagenC;
+
+            }
+            contador++;
+
+        }
+
         preferencia = admRecursos.actividadJuego;
         // Creamos el Fondo
         Fondo = new Sprite(0,0,admRecursos.regionFondoJuego,admRecursos.vbom) {
@@ -120,7 +213,7 @@ public class EscenaJuego1 extends EscenaBase
         attachChild(barra);
 
         //Creamos el nivel aleatorio y los enemigos
-        tipoNivel = 1; //(int)((Math.random() * 4) + 1);
+        tipoNivel = 1;
         generadorDenivel();
 
         registerUpdateHandler(new IUpdateHandler() {
@@ -424,16 +517,19 @@ public class EscenaJuego1 extends EscenaBase
     public void generadorDenivel(){
         if (tipoNivel==1) {
 
-            Enemigo1 = new EnemigoHamster();
-            Enemigo1.crearEnemigo(0, 0, admRecursos.regionesHamster , admRecursos.vbom);
-            Enemigo2 = new EnemigoHamster();
-            Enemigo2.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-            Enemigo3 = new EnemigoHamster();
-            Enemigo3.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
+
+            Enemigo1.crearEnemigo(0, 0, EnemigoImagen1 , admRecursos.vbom);
+
+            Enemigo2.crearEnemigo(0, 0, EnemigoImagen2, admRecursos.vbom);
+
+            Enemigo3.crearEnemigo(0, 0, EnemigoImagen3, admRecursos.vbom);
 
             Enemigo1.dibujarEnemigo();
             Enemigo2.dibujarEnemigo();
             Enemigo3.dibujarEnemigo();
+
+
+
 
             attachChild(Enemigo1.getEnemigo());
             attachChild(Enemigo2.getEnemigo());
@@ -441,24 +537,7 @@ public class EscenaJuego1 extends EscenaBase
             enemigosVivos=6;
 
         }
-        if (tipoNivel==2){
-            Enemigo1 = new EnemigoHamster();
-            Enemigo1.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-            Enemigo2 = new EnemigoHamster();
-            Enemigo2.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-            Enemigo3 = new EnemigoHamster();
-            Enemigo3.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
 
-            Enemigo1.dibujarEnemigo();
-            Enemigo2.dibujarEnemigo();
-            Enemigo3.dibujarEnemigo();
-
-            attachChild(Enemigo1.getEnemigo());
-            attachChild(Enemigo2.getEnemigo());
-            attachChild(Enemigo3.getEnemigo());
-            enemigosVivos=6;
-
-        }
     }
     public void movimientoEnemigos(){
         if (tipoNivel==1) {
@@ -497,16 +576,7 @@ public class EscenaJuego1 extends EscenaBase
             }
 
         }
-        if (tipoNivel==2) {
-            Enemigo1.movimientoEnemigo();
-            Enemigo2.movimientoEnemigo();
-            Enemigo3.movimientoEnemigo();
-            if (faseDos) {
-                Enemigo4.movimientoEnemigo();
-                Enemigo5.movimientoEnemigo();
-                Enemigo6.movimientoEnemigo();
-            }
-        }
+
     }
     public void comprobarDireccionPersonaje(){
         if (personaje.direccion==0 && personaje.direcAnte!=0){
@@ -564,15 +634,16 @@ public class EscenaJuego1 extends EscenaBase
         if (tipoNivel==1) {
             if (!faseDos) {
                 if (enemigosVivos == 3) {
-                    Enemigo4 = new EnemigoHamster();
-                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-                    Enemigo5 = new EnemigoHamster();
-                    Enemigo5.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-                    Enemigo6 = new EnemigoHamster();
-                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
+
+                    Enemigo4.crearEnemigo(0, 0, EnemigoImagen4, admRecursos.vbom);
+
+                    Enemigo5.crearEnemigo(0, 0, EnemigoImagen5, admRecursos.vbom);
+
+                    Enemigo6.crearEnemigo(0, 0, EnemigoImagen6, admRecursos.vbom);
                     Enemigo4.dibujarEnemigo();
                     Enemigo5.dibujarEnemigo();
                     Enemigo6.dibujarEnemigo();
+
                     attachChild(Enemigo4.getEnemigo());
                     attachChild(Enemigo5.getEnemigo());
                     attachChild(Enemigo6.getEnemigo());
@@ -580,24 +651,6 @@ public class EscenaJuego1 extends EscenaBase
                 }
             }
         }
-        if (tipoNivel==2) {
-            if (!faseDos) {
-                if (enemigosVivos == 3) {
-                    Enemigo4 = new EnemigoHamster();
-                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-                    Enemigo5 = new EnemigoHamster();
-                    Enemigo5.crearEnemigo(0, 0,admRecursos.regionesHamster, admRecursos.vbom);
-                    Enemigo6 = new EnemigoHamster();
-                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-                    Enemigo4.dibujarEnemigo();
-                    Enemigo5.dibujarEnemigo();
-                    Enemigo6.dibujarEnemigo();
-                    attachChild(Enemigo4.getEnemigo());
-                    attachChild(Enemigo5.getEnemigo());
-                    attachChild(Enemigo6.getEnemigo());
-                    faseDos=true;
-                }
-            }
-        }
+
     }
 }

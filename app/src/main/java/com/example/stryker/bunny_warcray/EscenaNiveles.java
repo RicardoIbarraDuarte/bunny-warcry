@@ -60,6 +60,7 @@ public class EscenaNiveles extends EscenaBase{
                     admEscenas.crearEscenaJuego0();
                     admEscenas.setEscena(TipoEscena.ESCENA_JUEGO0);
                     admEscenas.liberarEscenaNiveles();
+                    admRecursos.actividadJuego.musicaMenu.pause();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -79,6 +80,7 @@ public class EscenaNiveles extends EscenaBase{
                     admEscenas.crearEscenaJuego1();
                     admEscenas.setEscena(TipoEscena.ESCENA_JUEGO1);
                     admEscenas.liberarEscenaNiveles();
+                    admRecursos.actividadJuego.musicaMenu.pause();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -98,6 +100,7 @@ public class EscenaNiveles extends EscenaBase{
                     admEscenas.crearEscenaJuego2();
                     admEscenas.setEscena(TipoEscena.ESCENA_JUEGO2);
                     admEscenas.liberarEscenaNiveles();
+                    admRecursos.actividadJuego.musicaMenu.pause();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -117,6 +120,7 @@ public class EscenaNiveles extends EscenaBase{
                     admEscenas.crearEscenaJuego3();
                     admEscenas.setEscena(TipoEscena.ESCENA_JUEGO3);
                     admEscenas.liberarEscenaNiveles();
+                    admRecursos.actividadJuego.musicaMenu.pause();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -135,6 +139,7 @@ public class EscenaNiveles extends EscenaBase{
                     admEscenas.crearEscenaJuego4();
                     admEscenas.setEscena(TipoEscena.ESCENA_JUEGO4);
                     admEscenas.liberarEscenaNiveles();
+                    admRecursos.actividadJuego.musicaMenu.pause();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -154,6 +159,7 @@ public class EscenaNiveles extends EscenaBase{
                     admEscenas.crearEscenaJuego5();
                     admEscenas.setEscena(TipoEscena.ESCENA_JUEGO5);
                     admEscenas.liberarEscenaNiveles();
+                    admRecursos.actividadJuego.musicaMenu.pause();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -172,6 +178,7 @@ public class EscenaNiveles extends EscenaBase{
                     admEscenas.crearEscenaExperiencia();
                     admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
                     admEscenas.liberarEscenaNiveles();
+                    admRecursos.actividadJuego.musicaMenu.pause();
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }

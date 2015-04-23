@@ -55,6 +55,7 @@ public class EnemigoPoruga extends Enemigo {
         posicionY = (int)((Math.random() * 549) + 179);
         vida=2;
         radioImagen=54;
+        radioImagenProyectil=65;
         fuerza=1;
         velocidad=5;
         enemigo=poruga[0];
@@ -152,6 +153,11 @@ public class EnemigoPoruga extends Enemigo {
             tiempo = 0;
 
         }
+    }
+
+    public void setRadios(){
+        radioImagenN=100;
+        radioImagenC=100;
     }
 
 }

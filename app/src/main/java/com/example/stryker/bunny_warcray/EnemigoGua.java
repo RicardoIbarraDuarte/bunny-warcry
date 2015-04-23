@@ -22,6 +22,9 @@ public class EnemigoGua extends Enemigo {
     private AnimatedSprite[] guaregiones;
 
 
+
+
+
     public void crearEnemigo(float x, float y, TiledTextureRegion[] regiongua,
                              VertexBufferObjectManager vbom){
         AnimatedSprite gua = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
@@ -37,10 +40,10 @@ public class EnemigoGua extends Enemigo {
         posicionX = (int)((Math.random() * 539) + 159);
         posicionY = (int)((Math.random() * 549) + 179);
         vida=2;
-        radioImagen=54;
+
         fuerza=1;
         velocidad=5;
-        radioImagenProyectil=60;
+        radioImagenProyectil=100;
         enemigo=guaregiones[0];
         enemigo.animate(fps,100);
 
@@ -104,6 +107,10 @@ public class EnemigoGua extends Enemigo {
                 direccionAnterior = direccion;
             }
         }
+    public void setRadios(){
+        radioImagenN=120;
+        radioImagenC=120;
+    }
 
 }
 

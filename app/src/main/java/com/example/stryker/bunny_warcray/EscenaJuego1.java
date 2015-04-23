@@ -63,6 +63,11 @@ public class EscenaJuego1 extends EscenaBase
 
     @Override
     public void crearEscena() {
+        SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+        if (musicaGeneral){
+            admRecursos.actividadJuego.musicaJuego0.play();
+        }
 
 
 
@@ -499,6 +504,7 @@ public class EscenaJuego1 extends EscenaBase
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
             admEscenas.liberarEscenaJuego1();
+            admRecursos.actividadJuego.musicaJuego.stop();
         }
         if (enemigosVivos==0){
             if (tipoNivel==1) {
@@ -512,6 +518,7 @@ public class EscenaJuego1 extends EscenaBase
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
             admEscenas.liberarEscenaJuego1();
+            admRecursos.actividadJuego.musicaJuego.stop();
         }
     }
     public void generadorDenivel(){

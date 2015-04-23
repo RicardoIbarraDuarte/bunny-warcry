@@ -98,10 +98,16 @@ public class EscenaJuego2 extends EscenaBase
     private TiledTextureRegion[] EnemigoImagen5;
     private TiledTextureRegion[] EnemigoImagen6;
     private int randomCreepy;
+    private boolean musicaGeneral;
 
 
     @Override
     public void crearEscena() {
+        SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+        if (musicaGeneral){
+            admRecursos.actividadJuego.musicaJuego.play();
+        }
         Enemigo1= new EnemigoGua();
         Enemigo2 = new EnemigoHamster();
         Enemigo3 = new EnemigoHamster();
@@ -724,6 +730,7 @@ public class EscenaJuego2 extends EscenaBase
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
             admEscenas.liberarEscenaJuego2();
+            admRecursos.actividadJuego.musicaJuego.stop();
         }
         if (enemigosVivos==0){
             if (tipoNivel==1) {
@@ -737,6 +744,7 @@ public class EscenaJuego2 extends EscenaBase
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
             admEscenas.liberarEscenaJuego2();
+            admRecursos.actividadJuego.musicaJuego.stop();
         }
     }
     public void generadorDenivel(){

@@ -33,8 +33,10 @@ public class ControlJuego extends SimpleBaseGameActivity
     @Override
     public EngineOptions onCreateEngineOptions() {
         camara = new Camera(0,0,ANCHO_CAMARA,ALTO_CAMARA);
-        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,
+        EngineOptions opciones= new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
                 new FillResolutionPolicy(),camara);
+        opciones.getAudioOptions().setNeedsMusic(true);
+        return opciones;
     }
 
     @Override
@@ -94,4 +96,5 @@ public class ControlJuego extends SimpleBaseGameActivity
             System.exit(0);
         }
     }
+
 }

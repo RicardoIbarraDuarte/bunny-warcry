@@ -63,11 +63,11 @@ public class EscenaJuego1 extends EscenaBase
 
     @Override
     public void crearEscena() {
-       /* SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
         musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
         if (musicaGeneral){
-            admRecursos.actividadJuego.musicaJuego0.play();
-        } */
+            admRecursos.actividadJuego.musicaJuego.play();
+        }
 
 
 

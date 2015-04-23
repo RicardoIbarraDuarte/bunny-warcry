@@ -59,11 +59,11 @@ public class EscenaJuego5 extends EscenaBase
 
     @Override
     public void crearEscena() {
-       /* SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+       SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
         musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
         if (musicaGeneral){
             admRecursos.actividadJuego.musicaJuego.play();
-        }*/
+        }
 
         preferencia = admRecursos.actividadJuego;
         // Creamos el Fondo

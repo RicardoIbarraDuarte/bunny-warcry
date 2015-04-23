@@ -16,6 +16,7 @@ public enum TipoEscena {
     ESCENA_JUEGO2,
     ESCENA_JUEGO3,
     ESCENA_JUEGO4,
+    ESCENA_JUEGO5,
     ESCENA_JUEGO0,
     ESCENA_OPCIONES
 

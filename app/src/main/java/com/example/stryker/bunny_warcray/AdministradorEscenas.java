@@ -20,6 +20,7 @@ public class AdministradorEscenas
     private EscenaBase escenaJuego2;
     private EscenaBase escenaJuego3;
     private EscenaBase escenaJuego4;
+    private EscenaBase escenaJuego5;
     private EscenaBase escenaJuego0;
     private EscenaBase escenaCreditos;
     private EscenaBase escenaExperiencia;
@@ -108,6 +109,9 @@ public class AdministradorEscenas
                 break;
             case ESCENA_OPCIONES:
                 setEscenaBase(escenaOpciones);
+                break;
+            case ESCENA_JUEGO5:
+                setEscenaBase(escenaJuego5);
                 break;
 
         }
@@ -243,6 +247,19 @@ public class AdministradorEscenas
         admRecursos.liberarRecursosJuego4();
         escenaJuego4.liberarEscena();
         escenaJuego4 = null;
+    }
+
+    public void crearEscenaJuego5() {
+        // Carga los recursos
+        admRecursos.cargarRecursosJuego5();
+        escenaJuego5 = new EscenaJuego5();
+    }
+
+    //*** Libera la escena de juego
+    public void liberarEscenaJuego5() {
+        admRecursos.liberarRecursosJuego5();
+        escenaJuego5.liberarEscena();
+        escenaJuego5 = null;
     }
 
     public void crearEscenaJuego0() {

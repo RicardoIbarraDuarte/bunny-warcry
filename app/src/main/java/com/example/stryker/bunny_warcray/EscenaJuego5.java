@@ -9,6 +9,7 @@ import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.SpriteBackground;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
@@ -34,31 +35,18 @@ public class EscenaJuego5 extends EscenaBase
     private Rectangle barraVida;
     private Sprite Fondo;
     private float anchoVida;
-    private float enemigosVivos;
+    private boolean acabarNivel=false;
     private int tipoNivel;
     private boolean faseDos = false;
     private Sprite barra;
     private int experienciaGanada;
     private ControlJuego preferencia;
-
-    private boolean ataqueInicio = true;
-    private boolean yamiOculta = false;
-    private float tiempoAtaqueyami = 0;
-    public Sprite proyectil1;
-    public Sprite proyectil2;
-    public Sprite proyectil3;
-    public Sprite proyectil4;
-    public Sprite proyectil5;
-    public Sprite proyectil6;
-    public Sprite proyectil7;
-    public Sprite proyectil8;
-    private float xinicial;
-    private float yinicial;
-    private int velocidadProyectil = 2;
-    private int rangoProyectil = 90;
-    private int tiempoAtaqueEspera = 100;
-    private int tiempoAtaqueEnemigo = 0;
-    private boolean proyectilesvivos = false;
+    public AnimatedSprite mara1;
+    public AnimatedSprite mara2;
+    public boolean mara2Vivo=false;
+    public float tiempo;
+    public float radioMara=0;
+    public float maraVida=50;
 
     @Override
     public void crearEscena() {
@@ -127,16 +115,48 @@ public class EscenaJuego5 extends EscenaBase
         barra.setAnchorCenterX(0);
         attachChild(barra);
 
+        mara1 = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                admRecursos.regionMara1.getHeight(),
+                admRecursos.regionMara1,admRecursos.vbom);
+
+        mara2 = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
+                admRecursos.regionMara2.getHeight(),
+                admRecursos.regionMara2,admRecursos.vbom);
+
+        mara1.setPosition(1040,390);
+        mara1.setScale(.5f);
+
+        mara1.animate(80,100);
+
+        attachChild(mara1);
+
+
         //Creamos el nivel aleatorio y los enemigos
-        tipoNivel = 1; //(int)((Math.random() * 4) + 1);
-        generadorDenivel();
+
 
         registerUpdateHandler(new IUpdateHandler() {
 
             @Override
             public void onUpdate(float pSecondsElapsed) {
 
-                movimientoEnemigos();
+                tiempo=tiempo+pSecondsElapsed;
+
+                if (tiempo<4){
+                    float x=mara1.getX();
+                    mara1.setX(x-1.5f);
+                }
+                if (tiempo>4){
+                    if (!mara2Vivo){
+                        detachChild(mara1);
+                        attachChild(mara2);
+                        mara2.animate(80,true);
+                        mara2Vivo=true;
+                    }
+                }
+                if (tiempo>7 && !mara2Vivo){
+                    acabarNivel=true;
+                }
+
 
                 comprobarDireccionPersonaje();
                 if (ataque) {
@@ -152,9 +172,7 @@ public class EscenaJuego5 extends EscenaBase
                 }
                 ataqueEnemigos();
                 comprobarColission();
-                comprobarColissionLagrimas();
-                comprobarColissionOdio();
-                comprobarFase2();
+                comprobarColissionProyectiles();
                 if (dañado) {
                     tiempoDaño = pSecondsElapsed + tiempoDaño;
                 }
@@ -166,17 +184,7 @@ public class EscenaJuego5 extends EscenaBase
                     tiempoDaño = 0;
                 }
                 comprobarVida();
-                if (!Enemigo5Vivo) {
-                    detachChild(lagrima1);
-                    detachChild(lagrima2);
-                    detachChild(lagrima3);
-                    detachChild(lagrima4);
-                }
-
-
-
                 terminarNivel();
-
 
             }
 
@@ -194,7 +202,7 @@ public class EscenaJuego5 extends EscenaBase
     public void onBackKeyPressed() {
         admEscenas.crearEscenaMenu();
         admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaJuego2();
+        admEscenas.liberarEscenaJuego5();
 
     }
 
@@ -259,7 +267,7 @@ public class EscenaJuego5 extends EscenaBase
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_JUEGO4;
+        return TipoEscena.ESCENA_JUEGO5;
     }
 
     @Override
@@ -271,29 +279,19 @@ public class EscenaJuego5 extends EscenaBase
     }
 
     public void comprobarColission() {
-        if (tipoNivel == 1) {
-            if (!faseDos) {
-                float ex1 = Enemigo1.getEnemigo().getX();
-                float ex2 = Enemigo2.getEnemigo().getX();
-                float ex3 = Enemigo3.getEnemigo().getX();
-                float ey1 = Enemigo1.getEnemigo().getY();
-                float ey2 = Enemigo2.getEnemigo().getY();
-                float ey3 = Enemigo3.getEnemigo().getY();
+            if (mara2Vivo) {
+                float ex1 = mara2.getX();
+                float ey1 = mara2.getY();
                 float px = personaje.getPersonaje().getX();
                 float py = personaje.getPersonaje().getY();
 
-                if (!yamiOculta) {
+                if (mara2Vivo) {
 
                     if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
-                            < (Enemigo1.radioImagen + personaje.radioImagen) * (Enemigo1.radioImagen +
-                            personaje.radioImagen) && Enemigo1Vivo) {
+                            < (radioMara + personaje.radioImagen) * (radioMara +
+                            personaje.radioImagen) && mara2Vivo) {
                         if (ataque) {
-                            Enemigo1.vida = Enemigo1.vida - personaje.fuerza;
-                            if (Enemigo1.vida <= 0) {
-                                Enemigo1.getEnemigo().detachSelf();
-                                Enemigo1Vivo = false;
-                                enemigosVivos = enemigosVivos - 1;
-                            }
+                            maraVida = maraVida - personaje.fuerza;
                         } else {
                             if (!dañado) {
                                 personaje.setPersonaje(4);
@@ -304,124 +302,14 @@ public class EscenaJuego5 extends EscenaBase
                         }
                     }
                 }
-                if (((ex2 - px) * (ex2 - px)) + ((ey2 - py) * (ey2 - py))
-                        < (Enemigo2.radioImagen + personaje.radioImagen) * (Enemigo2.radioImagen +
-                        personaje.radioImagen) && Enemigo2Vivo) {
-                    if (ataque) {
-                        Enemigo2.vida = Enemigo2.vida - personaje.fuerza;
-                        if (Enemigo2.vida <= 0) {
-                            Enemigo2.getEnemigo().detachSelf();
-                            Enemigo2Vivo = false;
-                            enemigosVivos = enemigosVivos - 1;
-                        }
-                    } else {
-                        if (!dañado) {
-                            personaje.setPersonaje(4);
-                            attachChild(personaje.getPersonaje());
-                            dañado = true;
-                        }
-
-                    }
-                }
-                if (((ex3 - px) * (ex3 - px)) + ((ey3 - py) * (ey3 - py))
-                        < (Enemigo3.radioImagen + personaje.radioImagen) * (Enemigo3.radioImagen +
-                        personaje.radioImagen) && Enemigo3Vivo) {
-                    if (ataque) {
-                        Enemigo3.vida = Enemigo3.vida - personaje.fuerza;
-                        if (Enemigo3.vida <= 0) {
-                            Enemigo3.getEnemigo().detachSelf();
-                            Enemigo3Vivo = false;
-                            enemigosVivos = enemigosVivos - 1;
-                        }
-                    } else {
-                        if (!dañado) {
-                            personaje.setPersonaje(4);
-                            attachChild(personaje.getPersonaje());
-                            dañado = true;
-                        }
-
-                    }
-                }
-
             }
-            if (faseDos) {
-                float ex4 = Enemigo4.getEnemigo().getX();
-                float ex5 = Enemigo5.getEnemigo().getX();
-                float ex6 = Enemigo6.getEnemigo().getX();
-                float ey4 = Enemigo4.getEnemigo().getY();
-                float ey5 = Enemigo5.getEnemigo().getY();
-                float ey6 = Enemigo6.getEnemigo().getY();
-                float px = personaje.getPersonaje().getX();
-                float py = personaje.getPersonaje().getY();
-
-                if (!yamiOculta) {
-
-                    if (((ex4 - px) * (ex4 - px)) + ((ey4 - py) * (ey4 - py))
-                            < (Enemigo4.radioImagen + personaje.radioImagen) * (Enemigo4.radioImagen +
-                            personaje.radioImagen) && Enemigo4Vivo) {
-                        if (ataque) {
-                            Enemigo4.vida = Enemigo4.vida - personaje.fuerza;
-                            if (Enemigo4.vida <= 0) {
-                                Enemigo4.getEnemigo().detachSelf();
-                                Enemigo4Vivo = false;
-                                enemigosVivos = enemigosVivos - 1;
-                            }
-                        } else {
-                            if (!dañado) {
-                                personaje.setPersonaje(4);
-                                attachChild(personaje.getPersonaje());
-                                dañado = true;
-                            }
-
-                        }
-                    }
-                }
-                if (((ex5 - px) * (ex5 - px)) + ((ey5 - py) * (ey5 - py))
-                        < (Enemigo5.radioImagen + personaje.radioImagen) * (Enemigo5.radioImagen +
-                        personaje.radioImagen) && Enemigo5Vivo) {
-                    if (ataque) {
-                        Enemigo5.vida = Enemigo5.vida - personaje.fuerza;
-                        if (Enemigo5.vida <= 0) {
-                            Enemigo5.getEnemigo().detachSelf();
-                            Enemigo5Vivo = false;
-                            enemigosVivos = enemigosVivos - 1;
-                        }
-                    } else {
-                        if (!dañado) {
-                            personaje.setPersonaje(4);
-                            attachChild(personaje.getPersonaje());
-                            dañado = true;
-                        }
-
-                    }
-                }
-                if (((ex6 - px) * (ex6 - px)) + ((ey6 - py) * (ey6 - py))
-                        < (Enemigo6.radioImagen + personaje.radioImagen) * (Enemigo6.radioImagen +
-                        personaje.radioImagen) && Enemigo6Vivo) {
-                    if (ataque) {
-                        Enemigo6.vida = Enemigo6.vida - personaje.fuerza;
-                        if (Enemigo6.vida <= 0) {
-                            Enemigo6.getEnemigo().detachSelf();
-                            Enemigo6Vivo = false;
-                            enemigosVivos = enemigosVivos - 1;
-                        }
-                    } else {
-                        if (!dañado) {
-                            personaje.setPersonaje(4);
-                            attachChild(personaje.getPersonaje());
-                            dañado = true;
-                        }
-
-                    }
-                }
-            }
-        }
 
 
     }
 
     public void comprobarColissionProyectiles(){
-        if (Enemigo1Vivo) {
+        if (mara2Vivo) {
+            /*
             float px = personaje.getPersonaje().getX();
             float py = personaje.getPersonaje().getY();
             float pr1x = proyectil1.getX();
@@ -430,12 +318,11 @@ public class EscenaJuego5 extends EscenaBase
             float pr2y = proyectil2.getY();
             float pr3x = proyectil3.getX();
             float pr3y = proyectil3.getY();
-            float pr4x = proyectil4.getX();
-            float pr4y = proyectil4.getY();
+
 
             if (((pr1x - px) * (pr1x - px)) + ((pr1y - py) * (pr1y - py))
-                    < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                    personaje.radioImagen) && Enemigo1Vivo && proyectilesvivos) {
+                    < (radioImagenProyectil1 + personaje.radioImagen) * (radioImagenProyectil1 +
+                    personaje.radioImagen) && proyectilesvivos) {
                 if (!dañado) {
                     personaje.setPersonaje(4);
                     attachChild(personaje.getPersonaje());
@@ -445,8 +332,8 @@ public class EscenaJuego5 extends EscenaBase
                 }
             }
             if (((pr2x - px) * (pr2x - px)) + ((pr2y - py) * (pr2y - py))
-                    < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                    personaje.radioImagen) && Enemigo1Vivo && proyectilesvivos) {
+                    < (radioImagenProyectil2 + personaje.radioImagen) * (radioImagenProyectil2 +
+                    personaje.radioImagen) && proyectilesvivos) {
                 if (!dañado) {
                     personaje.setPersonaje(4);
                     attachChild(personaje.getPersonaje());
@@ -456,8 +343,8 @@ public class EscenaJuego5 extends EscenaBase
                 }
             }
             if (((pr3x - px) * (pr3x - px)) + ((pr3y - py) * (pr3y - py))
-                    < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                    personaje.radioImagen) && Enemigo1Vivo && proyectilesvivos) {
+                    < (radioImagenProyectil3 + personaje.radioImagen) * (radioImagenProyectil3 +
+                    personaje.radioImagen) && proyectilesvivos) {
                 if (!dañado) {
                     personaje.setPersonaje(4);
                     attachChild(personaje.getPersonaje());
@@ -466,77 +353,9 @@ public class EscenaJuego5 extends EscenaBase
 
                 }
             }
-            if (((pr4x - px) * (pr4x - px)) + ((pr4y - py) * (pr4y - py))
-                    < (Enemigo1.radioImagenProyectil + personaje.radioImagen) * (Enemigo1.radioImagenProyectil +
-                    personaje.radioImagen) && Enemigo1Vivo && proyectilesvivos) {
-                if (!dañado) {
-                    personaje.setPersonaje(4);
-                    attachChild(personaje.getPersonaje());
-                    dañado = true;
-
-
-                }
-            }
+            */
         }
-        if (faseDos){
-            if (Enemigo6Vivo){
-                float px = personaje.getPersonaje().getX();
-                float py = personaje.getPersonaje().getY();
-                float pr1x = proyectil5.getX();
-                float pr1y = proyectil5.getY();
-                float pr2x = proyectil6.getX();
-                float pr2y = proyectil6.getY();
-                float pr3x = proyectil7.getX();
-                float pr3y = proyectil7.getY();
-                float pr4x = proyectil8.getX();
-                float pr4y = proyectil8.getY();
 
-                if (((pr1x - px) * (pr1x - px)) + ((pr1y - py) * (pr1y - py))
-                        < (Enemigo6.radioImagenProyectil + personaje.radioImagen) * (Enemigo6.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo6Vivo && proyectilesvivos) {
-                    if (!dañado) {
-                        personaje.setPersonaje(4);
-                        attachChild(personaje.getPersonaje());
-                        dañado = true;
-
-
-                    }
-                }
-                if (((pr2x - px) * (pr2x - px)) + ((pr2y - py) * (pr2y - py))
-                        < (Enemigo6.radioImagenProyectil + personaje.radioImagen) * (Enemigo6.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo6Vivo && proyectilesvivos) {
-                    if (!dañado) {
-                        personaje.setPersonaje(4);
-                        attachChild(personaje.getPersonaje());
-                        dañado = true;
-
-
-                    }
-                }
-                if (((pr3x - px) * (pr3x - px)) + ((pr3y - py) * (pr3y - py))
-                        < (Enemigo6.radioImagenProyectil + personaje.radioImagen) * (Enemigo6.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo6Vivo && proyectilesvivos) {
-                    if (!dañado) {
-                        personaje.setPersonaje(4);
-                        attachChild(personaje.getPersonaje());
-                        dañado = true;
-
-
-                    }
-                }
-                if (((pr4x - px) * (pr4x - px)) + ((pr4y - py) * (pr4y - py))
-                        < (Enemigo6.radioImagenProyectil + personaje.radioImagen) * (Enemigo6.radioImagenProyectil +
-                        personaje.radioImagen) && Enemigo6Vivo && proyectilesvivos) {
-                    if (!dañado) {
-                        personaje.setPersonaje(4);
-                        attachChild(personaje.getPersonaje());
-                        dañado = true;
-
-
-                    }
-                }
-            }
-        }
 
     }
 
@@ -552,80 +371,24 @@ public class EscenaJuego5 extends EscenaBase
         if (personaje.vida <= 0) {
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
-            admEscenas.liberarEscenaJuego4();
+            admEscenas.liberarEscenaJuego5();
         }
-        if (enemigosVivos == 0) {
-            if (tipoNivel == 1) {
-                experienciaGanada = 60;
-                SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
-                        "personaje", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferencias.edit();
-                editor.putInt("ExperienciaGanada", experienciaGanada);
-                editor.commit();
-            }
+        if (acabarNivel) {
+            experienciaGanada = 60;
+            SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                    "personaje", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferencias.edit();
+            editor.putInt("ExperienciaGanada", experienciaGanada);
+            editor.commit();
+
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
-            admEscenas.liberarEscenaJuego4();
-        }
-    }
-
-    public void generadorDenivel() {
-        if (tipoNivel == 1) {
-
-            Enemigo1 = new EnemigoPoruga();
-            Enemigo1.crearEnemigo(0, 0, admRecursos.regionesPoruga, admRecursos.vbom);
-            Enemigo1.dibujarEnemigo();
-            attachChild(Enemigo1.getEnemigo());
-            proyectil1 = new Sprite(0, 0, admRecursos.regionOdio, admRecursos.vbom) {
-                @Override
-                protected void preDraw(GLState pGLState, Camera pCamera) {
-                    super.preDraw(pGLState, pCamera);
-                    pGLState.enableDither();
-                }
-            };
-            proyectil1.setRotation(180);
-
-            proyectil2 = new Sprite(0, 0, admRecursos.regionOdio, admRecursos.vbom) {
-                @Override
-                protected void preDraw(GLState pGLState, Camera pCamera) {
-                    super.preDraw(pGLState, pCamera);
-                    pGLState.enableDither();
-                }
-            };
-            proyectil3 = new Sprite(0, 0, admRecursos.regionOdio, admRecursos.vbom) {
-                @Override
-                protected void preDraw(GLState pGLState, Camera pCamera) {
-                    super.preDraw(pGLState, pCamera);
-                    pGLState.enableDither();
-                }
-            };
-            proyectil3.setRotation(90);
-            proyectil4 = new Sprite(0, 0, admRecursos.regionOdio, admRecursos.vbom) {
-                @Override
-                protected void preDraw(GLState pGLState, Camera pCamera) {
-                    super.preDraw(pGLState, pCamera);
-                    pGLState.enableDither();
-                }
-
-            };
-            proyectil4.setRotation(270);
-            Enemigo2 = new EnemigoHamster();
-            Enemigo2.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-            Enemigo3 = new EnemigoHamster();
-            Enemigo3.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-
-
-            Enemigo2.dibujarEnemigo();
-            Enemigo3.dibujarEnemigo();
-
-
-            attachChild(Enemigo2.getEnemigo());
-            attachChild(Enemigo3.getEnemigo());
-            enemigosVivos = 6;
+            admEscenas.liberarEscenaJuego5();
 
         }
 
     }
+
 
 
     public void comprobarDireccionPersonaje() {
@@ -682,146 +445,11 @@ public class EscenaJuego5 extends EscenaBase
     }
 
     public void ataqueEnemigos() {
-        if (faseDos) {
-            ataqueGuamomi();
-            ataqueYami();
-        }
-        ataquePoruga();
+
     }
 
     public void ataqueMara() {
-        if (!faseDos) {
-            if (Enemigo1Vivo) {
-                if (ataqueInicio && tiempoAtaqueEnemigo >= tiempoAtaqueEspera) {
-                    xinicial = Enemigo1.getEnemigo().getX();
-                    yinicial = Enemigo1.getEnemigo().getY();
-                    ataqueInicio = false;
-                    attachChild(proyectil1);
-                    attachChild(proyectil2);
-                    attachChild(proyectil3);
-                    attachChild(proyectil4);
-                    float x = Enemigo1.getEnemigo().getX();
-                    float y = Enemigo1.getEnemigo().getY();
-                    proyectil1.setX(x);
-                    proyectil1.setY(y);
-                    proyectil2.setX(x);
-                    proyectil2.setY(y);
-                    proyectil3.setX(x);
-                    proyectil3.setY(y);
-                    proyectil4.setX(x);
-                    proyectil4.setY(y);
-                    ataqueInicio = false;
-                    proyectilesvivos = true;
-                }
 
-
-                if (tiempoAtaqueEnemigo >= tiempoAtaqueEspera) {
-                    proyectil1.setX((proyectil1.getX() + velocidadProyectil));
-                    proyectil2.setX((proyectil2.getX() - velocidadProyectil));
-                    proyectil3.setY((proyectil3.getY() + velocidadProyectil));
-                    proyectil4.setY((proyectil4.getY() - velocidadProyectil));
-
-                    if ((proyectil1.getX() == xinicial + velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil1);
-                        proyectil1.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-                    if ((proyectil2.getX() == xinicial - velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil2);
-                        proyectil2.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-                    if ((proyectil3.getY() == yinicial + velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil3);
-                        proyectil3.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-                    if ((proyectil4.getY() == yinicial - velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil4);
-                        proyectil4.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-
-                }
-                if (tiempoAtaqueEnemigo < tiempoAtaqueEspera) {
-                    tiempoAtaqueEnemigo++;
-                }
-            }
-        }
-
-        if (faseDos) {
-            if (Enemigo6Vivo) {
-                if (ataqueInicio && tiempoAtaqueEnemigo >= tiempoAtaqueEspera) {
-                    xinicial = Enemigo6.getEnemigo().getX();
-                    yinicial = Enemigo6.getEnemigo().getY();
-                    ataqueInicio = false;
-                    attachChild(proyectil5);
-                    attachChild(proyectil6);
-                    attachChild(proyectil7);
-                    attachChild(proyectil8);
-                    float x = Enemigo6.getEnemigo().getX();
-                    float y = Enemigo6.getEnemigo().getY();
-                    proyectil5.setX(x);
-                    proyectil5.setY(y);
-                    proyectil6.setX(x);
-                    proyectil6.setY(y);
-                    proyectil7.setX(x);
-                    proyectil7.setY(y);
-                    proyectil8.setX(x);
-                    proyectil8.setY(y);
-                    ataqueInicio = false;
-                    proyectilesvivos = true;
-                }
-
-                if (tiempoAtaqueEnemigo >= tiempoAtaqueEspera) {
-                    proyectil5.setX((proyectil5.getX() + velocidadProyectil));
-                    proyectil6.setX((proyectil6.getX() - velocidadProyectil));
-                    proyectil7.setY((proyectil7.getY() + velocidadProyectil));
-                    proyectil8.setY((proyectil8.getY() - velocidadProyectil));
-
-                    if ((proyectil5.getX() == xinicial + velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil5);
-                        proyectil5.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-                    if ((proyectil6.getX() == xinicial - velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil6);
-                        proyectil6.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-                    if ((proyectil7.getY() == yinicial + velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil7);
-                        proyectil7.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-                    if ((proyectil8.getY() == yinicial - velocidadProyectil * rangoProyectil)) {
-                        detachChild(proyectil8);
-                        proyectil8.detachSelf();
-                        ataqueInicio = true;
-                        tiempoAtaqueEnemigo = 0;
-                        proyectilesvivos = false;
-                    }
-
-                }
-                if (tiempoAtaqueEnemigo < tiempoAtaqueEspera) {
-                    tiempoAtaqueEnemigo++;
-                }
-            }
-        }
 
     }
 }

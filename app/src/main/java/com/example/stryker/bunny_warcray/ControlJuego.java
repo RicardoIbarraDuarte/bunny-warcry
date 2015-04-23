@@ -1,5 +1,7 @@
 package com.example.stryker.bunny_warcray;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -9,6 +11,8 @@ import android.view.MenuItem;
         //Esta es la clase principal que controla completamente el juego
         //Aquí se implementa el ciclo de vida
         //import org.andengine.engine.camera.Camera;
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -30,6 +34,12 @@ public class ControlJuego extends SimpleBaseGameActivity
     // El administrador de escenas
     private AdministradorEscenas admEscenas;
 
+    public Music musicaMenu;
+    public Music musicaJuego0;
+    public Music musicaJuego;
+
+    private boolean musicaGeneral;
+
     @Override
     public EngineOptions onCreateEngineOptions() {
         camara = new Camera(0,0,ANCHO_CAMARA,ALTO_CAMARA);
@@ -45,6 +55,19 @@ public class ControlJuego extends SimpleBaseGameActivity
         AdministradorRecursos.inicializarAdministrador(mEngine,this,
                 camara,getVertexBufferObjectManager());
         admEscenas = AdministradorEscenas.getInstance();
+        musicaMenu = MusicFactory.createMusicFromAsset(getMusicManager(),
+                this, "MusicaMenu.wav");
+        musicaJuego0 = MusicFactory.createMusicFromAsset(getMusicManager(),
+                this, "MusicaJuego0.mp3");
+        musicaJuego = MusicFactory.createMusicFromAsset(getMusicManager(),
+                this, "MusicaJuego.mp3");
+
+        SharedPreferences preferencias = getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+
+        if (musicaGeneral) {
+            musicaMenu.play();
+        }
     }
 
     @Override

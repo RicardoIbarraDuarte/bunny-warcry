@@ -26,6 +26,7 @@ public class Personaje {
     private AnimatedSprite[] imgsPersonaje;
     private AnimatedSprite[] imgsPersonajeQuieto;
     public int radioImagen;
+    public int radioImagenAtacando;
     private AnimatedSprite[] pataque;
     public boolean quieto=true;
     private int fps=80;
@@ -60,7 +61,8 @@ public class Personaje {
                 personajeIzquierda,personajeGolpeado};
 
         personaje = imgsPersonaje[0];
-        radioImagen= 66;
+        radioImagen= 100;
+        radioImagenAtacando= 140;
 
         direccion = 0;
         direcAnte = 0;

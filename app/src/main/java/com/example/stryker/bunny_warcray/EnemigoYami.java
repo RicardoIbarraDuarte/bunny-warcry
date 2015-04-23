@@ -61,5 +61,9 @@ public class EnemigoYami extends Enemigo {
 
 
     }
+    public void setRadios(){
+        radioImagenN=100;
+        radioImagenC=100;
+    }
 
 }

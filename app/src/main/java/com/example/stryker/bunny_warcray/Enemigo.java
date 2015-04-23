@@ -17,6 +17,8 @@ public class Enemigo {
     public float velocidad;
     public int fuerza;
     public int radioImagen;
+    public int radioImagenC;
+    public int radioImagenN;
     public int radioImagenProyectil;
     public int direccion;
     public int direccionAnterior;
@@ -44,5 +46,7 @@ public class Enemigo {
     }
     public void animarYami(){}
 
+    public void setRadios() {
 
+    }
 }

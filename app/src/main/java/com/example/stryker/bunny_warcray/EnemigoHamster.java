@@ -53,6 +53,8 @@ public class EnemigoHamster extends Enemigo {
         velocidad=5;
         enemigo=hamster[0];
         enemigo.animate(fps,100);
+        radioImagenC=10;
+        radioImagenN=10;
 
     }
 
@@ -147,5 +149,9 @@ public class EnemigoHamster extends Enemigo {
 
             }
         }
+    public void setRadios(){
+        radioImagenN=89;
+        radioImagenC=89;
+    }
 
 }

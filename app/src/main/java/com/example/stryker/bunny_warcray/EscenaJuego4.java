@@ -84,9 +84,103 @@ public class EscenaJuego4 extends EscenaBase {
     private int tiempoAtaqueEspera = 100;
     private int tiempoAtaqueEnemigo = 0;
     private boolean proyectilesvivos = false;
+    public ButtonSprite btnlaser;
+    private Sprite laser;
+    private int tiempolaser;
+    private boolean laserVivo;
+    private int direcLaser;
+    private int radiolaser=50;
+    private TiledTextureRegion[] EnemigoImagen1;
+    private TiledTextureRegion[] EnemigoImagen2;
+    private TiledTextureRegion[] EnemigoImagen3;
+    private TiledTextureRegion[] EnemigoImagen4;
+    private TiledTextureRegion[] EnemigoImagen5;
+    private TiledTextureRegion[] EnemigoImagen6;
+    private int randomCreepy;
+
 
     @Override
     public void crearEscena() {
+        Enemigo1= new EnemigoPoruga();
+        Enemigo2 = new EnemigoHamster();
+        Enemigo3 = new EnemigoHamster();
+        Enemigo4 = new EnemigoYami();
+        Enemigo5 = new EnemigoGua();
+        Enemigo6 = new EnemigoPoruga();
+        Enemigo1.setRadios();
+        Enemigo2.setRadios();
+        Enemigo3.setRadios();
+        Enemigo4.setRadios();
+        Enemigo5.setRadios();
+        Enemigo6.setRadios();
+
+        int contador=0;
+        while (contador<=6){
+            randomCreepy=(int)((Math.random() * 10) + 1);
+            if (contador==1&&randomCreepy<=6){
+                EnemigoImagen1=admRecursos.regionesPoruga;
+                Enemigo1.radioImagen=Enemigo1.radioImagenN;
+
+            }
+            if (contador==1&&randomCreepy>=7){
+                EnemigoImagen1=admRecursos.regionesPorugaC;
+                Enemigo1.radioImagen=Enemigo1.radioImagenC;
+
+
+            }
+            if (contador==2&&randomCreepy<=3){
+                EnemigoImagen2=admRecursos.regionesHamster;
+                Enemigo2.radioImagen=Enemigo2.radioImagenN;
+
+            }
+            if (contador==2&&randomCreepy>=4){
+                EnemigoImagen2=admRecursos.regionesHamsterC;
+                Enemigo2.radioImagen=Enemigo2.radioImagenC;
+
+            }
+            if (contador==3&&randomCreepy<=3){
+                EnemigoImagen3=admRecursos.regionesHamster;
+                Enemigo3.radioImagen=Enemigo3.radioImagenN;
+
+            }
+            if (contador==3&&randomCreepy>=4){
+                EnemigoImagen3=admRecursos.regionesHamsterC;
+                Enemigo3.radioImagen=Enemigo3.radioImagenC;
+
+            }
+            if (contador==4&&randomCreepy<=5){
+                EnemigoImagen4=admRecursos.regionesYami;
+                Enemigo4.radioImagen=Enemigo4.radioImagenN;
+
+            }
+            if (contador==4&&randomCreepy>=6){
+                EnemigoImagen4=admRecursos.regionesYamiC;
+                Enemigo4.radioImagen=Enemigo4.radioImagenC;
+
+            }
+            if (contador==5&&randomCreepy<=3){
+                EnemigoImagen5=admRecursos.regionesGuamomi;
+                Enemigo5.radioImagen=Enemigo5.radioImagenN;
+
+            }
+            if (contador==5&&randomCreepy>=4){
+                EnemigoImagen5=admRecursos.regionesGuamomiC;
+                Enemigo5.radioImagen=Enemigo5.radioImagenC;
+
+            }
+            if (contador==6&&randomCreepy<=2){
+                EnemigoImagen6=admRecursos.regionesPoruga;
+                Enemigo6.radioImagen=Enemigo6.radioImagenN;
+
+            }
+            if (contador==6&&randomCreepy>=3){
+                EnemigoImagen6=admRecursos.regionesPorugaC;
+                Enemigo6.radioImagen=Enemigo6.radioImagenC;
+
+            }
+            contador++;
+
+        }
         preferencia = admRecursos.actividadJuego;
         // Creamos el Fondo
         Fondo = new Sprite(0, 0, admRecursos.regionFondoJuego, admRecursos.vbom) {
@@ -119,6 +213,37 @@ public class EscenaJuego4 extends EscenaBase {
         personaje.dibujarPersonaje();
         attachChild(personaje.getPersonaje());
 
+        laser = new Sprite(0, 0, admRecursos.regionLaser, admRecursos.vbom) {
+            @Override
+            protected void preDraw(GLState pGLState, Camera pCamera) {
+                super.preDraw(pGLState, pCamera);
+                pGLState.enableDither();
+            }
+        };
+
+        btnlaser = new ButtonSprite(1150,250,admRecursos.regionBtnLaser,admRecursos.vbom){
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    if (!laserVivo) {
+                        laserVivo=true;
+                    }
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        btnlaser.setScale(.4f);
+
+        registerTouchArea(btnlaser);
+        attachChild(btnlaser);
+
+        barra = new Sprite(880, 680, admRecursos.regionBarra, admRecursos.vbom);
+        barra.setAnchorCenterX(0);
+        attachChild(barra);
+
+
+
         //Creamos joystick
         agregarJoystick();
 
@@ -130,16 +255,17 @@ public class EscenaJuego4 extends EscenaBase {
         attachChild(barraVida);
 
         //Creamos boton de ataque
-        btnAtacar = new ButtonSprite(1100, 150, admRecursos.regionBtnAtacar, admRecursos.vbom) {
+        btnAtacar = new ButtonSprite(1100, 120, admRecursos.regionBtnAtacar, admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    if (!dañado) {
-                        ataque = true;
-                        tiempoAtaque = 0;
-                    }
+                   if (!dañado) {
+                       ataque = true;
+                       tiempoAtaque = 0;
+                   }
+
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
@@ -176,9 +302,11 @@ public class EscenaJuego4 extends EscenaBase {
                     ataqueA = false;
                 }
                 ataqueEnemigos();
+                ataqueLaser();
                 comprobarColission();
                 comprobarColissionLagrimas();
                 comprobarColissionOdio();
+                comprobarColissionLaser();
                 comprobarFase2();
                 if (dañado) {
                     tiempoDaño = pSecondsElapsed + tiempoDaño;
@@ -196,6 +324,14 @@ public class EscenaJuego4 extends EscenaBase {
                     detachChild(lagrima2);
                     detachChild(lagrima3);
                     detachChild(lagrima4);
+                }
+                if (faseDos){
+                    if (!Enemigo6Vivo) {
+                        detachChild(lagrima1);
+                        detachChild(lagrima2);
+                        detachChild(lagrima3);
+                        detachChild(lagrima4);
+                    }
                 }
 
 
@@ -630,6 +766,127 @@ public class EscenaJuego4 extends EscenaBase {
         }
 
     }
+    public void comprobarColissionLaser(){
+        if (!faseDos) {
+            if (Enemigo1Vivo) {
+                float e1x = Enemigo1.getEnemigo().getX();
+                float e1y = Enemigo1.getEnemigo().getY();
+                float pr1x = laser.getX();
+                float pr1y = laser.getY();
+
+                if (((pr1x - e1x) * (pr1x - e1x)) + ((pr1y - e1y) * (pr1y - e1y))
+                        < (radiolaser + Enemigo1.radioImagen) * (radiolaser +
+                        Enemigo1.radioImagen) && Enemigo1Vivo && laserVivo) {
+                    Enemigo1.vida = Enemigo1.vida - personaje.fuerzaLaser;
+                    if (Enemigo1.vida <= 0) {
+                        Enemigo1.getEnemigo().detachSelf();
+                        Enemigo1Vivo = false;
+                        enemigosVivos = enemigosVivos - 1;
+                    }
+
+                }
+
+            }
+            if (Enemigo2Vivo) {
+                float e2x = Enemigo2.getEnemigo().getX();
+                float e2y = Enemigo2.getEnemigo().getY();
+                float pr1x = laser.getX();
+                float pr1y = laser.getY();
+
+                if (((pr1x - e2x) * (pr1x - e2x)) + ((pr1y - e2y) * (pr1y - e2y))
+                        < (radiolaser + Enemigo2.radioImagen) * (radiolaser +
+                        Enemigo2.radioImagen) && Enemigo1Vivo && laserVivo) {
+                    Enemigo2.vida = Enemigo2.vida - personaje.fuerzaLaser;
+                    if (Enemigo2.vida <= 0) {
+                        Enemigo2.getEnemigo().detachSelf();
+                        Enemigo2Vivo = false;
+                        enemigosVivos = enemigosVivos - 1;
+                    }
+
+                }
+
+            }
+            if (Enemigo3Vivo) {
+                float e3x = Enemigo3.getEnemigo().getX();
+                float e3y = Enemigo3.getEnemigo().getY();
+                float pr1x = laser.getX();
+                float pr1y = laser.getY();
+
+                if (((pr1x - e3x) * (pr1x - e3x)) + ((pr1y - e3y) * (pr1y - e3y))
+                        < (radiolaser + Enemigo3.radioImagen) * (radiolaser +
+                        Enemigo3.radioImagen) && Enemigo3Vivo && laserVivo) {
+                    Enemigo3.vida = Enemigo1.vida - personaje.fuerzaLaser;
+                    if (Enemigo3.vida <= 0) {
+                        Enemigo3.getEnemigo().detachSelf();
+                        Enemigo3Vivo = false;
+                        enemigosVivos = enemigosVivos - 1;
+                    }
+
+                }
+
+            }
+        }
+        if (faseDos) {
+            if (Enemigo4Vivo) {
+                float e4x = Enemigo4.getEnemigo().getX();
+                float e4y = Enemigo4.getEnemigo().getY();
+                float pr1x = laser.getX();
+                float pr1y = laser.getY();
+
+                if (((pr1x - e4x) * (pr1x - e4x)) + ((pr1y - e4y) * (pr1y - e4y))
+                        < (radiolaser + Enemigo4.radioImagen) * (radiolaser +
+                        Enemigo4.radioImagen) && Enemigo4Vivo && laserVivo) {
+                    Enemigo4.vida = Enemigo4.vida - personaje.fuerzaLaser;
+                    if (Enemigo4.vida <= 0) {
+                        Enemigo4.getEnemigo().detachSelf();
+                        Enemigo4Vivo = false;
+                        enemigosVivos = enemigosVivos - 1;
+                    }
+
+                }
+
+            }
+            if (Enemigo5Vivo) {
+                float e5x = Enemigo5.getEnemigo().getX();
+                float e5y = Enemigo5.getEnemigo().getY();
+                float pr1x = laser.getX();
+                float pr1y = laser.getY();
+
+                if (((pr1x - e5x) * (pr1x - e5x)) + ((pr1y - e5y) * (pr1y - e5y))
+                        < (radiolaser + Enemigo5.radioImagen) * (radiolaser +
+                        Enemigo5.radioImagen) && Enemigo5Vivo && laserVivo) {
+                    Enemigo5.vida = Enemigo5.vida - personaje.fuerzaLaser;
+                    if (Enemigo5.vida <= 0) {
+                        Enemigo5.getEnemigo().detachSelf();
+                        Enemigo5Vivo = false;
+                        enemigosVivos = enemigosVivos - 1;
+                    }
+
+                }
+
+            }
+            if (Enemigo6Vivo) {
+                float e6x = Enemigo6.getEnemigo().getX();
+                float e6y = Enemigo6.getEnemigo().getY();
+                float pr1x = laser.getX();
+                float pr1y = laser.getY();
+
+                if (((pr1x - e6x) * (pr1x - e6x)) + ((pr1y - e6y) * (pr1y - e6y))
+                        < (radiolaser + Enemigo6.radioImagen) * (radiolaser +
+                        Enemigo6.radioImagen) && Enemigo6Vivo && laserVivo) {
+                    Enemigo6.vida = Enemigo6.vida - personaje.fuerzaLaser;
+                    if (Enemigo6.vida <= 0) {
+                        Enemigo6.getEnemigo().detachSelf();
+                        Enemigo6Vivo = false;
+                        enemigosVivos = enemigosVivos - 1;
+                    }
+
+                }
+
+            }
+        }
+
+    }
 
     public void atacarPersonaje() {
         if (!ataqueA) {
@@ -647,7 +904,7 @@ public class EscenaJuego4 extends EscenaBase {
         }
         if (enemigosVivos == 0) {
             if (tipoNivel == 1) {
-                experienciaGanada = 60;
+                experienciaGanada = 100;
                 SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
                         "personaje", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencias.edit();
@@ -663,8 +920,8 @@ public class EscenaJuego4 extends EscenaBase {
     public void generadorDenivel() {
         if (tipoNivel == 1) {
 
-            Enemigo1 = new EnemigoPoruga();
-            Enemigo1.crearEnemigo(0, 0, admRecursos.regionesPoruga, admRecursos.vbom);
+
+            Enemigo1.crearEnemigo(0, 0, EnemigoImagen1, admRecursos.vbom);
             Enemigo1.dibujarEnemigo();
             attachChild(Enemigo1.getEnemigo());
             proyectil1 = new Sprite(0, 0, admRecursos.regionOdio, admRecursos.vbom) {
@@ -700,10 +957,10 @@ public class EscenaJuego4 extends EscenaBase {
 
             };
             proyectil4.setRotation(270);
-            Enemigo2 = new EnemigoHamster();
-            Enemigo2.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
-            Enemigo3 = new EnemigoHamster();
-            Enemigo3.crearEnemigo(0, 0, admRecursos.regionesHamster, admRecursos.vbom);
+
+            Enemigo2.crearEnemigo(0, 0, EnemigoImagen2, admRecursos.vbom);
+
+            Enemigo3.crearEnemigo(0, 0, EnemigoImagen3, admRecursos.vbom);
 
 
             Enemigo2.dibujarEnemigo();
@@ -815,8 +1072,8 @@ public class EscenaJuego4 extends EscenaBase {
         if (tipoNivel == 1) {
             if (!faseDos) {
                 if (enemigosVivos == 3) {
-                    Enemigo4 = new EnemigoYami();
-                    Enemigo4.crearEnemigo(0, 0, admRecursos.regionesYami, admRecursos.vbom);
+
+                    Enemigo4.crearEnemigo(0, 0, EnemigoImagen4, admRecursos.vbom);
                     lagrima1 = new Sprite(0, 0, admRecursos.regionLagrimas, admRecursos.vbom) {
                         @Override
                         protected void preDraw(GLState pGLState, Camera pCamera) {
@@ -846,10 +1103,10 @@ public class EscenaJuego4 extends EscenaBase {
                         }
                     };
 
-                    Enemigo5 = new EnemigoGua();
-                    Enemigo5.crearEnemigo(0, 0, admRecursos.regionesGuamomi, admRecursos.vbom);
-                    Enemigo6 = new EnemigoPoruga();
-                    Enemigo6.crearEnemigo(0, 0, admRecursos.regionesPoruga, admRecursos.vbom);
+
+                    Enemigo5.crearEnemigo(0, 0, EnemigoImagen5, admRecursos.vbom);
+
+                    Enemigo6.crearEnemigo(0, 0, EnemigoImagen6, admRecursos.vbom);
                     proyectil5 = new Sprite(0, 0, admRecursos.regionOdio, admRecursos.vbom) {
                         @Override
                         protected void preDraw(GLState pGLState, Camera pCamera) {
@@ -1201,6 +1458,54 @@ public class EscenaJuego4 extends EscenaBase {
                     tiempoAtaqueEnemigo++;
                 }
             }
+        }
+
+    }
+
+    public void ataqueLaser(){
+        if (laserVivo) {
+            if (tiempolaser == 0) {
+                float px = personaje.getPersonaje().getX();
+                float py = personaje.getPersonaje().getY();
+                laser.setX(px);
+                laser.setY(py);
+                direcLaser = personaje.direccion;
+                if (direcLaser == 0 ) {
+                    laser.setRotation(90);
+                }
+                if (direcLaser == 1 ){
+                    laser.setRotation(90);
+                }
+                if (direcLaser == 2 ) {
+                    laser.setRotation(0);
+                }
+                if (direcLaser == 3 ){
+                    laser.setRotation(0);
+                }
+
+                attachChild(laser);
+            }
+            if (direcLaser == 0) {
+                laser.setY(laser.getY() - 9);
+            }
+            if (direcLaser == 1) {
+                laser.setY(laser.getY() + 9);
+            }
+            if (direcLaser == 2) {
+                laser.setX(laser.getX() + 9);
+            }
+            if (direcLaser == 3) {
+                laser.setX(laser.getX() - 9);
+            }
+            tiempolaser++;
+            if (tiempolaser == 70) {
+                detachChild(laser);
+                laserVivo = false;
+                tiempolaser = 0;
+            }
+
+
+
         }
 
     }

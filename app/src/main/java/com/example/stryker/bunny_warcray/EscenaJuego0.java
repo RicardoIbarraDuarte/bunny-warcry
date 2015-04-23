@@ -24,9 +24,12 @@ public class EscenaJuego0 extends EscenaBase
     private Sprite Fondo4;
     private float tiempotranscurrido=0;
 
+    private boolean musicaGeneral;
+
 
     @Override
     public void crearEscena() {
+
         // Creamos el Fondo
         Fondo = new Sprite(0,0,admRecursos.regionFondo1,admRecursos.vbom) {
             @Override

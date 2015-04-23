@@ -73,6 +73,8 @@ public class
     public ITextureRegion regionBarra;
     public ITiledTextureRegion regionBtnAtacar;
     private BuildableBitmapTextureAtlas btaBtnAtacar;
+    public ITiledTextureRegion regionBtnLaser;
+    private BuildableBitmapTextureAtlas btaBtnLaser;
     private BuildableBitmapTextureAtlas texturaPataqueAtras;
     public TiledTextureRegion regionPataqueAtras;
     private BuildableBitmapTextureAtlas texturaPataqueIzquierda;
@@ -93,12 +95,22 @@ public class
     private BuildableBitmapTextureAtlas texturaHamsterFrente;
     public TiledTextureRegion regionHamsterFrente;
     private BuildableBitmapTextureAtlas texturaHamsteraAtras;
-    public TiledTextureRegion regionHamsterAtras;
+    public TiledTextureRegion regionHamsterAtrasC;
     private BuildableBitmapTextureAtlas texturaHamsterIzquierda;
     public TiledTextureRegion regionHamsterIzquierda;
     private BuildableBitmapTextureAtlas texturaHamsterDerecha;
     public TiledTextureRegion regionHamsterDerecha;
     public TiledTextureRegion[] regionesHamster;
+
+    private BuildableBitmapTextureAtlas texturaHamsterFrenteC;
+    public TiledTextureRegion regionHamsterFrenteC;
+    private BuildableBitmapTextureAtlas texturaHamsteraAtrasC;
+    public TiledTextureRegion regionHamsterAtras;
+    private BuildableBitmapTextureAtlas texturaHamsterIzquierdaC;
+    public TiledTextureRegion regionHamsterIzquierdaC;
+    private BuildableBitmapTextureAtlas texturaHamsterDerechaC;
+    public TiledTextureRegion regionHamsterDerechaC;
+    public TiledTextureRegion[] regionesHamsterC;
 
     private BuildableBitmapTextureAtlas texturaPorugaFrente;
     public TiledTextureRegion regionPorugaFrente;
@@ -110,11 +122,28 @@ public class
     public TiledTextureRegion regionPorugaDerecha;
     public TiledTextureRegion[] regionesPoruga;
 
+    private BuildableBitmapTextureAtlas texturaPorugaFrenteC;
+    public TiledTextureRegion regionPorugaFrenteC;
+    private BuildableBitmapTextureAtlas texturaPorugaAtrasC;
+    public TiledTextureRegion regionPorugaAtrasC;
+    private BuildableBitmapTextureAtlas texturaPorugaIzquierdaC;
+    public TiledTextureRegion regionPorugaIzquierdaC;
+    private BuildableBitmapTextureAtlas texturaPorugaDerechaC;
+    public TiledTextureRegion regionPorugaDerechaC;
+    public TiledTextureRegion[] regionesPorugaC;
+
     private BuildableBitmapTextureAtlas texturaGuamomi;
     public TiledTextureRegion regionGuamomi;
     private ITexture texturaLagrimas;
     public ITextureRegion regionLagrimas;
     public TiledTextureRegion[] regionesGuamomi;
+
+    private BuildableBitmapTextureAtlas texturaGuamomiC;
+    public TiledTextureRegion regionGuamomiC;
+    private ITexture texturaLagrimasC;
+    public ITextureRegion regionLagrimasC;
+    public TiledTextureRegion[] regionesGuamomiC;
+
     private ITexture texturaOdio;
     public ITextureRegion regionOdio;
 
@@ -123,12 +152,19 @@ public class
     private BuildableBitmapTextureAtlas texturaYamiIzquierda;
     public TiledTextureRegion regionYamiIzquierda;
     public TiledTextureRegion[] regionesYami;
+    private BuildableBitmapTextureAtlas texturaYamiDerechaC;
+    public TiledTextureRegion regionYamiDerechaC;
+    private BuildableBitmapTextureAtlas texturaYamiIzquierdaC;
+    public TiledTextureRegion regionYamiIzquierdaC;
+    public TiledTextureRegion[] regionesYamiC;
 
     private BuildableBitmapTextureAtlas texturaMara1;
     public TiledTextureRegion regionMara1;
     private BuildableBitmapTextureAtlas texturaMara2;
     public TiledTextureRegion regionMara2;
 
+    private ITexture texturaLaser;
+    public ITextureRegion regionLaser;
 
 
     // Escena Acerca de (imagen estática)
@@ -387,6 +423,32 @@ public class
     cargarUI(3);
     cargaEnemigos(4);
 
+        btaBtnLaser = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                296,296);
+        regionBtnLaser = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnLaser,
+                actividadJuego.getAssets(),
+                "EscenaJuego/BotonLaser.png", 1, 1);
+
+        try {
+            btaBtnLaser.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón atacar");
+        }
+        btaBtnLaser.load();
+
+        try {
+            texturaLaser = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "Personaje/Laserya.png");
+            regionLaser = TextureRegionFactory.extractFromTexture(texturaLaser);
+            texturaLaser.load();
+        } catch (IOException e) {
+            Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
+        }
+
+
+
 
 
 }
@@ -425,6 +487,30 @@ public class
             Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
         }
         texturaMara2.load();
+
+        btaBtnLaser = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                296,296);
+        regionBtnLaser = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnLaser,
+                actividadJuego.getAssets(),
+                "EscenaJuego/BotonLaser.png", 1, 1);
+
+        try {
+            btaBtnLaser.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón atacar");
+        }
+        btaBtnLaser.load();
+
+        try {
+            texturaLaser = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "Personaje/Laserya.png");
+            regionLaser = TextureRegionFactory.extractFromTexture(texturaLaser);
+            texturaLaser.load();
+        } catch (IOException e) {
+            Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
+        }
 
 
 
@@ -1167,6 +1253,56 @@ public class
 
             regionesHamster = new TiledTextureRegion[]{regionHamsterFrente,regionHamsterAtras,regionHamsterDerecha,regionHamsterIzquierda};
 
+            texturaHamsterFrenteC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1444,289);
+            regionHamsterFrenteC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaHamsterFrenteC,actividadJuego, "Enemigos/Hamster/hamstercripifrente.png",4,1);
+            try {
+                texturaHamsterFrenteC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaHamsterFrenteC.load();
+
+            texturaHamsterIzquierdaC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1324,289);
+            regionHamsterIzquierdaC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaHamsterIzquierdaC,actividadJuego, "Enemigos/Hamster/hamstercripiladoizq.png",4,1);
+            try {
+                texturaHamsterIzquierdaC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaHamsterIzquierdaC.load();
+
+            texturaHamsterDerechaC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1324,289);
+            regionHamsterDerechaC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaHamsterDerechaC,actividadJuego, "Enemigos/Hamster/hamstercripiladoderecho.png",4,1);
+            try {
+                texturaHamsterDerechaC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaHamsterDerechaC.load();
+
+            texturaHamsteraAtrasC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1444,289);
+            regionHamsterAtrasC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaHamsteraAtrasC,actividadJuego, "Enemigos/Hamster/hamstercripiatras.png",4,1);
+            try {
+                texturaHamsteraAtrasC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaHamsteraAtrasC.load();
+
+            regionesHamsterC = new TiledTextureRegion[]{regionHamsterFrenteC,regionHamsterAtrasC,regionHamsterDerechaC,regionHamsterIzquierdaC};
+
 
 
         }
@@ -1192,6 +1328,29 @@ public class
                         actividadJuego.getAssets(), "Enemigos/Guamomi/LagrimasGuamomi.png");
                 regionLagrimas = TextureRegionFactory.extractFromTexture(texturaLagrimas);
                 texturaLagrimas.load();
+            } catch (IOException e) {
+                Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
+            }
+
+            texturaGuamomiC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    2400,400);
+            regionGuamomiC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaGuamomiC,actividadJuego, "Enemigos/Guamomi/GuamomiCreepy.png",6,1);
+            try {
+                texturaGuamomiC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaGuamomiC.load();
+
+            regionesGuamomiC = new TiledTextureRegion[]{regionGuamomiC};
+
+            try {
+                texturaLagrimasC = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                        actividadJuego.getAssets(), "Enemigos/Guamomi/LagrimasGuamomiCreep.png");
+                regionLagrimasC = TextureRegionFactory.extractFromTexture(texturaLagrimasC);
+                texturaLagrimasC.load();
             } catch (IOException e) {
                 Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
             }
@@ -1227,6 +1386,32 @@ public class
             texturaYamiIzquierda.load();
 
             regionesYami =  new TiledTextureRegion[]{regionYamiDerecha, regionYamiIzquierda};
+
+            texturaYamiDerechaC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    2000,400);
+            regionYamiDerechaC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaYamiDerechaC,actividadJuego, "Enemigos/Jamieltopo/SpriteSheetJamiCreepyD.png",5,1);
+            try {
+                texturaYamiDerechaC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaYamiDerechaC.load();
+
+            texturaYamiIzquierdaC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    2000,400);
+            regionYamiIzquierdaC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaYamiIzquierdaC,actividadJuego, "Enemigos/Jamieltopo/SpriteSheetJamiCreepyD.png",5,1);
+            try {
+                texturaYamiIzquierdaC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaYamiIzquierdaC.load();
+
+            regionesYamiC =  new TiledTextureRegion[]{regionYamiDerechaC, regionYamiIzquierdaC};
 
 
         }
@@ -1288,6 +1473,56 @@ public class
             } catch (IOException e) {
                 Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
             }
+
+            texturaPorugaFrenteC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1600,400);
+            regionPorugaFrenteC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaFrenteC,actividadJuego, "Enemigos/Poruga/PorugaFront.png",4,1);
+            try {
+                texturaPorugaFrenteC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaFrenteC.load();
+
+            texturaPorugaIzquierdaC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1600,400);
+            regionPorugaIzquierdaC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaIzquierdaC,actividadJuego, "Enemigos/Poruga/PorugaLeft.png",4,1);
+            try {
+                texturaPorugaIzquierdaC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaIzquierdaC.load();
+
+            texturaPorugaDerechaC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1600,400);
+            regionPorugaDerechaC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaDerechaC,actividadJuego, "Enemigos/Poruga/PorugaRight.png",4,1);
+            try {
+                texturaPorugaDerechaC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaDerechaC.load();
+
+            texturaPorugaAtrasC = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                    1600,400);
+            regionPorugaAtrasC = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    texturaPorugaAtrasC,actividadJuego, "Enemigos/Poruga/PorugaBack.png",4,1);
+            try {
+                texturaPorugaAtrasC.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0,0,0));
+            } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+                Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+            }
+            texturaPorugaAtrasC.load();
+
+            regionesPorugaC = new TiledTextureRegion[]{regionPorugaFrenteC,regionPorugaAtrasC,regionPorugaDerechaC,regionPorugaIzquierdaC};
 
         }
     }

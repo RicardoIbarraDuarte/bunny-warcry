@@ -45,8 +45,16 @@ public class EscenaJuego5 extends EscenaBase
     public AnimatedSprite mara2;
     public boolean mara2Vivo=false;
     public float tiempo;
-    public float radioMara=0;
+    public float radioMara=400;
     public float maraVida=50;
+    public ButtonSprite btnlaser;
+    private Sprite laser;
+    private int tiempolaser;
+    private boolean laserVivo;
+    private int direcLaser;
+    private int radiolaser=50;
+
+
 
     @Override
     public void crearEscena() {
@@ -92,8 +100,33 @@ public class EscenaJuego5 extends EscenaBase
         barraVida.setAnchorCenterX(0);
         attachChild(barraVida);
 
+        laser = new Sprite(0, 0, admRecursos.regionLaser, admRecursos.vbom) {
+            @Override
+            protected void preDraw(GLState pGLState, Camera pCamera) {
+                super.preDraw(pGLState, pCamera);
+                pGLState.enableDither();
+            }
+        };
+
+        btnlaser = new ButtonSprite(1150,250,admRecursos.regionBtnLaser,admRecursos.vbom){
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    if (!laserVivo) {
+                        laserVivo=true;
+                    }
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        btnlaser.setScale(.4f);
+
+        registerTouchArea(btnlaser);
+        attachChild(btnlaser);
+
         //Creamos boton de ataque
-        btnAtacar = new ButtonSprite(1100, 150, admRecursos.regionBtnAtacar, admRecursos.vbom) {
+        btnAtacar = new ButtonSprite(1100, 120, admRecursos.regionBtnAtacar, admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
@@ -171,6 +204,8 @@ public class EscenaJuego5 extends EscenaBase
                     ataqueA = false;
                 }
                 ataqueEnemigos();
+                ataqueLaser();
+                comprobarColissionLaser();
                 comprobarColission();
                 comprobarColissionProyectiles();
                 if (dañado) {
@@ -374,7 +409,7 @@ public class EscenaJuego5 extends EscenaBase
             admEscenas.liberarEscenaJuego5();
         }
         if (acabarNivel) {
-            experienciaGanada = 60;
+            experienciaGanada = 120;
             SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
                     "personaje", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferencias.edit();
@@ -450,6 +485,77 @@ public class EscenaJuego5 extends EscenaBase
 
     public void ataqueMara() {
 
+
+    }
+    public void comprobarColissionLaser(){
+
+            if (mara2Vivo) {
+                float e1x = mara2.getX();
+                float e1y = mara2.getY();
+                float pr1x = laser.getX();
+                float pr1y = laser.getY();
+
+                if (((pr1x - e1x) * (pr1x - e1x)) + ((pr1y - e1y) * (pr1y - e1y))
+                        < (radiolaser + radioMara) * (radiolaser +
+                        radioMara) && laserVivo) {
+                    maraVida = maraVida - personaje.fuerzaLaser;
+                    if (maraVida <= 0) {
+                        mara2.detachSelf();
+                        mara2Vivo = false;
+                       acabarNivel=true;
+                    }
+
+                }
+
+            }
+
+
+    }
+    public void ataqueLaser(){
+        if (laserVivo) {
+            if (tiempolaser == 0) {
+                float px = personaje.getPersonaje().getX();
+                float py = personaje.getPersonaje().getY();
+                laser.setX(px);
+                laser.setY(py);
+                direcLaser = personaje.direccion;
+                if (direcLaser == 0 ) {
+                    laser.setRotation(90);
+                }
+                if (direcLaser == 1 ){
+                    laser.setRotation(90);
+                }
+                if (direcLaser == 2 ) {
+                    laser.setRotation(0);
+                }
+                if (direcLaser == 3 ){
+                    laser.setRotation(0);
+                }
+
+                attachChild(laser);
+            }
+            if (direcLaser == 0) {
+                laser.setY(laser.getY() - 9);
+            }
+            if (direcLaser == 1) {
+                laser.setY(laser.getY() + 9);
+            }
+            if (direcLaser == 2) {
+                laser.setX(laser.getX() + 9);
+            }
+            if (direcLaser == 3) {
+                laser.setX(laser.getX() - 9);
+            }
+            tiempolaser++;
+            if (tiempolaser == 70) {
+                detachChild(laser);
+                laserVivo = false;
+                tiempolaser = 0;
+            }
+
+
+
+        }
 
     }
 }

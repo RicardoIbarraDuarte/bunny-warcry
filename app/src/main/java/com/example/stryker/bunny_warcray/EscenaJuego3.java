@@ -92,11 +92,11 @@ public class EscenaJuego3 extends EscenaBase {
 
     @Override
     public void crearEscena() {
-       /* SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
         musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
         if (musicaGeneral){
             admRecursos.actividadJuego.musicaJuego.play();
-        } */
+        }
         Enemigo1= new EnemigoYami();
         Enemigo2 = new EnemigoHamster();
         Enemigo3 = new EnemigoHamster();

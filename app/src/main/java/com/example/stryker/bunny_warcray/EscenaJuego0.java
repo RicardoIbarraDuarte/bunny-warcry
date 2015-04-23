@@ -28,12 +28,12 @@ public class EscenaJuego0 extends EscenaBase
     private float tiempotranscurrido=0;
 
     private boolean musicaGeneral;
-    private ControlJuego preferencia;
+
 
 
     @Override
     public void crearEscena() {
-        SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
         musicaGeneral = preferencias.getBoolean("musicaGeneral",false);
         if (musicaGeneral){
             admRecursos.actividadJuego.musicaJuego0.play();

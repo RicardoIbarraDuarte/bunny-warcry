@@ -53,11 +53,18 @@ public class EscenaJuego5 extends EscenaBase
     private boolean laserVivo;
     private int direcLaser;
     private int radiolaser=50;
+    private boolean musicaGeneral;
 
 
 
     @Override
     public void crearEscena() {
+        SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+        if (musicaGeneral){
+            admRecursos.actividadJuego.musicaJuego.play();
+        }
+
         preferencia = admRecursos.actividadJuego;
         // Creamos el Fondo
         Fondo = new Sprite(0, 0, admRecursos.regionFondoJuego, admRecursos.vbom) {
@@ -407,6 +414,7 @@ public class EscenaJuego5 extends EscenaBase
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
             admEscenas.liberarEscenaJuego5();
+            admRecursos.actividadJuego.musicaJuego.stop();
         }
         if (acabarNivel) {
             experienciaGanada = 120;
@@ -419,6 +427,7 @@ public class EscenaJuego5 extends EscenaBase
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
             admEscenas.liberarEscenaJuego5();
+            admRecursos.actividadJuego.musicaJuego.stop();
 
         }
 

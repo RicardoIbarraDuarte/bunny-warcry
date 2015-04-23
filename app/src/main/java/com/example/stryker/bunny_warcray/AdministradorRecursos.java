@@ -124,6 +124,11 @@ public class
     public TiledTextureRegion regionYamiIzquierda;
     public TiledTextureRegion[] regionesYami;
 
+    private BuildableBitmapTextureAtlas texturaMara1;
+    public TiledTextureRegion regionMara1;
+    private BuildableBitmapTextureAtlas texturaMara2;
+    public TiledTextureRegion regionMara2;
+
 
 
     // Escena Acerca de (imagen estática)
@@ -377,17 +382,58 @@ public class
     }
 
     public void cargarRecursosJuego4() {
+    cargarPersonajeAtacando();
+    cargarPersonajeCaminando();
+    cargarUI(3);
+    cargaEnemigos(4);
+
+
+
+}
+    public void liberarRecursosJuego4() {
+        liberarPersonaje();
+        liberarEnemigos(4);
+        liberarUI();
+
+    }
+
+    public void cargarRecursosJuego5() {
         cargarPersonajeAtacando();
         cargarPersonajeCaminando();
-        cargarUI(3);
-        cargaEnemigos(4);
+        cargarUI(4);
+
+        texturaMara1 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                1600,400);
+        regionMara1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                texturaMara1,actividadJuego, "Enemigos/MaraNormalLeft.png",4,1);
+        try {
+            texturaMara1.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+        } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+        }
+        texturaMara1.load();
+
+        texturaMara2 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                2000,500);
+        regionMara2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                texturaMara2,actividadJuego, "Enemigos/Marasprite.png",4,1);
+        try {
+            texturaMara2.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+        } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("onCreateResources","No se puede cargar la imagen del ataqueFrente");
+        }
+        texturaMara2.load();
+
+
+
 
 
 
     }
-    public void liberarRecursosJuego4() {
+    public void liberarRecursosJuego5() {
         liberarPersonaje();
-        liberarEnemigos(4);
         liberarUI();
 
     }

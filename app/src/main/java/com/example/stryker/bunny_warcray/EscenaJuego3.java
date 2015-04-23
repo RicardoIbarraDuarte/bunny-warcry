@@ -220,7 +220,7 @@ public class EscenaJuego3 extends EscenaBase {
     public void onBackKeyPressed() {
         admEscenas.crearEscenaMenu();
         admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaJuego2();
+        admEscenas.liberarEscenaJuego3();
 
     }
 

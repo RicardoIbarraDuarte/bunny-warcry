@@ -1,11 +1,17 @@
 package com.example.stryker.bunny_warcray;
 
+import android.util.Log;
+
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
+
+import java.io.IOException;
 
 /**
  * Representa la escena con las opciones del menú principal
@@ -22,8 +28,22 @@ public class EscenaMenu extends EscenaBase{
     private ButtonSprite btnCreditos;
     private ButtonSprite btnOpciones;
 
+    private Music musicaFondo;
+
     @Override
     public void crearEscena() {
+
+        try {
+            musicaFondo = MusicFactory.createMusicFromAsset(admRecursos.engine.getMusicManager(),
+                    admRecursos.actividadJuego, "MusicaMenu.wav");
+        }
+        catch (IOException e) {
+            Log.i("cargarSonidos", "No se puede cargar demo.ogg");
+        }
+        // Reproducir
+        musicaFondo.play();
+
+
         // Creamos el sprite de manera óptima
         spriteFondo = new Sprite(0,0, admRecursos.regionMenu,admRecursos.vbom) {
             @Override

@@ -2,16 +2,20 @@ package com.example.stryker.bunny_warcray;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.font.IFont;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
@@ -37,6 +41,7 @@ public class EscenaJuego1 extends EscenaBase
     private TiledTextureRegion[] regionesPersonajeQuieto;
     private TiledTextureRegion[] regionesPersonajeAtacando;
     private ButtonSprite btnAtacar;
+    private ButtonSprite btnPausa;
     private boolean ataque =false;
     private boolean ataqueA=false;
     private float tiempoAtaque;
@@ -59,6 +64,8 @@ public class EscenaJuego1 extends EscenaBase
     private TiledTextureRegion[] EnemigoImagen6;
     private int randomCreepy;
     private boolean musicaGeneral;
+    private boolean juegoEnPausa;
+    private Scene escenaPausa;
 
 
     @Override
@@ -213,18 +220,45 @@ public class EscenaJuego1 extends EscenaBase
         registerTouchArea(btnAtacar);
         attachChild(btnAtacar);
 
+        btnPausa = new ButtonSprite(20,680,admRecursos.regionBtnAtacar,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    if(!juegoEnPausa){
+                        Log.i("hola","quitandopausa");
+                        juegoEnPausa=true;
+                    }
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        btnPausa.setScale(.4f);
+        registerTouchArea(btnPausa);
+        attachChild(btnPausa);
+
         barra = new Sprite(880,680,admRecursos.regionBarra,admRecursos.vbom);
         barra.setAnchorCenterX(0);
         attachChild(barra);
 
+
         //Creamos el nivel aleatorio y los enemigos
         tipoNivel = 1;
         generadorDenivel();
+        crearEscenaPausa();
 
         registerUpdateHandler(new IUpdateHandler() {
 
             @Override
             public void onUpdate(float pSecondsElapsed) {
+
+
+                if (juegoEnPausa){
+                    setChildScene(escenaPausa,false,true,true);
+                    return;
+                }
 
                 movimientoEnemigos();
                 comprobarDireccionPersonaje();
@@ -347,7 +381,7 @@ public class EscenaJuego1 extends EscenaBase
         this.detachSelf();      // La escena se deconecta del engine
         this.dispose();         // Libera la memoria
     }
-    public void comprobarColission() {
+    public void comprobarColission(){
         if (tipoNivel==1) {
             if (!faseDos) {
                 float ex1 = Enemigo1.getEnemigo().getX();
@@ -602,7 +636,7 @@ public class EscenaJuego1 extends EscenaBase
             personaje.setPersonaje(3);
             attachChild(personaje.getPersonaje());
         }
-        if (personaje.quieto){
+        if (personaje.quieto&& !dañado){
             if (personaje.direccion==0){
                 personaje.setPersonajeQuieto(0);
                 attachChild(personaje.getPersonaje());
@@ -659,5 +693,32 @@ public class EscenaJuego1 extends EscenaBase
             }
         }
 
+    }
+    private void crearEscenaPausa() {
+        // Crea la escena que se mostrará
+        escenaPausa = new Scene();
+        // No muestra fondo
+        escenaPausa.setBackgroundEnabled(false);
+        // Un recuadro como fondo para mostrar los letreros
+        Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2,
+                ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2,admRecursos.vbom) {
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+                // El usuario hizo touch, REANUDAR el juego
+                if (pSceneTouchEvent.isActionUp()) {
+                    juegoEnPausa = false;
+                    Log.i("hola","quitandopausa");
+                    EscenaJuego1.this.clearChildScene();
+                    EscenaJuego1.this.setChildScene(control);
+                    return true;
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        cuadro.setColor(1,1,1,0.8f);
+        escenaPausa.attachChild(cuadro);
+        // Crea los letreros
+        // Registra el recuadro completo para regresar
+        escenaPausa.registerTouchArea(cuadro);
     }
 }

@@ -62,7 +62,7 @@ public class Personaje {
 
         personaje = imgsPersonaje[0];
         radioImagen= 100;
-        radioImagenAtacando= 140;
+        radioImagenAtacando= 120;
 
         direccion = 0;
         direcAnte = 0;
@@ -227,28 +227,28 @@ public class Personaje {
             pataque[0].setY(personaje.getY());
             personaje.detachSelf();
             personaje=pataque[0];
-            personaje.animate(50,1);
+            personaje.animate(50,true);
         }
         if (direccion==1) {
             pataque[1].setX(personaje.getX());
             pataque[1].setY(personaje.getY());
             personaje.detachSelf();
             personaje=pataque[1];
-            personaje.animate(50,1);
+            personaje.animate(50,true);
         }
         if (direccion==2) {
             pataque[2].setX(personaje.getX());
             pataque[2].setY(personaje.getY());
             personaje.detachSelf();
             personaje=pataque[2];
-            personaje.animate(50,1);
+            personaje.animate(50,true);
         }
         if (direccion==3) {
             pataque[3].setX(personaje.getX());
             pataque[3].setY(personaje.getY());
             personaje.detachSelf();
             personaje=pataque[3];
-            personaje.animate(50,1);
+            personaje.animate(50,true);
         }
     }
     public void crearStats(ControlJuego preferencia){

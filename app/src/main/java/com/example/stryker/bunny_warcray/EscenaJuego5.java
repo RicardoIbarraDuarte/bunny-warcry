@@ -328,20 +328,36 @@ public class EscenaJuego5 extends EscenaBase
                 float py = personaje.getPersonaje().getY();
 
                 if (mara2Vivo) {
+                    if (ataque) {
 
-                    if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
-                            < (radioMara + personaje.radioImagen) * (radioMara +
-                            personaje.radioImagen) && mara2Vivo) {
-                        if (ataque) {
-                            maraVida = maraVida - personaje.fuerza;
-                        } else {
-                            if (!dañado) {
-                                personaje.setPersonaje(4);
-                                attachChild(personaje.getPersonaje());
-                                dañado = true;
+                        if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
+                                < (radioMara + personaje.radioImagenAtacando) * (radioMara +
+                                personaje.radioImagenAtacando) && mara2Vivo) {
+                            if (ataque) {
+                                maraVida = maraVida - personaje.fuerza;
+                            } else {
+                                if (!dañado) {
+                                    personaje.setPersonaje(4);
+                                    attachChild(personaje.getPersonaje());
+                                    dañado = true;
+                                }
+
                             }
+                        }
+                    }else{
+                        if (((ex1 - px) * (ex1 - px)) + ((ey1 - py) * (ey1 - py))
+                                < (radioMara + personaje.radioImagen) * (radioMara +
+                                personaje.radioImagen) && mara2Vivo) {
+
+                                if (!dañado) {
+                                    personaje.setPersonaje(4);
+                                    attachChild(personaje.getPersonaje());
+                                    dañado = true;
+                                }
+
 
                         }
+
                     }
                 }
             }
@@ -452,7 +468,7 @@ public class EscenaJuego5 extends EscenaBase
             personaje.setPersonaje(3);
             attachChild(personaje.getPersonaje());
         }
-        if (personaje.quieto) {
+        if (personaje.quieto&&!dañado) {
             if (personaje.direccion == 0) {
                 personaje.setPersonajeQuieto(0);
                 attachChild(personaje.getPersonaje());

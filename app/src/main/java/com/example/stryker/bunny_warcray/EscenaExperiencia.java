@@ -39,10 +39,17 @@ public class EscenaExperiencia extends EscenaBase{
     private ButtonSprite btnBarraVi;
     private ButtonSprite btnBarraL;
     private Text txtPuntos;
+    private boolean musicaGeneral;
 
 
     @Override
     public void crearEscena() {
+        SharedPreferences preferencias2 = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias2.getBoolean("musicaGeneral",true);
+        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()&&musicaGeneral){
+            admRecursos.actividadJuego.musicaMenu.play();
+
+        }
         // Creamos el sprite de manera óptima
         spriteFondo = new Sprite(0,0, admRecursos.regionFondoExperiencia,admRecursos.vbom) {
             @Override

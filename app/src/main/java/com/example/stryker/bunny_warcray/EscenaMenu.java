@@ -29,13 +29,16 @@ public class EscenaMenu extends EscenaBase{
     private ButtonSprite btnAcerca;
     private ButtonSprite btnCreditos;
     private ButtonSprite btnOpciones;
+    private boolean musicaGeneral;
 
 
 
 
     @Override
     public void crearEscena() {
-        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()){
+        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()&&musicaGeneral){
             admRecursos.actividadJuego.musicaMenu.play();
 
         }

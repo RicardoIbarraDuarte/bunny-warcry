@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * Representa la escena con las opciones del menú principal
  *
- * @author Roberto Martínez Román
+ *
  */
 public class EscenaMenu extends EscenaBase{
     // *** Fondo
@@ -39,27 +39,6 @@ public class EscenaMenu extends EscenaBase{
             admRecursos.actividadJuego.musicaMenu.play();
 
         }
-       /* boolean musicaMenu;
-        boolean musicaGeneral;
-        SharedPreferences preferencias = preferencia.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
-        musicaMenu = preferencias.getBoolean("musicaMenu",false);
-        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
-
-
-        try {
-            musicaFondo = MusicFactory.createMusicFromAsset(admRecursos.engine.getMusicManager(),
-                    admRecursos.actividadJuego, "MusicaMenu.wav");
-        }
-        catch (IOException e) {
-            Log.i("cargarSonidos", "No se puede cargar demo.ogg");
-        }
-        // Reproducir
-        if (!musicaMenu&&musicaGeneral) {
-            musicaFondo.play();
-            SharedPreferences.Editor editor = preferencias.edit();
-            editor.putBoolean("musicaMenu", true);
-            editor.commit();
-        } */
 
 
         // Creamos el sprite de manera óptima

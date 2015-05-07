@@ -2,12 +2,14 @@ package com.example.stryker.bunny_warcray;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.ButtonSprite;
@@ -45,7 +47,7 @@ public class EscenaJuego5 extends EscenaBase
     public AnimatedSprite mara2;
     public boolean mara2Vivo=false;
     public float tiempo;
-    public float radioMara=400;
+    public float radioMara=200;
     public float maraVida=50;
     public ButtonSprite btnlaser;
     private Sprite laser;
@@ -54,6 +56,12 @@ public class EscenaJuego5 extends EscenaBase
     private int direcLaser;
     private int radiolaser=50;
     private boolean musicaGeneral;
+    private boolean juegoEnPausa;
+    private Scene escenaPausa;
+    private ButtonSprite btnPausa;
+    private ButtonSprite btnPausa2;
+    private ButtonSprite btnMenu;
+    private Sprite FondoPausa;
 
 
 
@@ -155,6 +163,26 @@ public class EscenaJuego5 extends EscenaBase
         barra.setAnchorCenterX(0);
         attachChild(barra);
 
+        btnPausa = new ButtonSprite(50,660,admRecursos.regionBtnPausa,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    if(!juegoEnPausa){
+                        Log.i("hola", "quitandopausa");
+                        juegoEnPausa=true;
+                    }
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        btnPausa.setScale(.4f);
+        registerTouchArea(btnPausa);
+        attachChild(btnPausa);
+
+
         mara1 = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2,
                 admRecursos.regionMara1.getHeight(),
                 admRecursos.regionMara1,admRecursos.vbom);
@@ -178,6 +206,10 @@ public class EscenaJuego5 extends EscenaBase
 
             @Override
             public void onUpdate(float pSecondsElapsed) {
+                if (juegoEnPausa){
+                    setChildScene(escenaPausa,false,true,true);
+                    return;
+                }
 
                 tiempo=tiempo+pSecondsElapsed;
 
@@ -242,9 +274,11 @@ public class EscenaJuego5 extends EscenaBase
 
     @Override
     public void onBackKeyPressed() {
-        admEscenas.crearEscenaMenu();
-        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaJuego5();
+        if(!juegoEnPausa){
+            Log.i("hola","quitandopausa");
+            juegoEnPausa=true;
+        }
+
 
     }
 
@@ -334,7 +368,13 @@ public class EscenaJuego5 extends EscenaBase
                                 < (radioMara + personaje.radioImagenAtacando) * (radioMara +
                                 personaje.radioImagenAtacando) && mara2Vivo) {
                             if (ataque) {
-                                maraVida = maraVida - personaje.fuerza;
+                                if(personaje.fuerza==6 && personaje.fuerzaLaser==6){
+                                    mara2.detachSelf();
+                                    mara2Vivo = false;
+                                    acabarNivel=true;
+
+                                }
+
                             } else {
                                 if (!dañado) {
                                     personaje.setPersonaje(4);
@@ -430,7 +470,7 @@ public class EscenaJuego5 extends EscenaBase
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
             admEscenas.liberarEscenaJuego5();
-            admRecursos.actividadJuego.musicaJuego.stop();
+            admRecursos.actividadJuego.musicaJuego.pause();
         }
         if (acabarNivel) {
             experienciaGanada = 120;
@@ -443,7 +483,7 @@ public class EscenaJuego5 extends EscenaBase
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
             admEscenas.liberarEscenaJuego5();
-            admRecursos.actividadJuego.musicaJuego.stop();
+            admRecursos.actividadJuego.musicaJuego.pause();
 
         }
 
@@ -524,11 +564,14 @@ public class EscenaJuego5 extends EscenaBase
                         < (radiolaser + radioMara) * (radiolaser +
                         radioMara) && laserVivo) {
                     maraVida = maraVida - personaje.fuerzaLaser;
-                    if (maraVida <= 0) {
+                    if(personaje.fuerza==6 && personaje.fuerzaLaser==6){
                         mara2.detachSelf();
                         mara2Vivo = false;
-                       acabarNivel=true;
+                        acabarNivel=true;
+
                     }
+
+
 
                 }
 

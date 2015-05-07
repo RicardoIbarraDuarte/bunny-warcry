@@ -26,6 +26,10 @@ public class EscenaOpciones extends EscenaBase{
 
     @Override
     public void crearEscena() {
+        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()){
+            admRecursos.actividadJuego.musicaMenu.play();
+
+        }
         // Creamos el sprite de manera óptima
         spriteFondo = new Sprite(0,0, admRecursos.regionFondoOpciones,admRecursos.vbom) {
             @Override

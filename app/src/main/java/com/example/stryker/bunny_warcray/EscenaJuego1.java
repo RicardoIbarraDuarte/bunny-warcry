@@ -42,6 +42,8 @@ public class EscenaJuego1 extends EscenaBase
     private TiledTextureRegion[] regionesPersonajeAtacando;
     private ButtonSprite btnAtacar;
     private ButtonSprite btnPausa;
+    private ButtonSprite btnPausa2;
+    private ButtonSprite btnMenu;
     private boolean ataque =false;
     private boolean ataqueA=false;
     private float tiempoAtaque;
@@ -49,6 +51,7 @@ public class EscenaJuego1 extends EscenaBase
     private boolean dañado=false;
     private Rectangle barraVida;
     private Sprite Fondo;
+    private Sprite FondoPausa;
     private float anchoVida;
     private float enemigosVivos;
     private int tipoNivel;
@@ -220,7 +223,7 @@ public class EscenaJuego1 extends EscenaBase
         registerTouchArea(btnAtacar);
         attachChild(btnAtacar);
 
-        btnPausa = new ButtonSprite(20,680,admRecursos.regionBtnAtacar,admRecursos.vbom) {
+        btnPausa = new ButtonSprite(50,660,admRecursos.regionBtnPausa,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
@@ -304,9 +307,11 @@ public class EscenaJuego1 extends EscenaBase
 
     @Override
     public void onBackKeyPressed() {
-        admEscenas.crearEscenaMenu();
-        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaJuego1();
+        if(!juegoEnPausa){
+            Log.i("hola","quitandopausa");
+            juegoEnPausa=true;
+        }
+
 
     }
     public void agregarJoystick() {
@@ -595,7 +600,7 @@ public class EscenaJuego1 extends EscenaBase
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
             admEscenas.liberarEscenaJuego1();
-            admRecursos.actividadJuego.musicaJuego.stop();
+            admRecursos.actividadJuego.musicaJuego.pause();
         }
         if (enemigosVivos==0){
             if (tipoNivel==1) {
@@ -609,7 +614,7 @@ public class EscenaJuego1 extends EscenaBase
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
             admEscenas.liberarEscenaJuego1();
-            admRecursos.actividadJuego.musicaJuego.stop();
+            admRecursos.actividadJuego.musicaJuego.pause();
         }
     }
     public void generadorDenivel(){
@@ -757,25 +762,52 @@ public class EscenaJuego1 extends EscenaBase
         // No muestra fondo
         escenaPausa.setBackgroundEnabled(false);
         // Un recuadro como fondo para mostrar los letreros
-        Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2,
-                ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2,admRecursos.vbom) {
+        FondoPausa = new Sprite(0,0,admRecursos.regionFondoPausa,admRecursos.vbom) {
             @Override
-            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-                // El usuario hizo touch, REANUDAR el juego
-                if (pSceneTouchEvent.isActionUp()) {
-                    juegoEnPausa = false;
-                    Log.i("hola","quitandopausa");
-                    EscenaJuego1.this.clearChildScene();
-                    EscenaJuego1.this.setChildScene(control);
-                    return true;
+            protected void preDraw(GLState pGLState, Camera pCamera) {
+                super.preDraw(pGLState, pCamera);
+                pGLState.enableDither();
+            }
+        };
+        FondoPausa.setPosition(1280 / 2, 720 / 2);
+
+        escenaPausa.attachChild(FondoPausa);
+        btnPausa2 = new ButtonSprite(0,0,admRecursos.regionBtnPausa2,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    if(!juegoEnPausa){
+                        Log.i("hola","quitandopausa");
+                        juegoEnPausa=false;
+                    }
+
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
-        cuadro.setColor(1,1,1,0.8f);
-        escenaPausa.attachChild(cuadro);
+        btnMenu = new ButtonSprite(0,0,admRecursos.regionBtnMenu,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    if(!juegoEnPausa){
+                        admEscenas.crearEscenaMenu();
+                        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
+                        admEscenas.liberarEscenaJuego1();
+                    }
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        registerTouchArea(btnMenu);
+        attachChild(btnMenu);
         // Crea los letreros
         // Registra el recuadro completo para regresar
-        escenaPausa.registerTouchArea(cuadro);
+
     }
 }

@@ -34,7 +34,7 @@ public class EscenaJuego0 extends EscenaBase
     @Override
     public void crearEscena() {
         SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
-        musicaGeneral = preferencias.getBoolean("musicaGeneral",false);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
         if (musicaGeneral){
             admRecursos.actividadJuego.musicaJuego0.play();
         }
@@ -124,7 +124,7 @@ public class EscenaJuego0 extends EscenaBase
         admEscenas.crearEscenaNiveles();
         admEscenas.setEscena(TipoEscena.ESCENA_NIVELES);
         admEscenas.liberarEscenaJuego0();
-        admRecursos.actividadJuego.musicaJuego0.stop();
+        admRecursos.actividadJuego.musicaJuego0.pause();
 
     }
 

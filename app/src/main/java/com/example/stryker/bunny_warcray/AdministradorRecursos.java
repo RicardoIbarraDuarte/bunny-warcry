@@ -562,7 +562,7 @@ public class
         try {
             // Carga la imagen de fondo de la pantalla de créditos
             texturaFondoCreditos = new AssetBitmapTexture(actividadJuego.getTextureManager(),
-                    actividadJuego.getAssets(), "EscenaCreditos/FondoCreditos.jpg");
+                    actividadJuego.getAssets(), "EscenaCreditos/FondoCreditos.png");
             regionFondoCreditos = TextureRegionFactory.extractFromTexture(texturaFondoCreditos);
             texturaFondoCreditos.load();
         } catch (IOException e) {

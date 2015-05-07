@@ -772,40 +772,42 @@ public class EscenaJuego1 extends EscenaBase
         FondoPausa.setPosition(1280 / 2, 720 / 2);
 
         escenaPausa.attachChild(FondoPausa);
-        btnPausa2 = new ButtonSprite(0,0,admRecursos.regionBtnPausa2,admRecursos.vbom) {
+        btnPausa2 = new ButtonSprite(440,260,admRecursos.regionBtnPausa2,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    if(!juegoEnPausa){
-                        Log.i("hola","quitandopausa");
-                        juegoEnPausa=false;
-                    }
+                    Log.i("hola","quitandopausa");
+                    clearChildScene();
+                    juegoEnPausa=false;
+                    setChildScene(control);
 
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
-        btnMenu = new ButtonSprite(0,0,admRecursos.regionBtnMenu,admRecursos.vbom) {
+        escenaPausa.registerTouchArea(btnPausa2);
+        escenaPausa.attachChild(btnPausa2);
+        btnMenu = new ButtonSprite(540,260,admRecursos.regionBtnMenu,admRecursos.vbom) {
             // Aquí el código que ejecuta el botón cuando es presionado
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    if(!juegoEnPausa){
+                    Log.i("hola","quitandopausa");
                         admEscenas.crearEscenaMenu();
                         admEscenas.setEscena(TipoEscena.ESCENA_MENU);
                         admEscenas.liberarEscenaJuego1();
-                    }
+
 
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
 
-        registerTouchArea(btnMenu);
-        attachChild(btnMenu);
+        escenaPausa.registerTouchArea(btnMenu);
+        escenaPausa.attachChild(btnMenu);
         // Crea los letreros
         // Registra el recuadro completo para regresar
 

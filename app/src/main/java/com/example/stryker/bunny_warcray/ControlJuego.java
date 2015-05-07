@@ -119,5 +119,102 @@ public class ControlJuego extends SimpleBaseGameActivity
             System.exit(0);
         }
     }
+    public synchronized void onPauseGame() {
+        // Pausar la música en ACERCA DE
+
+            if (musicaJuego.isPlaying()) {
+                musicaJuego.pause();
+        }
+        if (musicaJuego0.isPlaying()) {
+            musicaJuego0.pause();
+        }
+        if (musicaMenu.isPlaying()) {
+            musicaMenu.pause();
+        }
+
+
+
+        super.onPauseGame();
+    }
+    public synchronized void onResumeGame() {
+        SharedPreferences preferencias = getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+        // Reanudar la música en ACERCA DE
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_JUEGO0&&musicaGeneral) {
+            // Esta en AcercaDe, revisar si está reproduciendo música
+
+            if (!musicaJuego0.isPlaying()) {
+                musicaJuego0.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_JUEGO1&&musicaGeneral) {
+
+            if (!musicaJuego.isPlaying()) {
+                musicaJuego.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_JUEGO2&&musicaGeneral) {
+
+            if (!musicaJuego.isPlaying()) {
+                musicaJuego.play();
+            }
+        }if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_JUEGO3&&musicaGeneral) {
+
+            if (!musicaJuego.isPlaying()) {
+                musicaJuego.play();
+            }
+        }if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_JUEGO4&&musicaGeneral) {
+
+            if (!musicaJuego.isPlaying()) {
+                musicaJuego.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_JUEGO5&&musicaGeneral) {
+
+            if (!musicaJuego.isPlaying()) {
+                musicaJuego.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_MENU&&musicaGeneral) {
+
+            if (!musicaMenu.isPlaying()) {
+                musicaMenu.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_CREDITOS&&musicaGeneral) {
+
+            if (!musicaMenu.isPlaying()) {
+                musicaMenu.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_ACERCA_DE&&musicaGeneral) {
+
+            if (!musicaMenu.isPlaying()) {
+                musicaMenu.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_NIVELES&&musicaGeneral) {
+
+            if (!musicaMenu.isPlaying()) {
+                musicaMenu.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_EXPERIENCIA&&musicaGeneral) {
+
+            if (!musicaMenu.isPlaying()) {
+                musicaMenu.play();
+            }
+        }
+        if (admEscenas!=null && admEscenas.getTipoEscenaActual()==TipoEscena.ESCENA_OPCIONES&&musicaGeneral) {
+
+            if (!musicaMenu.isPlaying()) {
+                musicaMenu.play();
+            }
+        }
+
+
+
+        super.onResumeGame();
+    }
 
 }

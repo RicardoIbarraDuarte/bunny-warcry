@@ -197,6 +197,7 @@ public class EscenaJuego5 extends EscenaBase
         mara1.animate(80,100);
 
         attachChild(mara1);
+        crearEscenaPausa();
 
 
         //Creamos el nivel aleatorio y los enemigos
@@ -624,6 +625,60 @@ public class EscenaJuego5 extends EscenaBase
 
 
         }
+
+    }
+    private void crearEscenaPausa() {
+        // Crea la escena que se mostrará
+        escenaPausa = new Scene();
+        // No muestra fondo
+        escenaPausa.setBackgroundEnabled(false);
+        // Un recuadro como fondo para mostrar los letreros
+        FondoPausa = new Sprite(0,0,admRecursos.regionFondoPausa,admRecursos.vbom) {
+            @Override
+            protected void preDraw(GLState pGLState, Camera pCamera) {
+                super.preDraw(pGLState, pCamera);
+                pGLState.enableDither();
+            }
+        };
+        FondoPausa.setPosition(1280 / 2, 720 / 2);
+
+        escenaPausa.attachChild(FondoPausa);
+        btnPausa2 = new ButtonSprite(440,260,admRecursos.regionBtnPausa2,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    Log.i("hola","quitandopausa");
+                    clearChildScene();
+                    juegoEnPausa=false;
+                    setChildScene(control);
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        escenaPausa.registerTouchArea(btnPausa2);
+        escenaPausa.attachChild(btnPausa2);
+        btnMenu = new ButtonSprite(540,260,admRecursos.regionBtnMenu,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    Log.i("hola","quitandopausa");
+                    admEscenas.crearEscenaMenu();
+                    admEscenas.setEscena(TipoEscena.ESCENA_MENU);
+                    admEscenas.liberarEscenaJuego5();
+
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+
+        escenaPausa.registerTouchArea(btnMenu);
+        escenaPausa.attachChild(btnMenu);
 
     }
 }

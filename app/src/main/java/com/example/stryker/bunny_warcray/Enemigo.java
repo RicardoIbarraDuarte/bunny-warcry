@@ -23,6 +23,9 @@ public class Enemigo {
     public int direccion;
     public int direccionAnterior;
     public boolean dibujar=false;
+    public int contadorGolpeado=0;
+    public boolean golpeado=false;
+    public boolean golpeadoA=false;
 
     public void crearEnemigo(float x, float y, TiledTextureRegion[] regionHamster ,
                              VertexBufferObjectManager vbom){
@@ -47,6 +50,9 @@ public class Enemigo {
     public void animarYami(){}
 
     public void setRadios() {
+
+    }
+    public void enemigoGolpeado(){
 
     }
 }

@@ -2,12 +2,14 @@ package com.example.stryker.bunny_warcray;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
@@ -88,6 +90,12 @@ public class EscenaJuego3 extends EscenaBase {
     private TiledTextureRegion[] EnemigoImagen6;
     private int randomCreepy;
     private boolean musicaGeneral;
+    private boolean juegoEnPausa;
+    private Scene escenaPausa;
+    private ButtonSprite btnPausa;
+    private ButtonSprite btnPausa2;
+    private ButtonSprite btnMenu;
+    private Sprite FondoPausa;
 
 
     @Override
@@ -241,6 +249,25 @@ public class EscenaJuego3 extends EscenaBase {
         barra = new Sprite(880, 680, admRecursos.regionBarra, admRecursos.vbom);
         barra.setAnchorCenterX(0);
         attachChild(barra);
+        btnPausa = new ButtonSprite(50,660,admRecursos.regionBtnPausa,admRecursos.vbom) {
+            // Aquí el código que ejecuta el botón cuando es presionado
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
+                    pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionDown()) {
+                    if(!juegoEnPausa){
+                        Log.i("hola", "quitandopausa");
+                        juegoEnPausa=true;
+                    }
+
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        btnPausa.setScale(.4f);
+        registerTouchArea(btnPausa);
+        attachChild(btnPausa);
+
 
         //Creamos el nivel aleatorio y los enemigos
         tipoNivel = 1; //(int)((Math.random() * 4) + 1);
@@ -250,6 +277,10 @@ public class EscenaJuego3 extends EscenaBase {
 
             @Override
             public void onUpdate(float pSecondsElapsed) {
+                if (juegoEnPausa){
+                    setChildScene(escenaPausa,false,true,true);
+                    return;
+                }
 
                 movimientoEnemigos();
 
@@ -312,9 +343,11 @@ public class EscenaJuego3 extends EscenaBase {
 
     @Override
     public void onBackKeyPressed() {
-        admEscenas.crearEscenaMenu();
-        admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaJuego3();
+        if(!juegoEnPausa){
+            Log.i("hola","quitandopausa");
+            juegoEnPausa=true;
+        }
+
 
     }
 
@@ -724,7 +757,7 @@ public class EscenaJuego3 extends EscenaBase {
             admEscenas.crearEscenaGameover();
             admEscenas.setEscena(TipoEscena.ESCENA_GAMEOVER);
             admEscenas.liberarEscenaJuego3();
-            admRecursos.actividadJuego.musicaJuego.stop();
+            admRecursos.actividadJuego.musicaJuego.pause();
         }
         if (enemigosVivos == 0) {
             if (tipoNivel == 1) {
@@ -738,7 +771,7 @@ public class EscenaJuego3 extends EscenaBase {
             admEscenas.crearEscenaExperiencia();
             admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
             admEscenas.liberarEscenaJuego3();
-            admRecursos.actividadJuego.musicaJuego.stop();
+            admRecursos.actividadJuego.musicaJuego.pause();
         }
     }
 

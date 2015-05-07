@@ -73,6 +73,14 @@ public class
     public ITextureRegion regionBarra;
     public ITiledTextureRegion regionBtnAtacar;
     private BuildableBitmapTextureAtlas btaBtnAtacar;
+    public ITiledTextureRegion regionBtnPausa;
+    private BuildableBitmapTextureAtlas btaBtnPausa;
+    public ITiledTextureRegion regionBtnPausa2;
+    private BuildableBitmapTextureAtlas btaBtnPausa2;
+    public ITiledTextureRegion regionBtnMenu;
+    private BuildableBitmapTextureAtlas btaBtnMenu;
+    private ITexture texturaFondoPausa;
+    public ITextureRegion regionFondoPausa;
     public ITiledTextureRegion regionBtnLaser;
     private BuildableBitmapTextureAtlas btaBtnLaser;
     private BuildableBitmapTextureAtlas texturaPataqueAtras;
@@ -1157,6 +1165,55 @@ public class
             texturaBarra.load();
         } catch (IOException e) {
             Log.d("cargarRecursosJuego", "No se puede cargar el joystick");
+        }
+        btaBtnPausa = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                296,296);
+        regionBtnPausa = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnPausa,
+                actividadJuego.getAssets(),
+                "EscenaJuego/BotonPausa.png", 1, 1);
+        try {
+            btaBtnPausa.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón atacar");
+        }
+        btaBtnPausa.load();
+        btaBtnPausa2 = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                75,74);
+        regionBtnPausa2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnPausa2,
+                actividadJuego.getAssets(),
+                "EscenaJuego/pausa1.png", 1, 1);
+        try {
+            btaBtnPausa2.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón atacar");
+        }
+        btaBtnPausa2.load();
+        btaBtnMenu = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),
+                75,74);
+        regionBtnMenu = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(btaBtnMenu,
+                actividadJuego.getAssets(),
+                "EscenaJuego/home.png", 1, 1);
+        try {
+            btaBtnMenu.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                    BitmapTextureAtlas>(0,0,0));
+
+        } catch(ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarRecursosMenu","No se puede cargar la imagen del botón atacar");
+        }
+        btaBtnMenu.load();
+        try {
+            // Carga la imagen de fondo de la pantalla juego
+            texturaFondoPausa = new AssetBitmapTexture(actividadJuego.getTextureManager(),
+                    actividadJuego.getAssets(), "EscenaJuego/pantallapausa.png");
+            regionFondoPausa = TextureRegionFactory.extractFromTexture(texturaFondoPausa);
+            texturaFondoPausa.load();
+        } catch (IOException e) {
+
+            Log.d("cargarRecursosJuego", "No se puede cargar el fondo");
         }
 
         if (x==1){

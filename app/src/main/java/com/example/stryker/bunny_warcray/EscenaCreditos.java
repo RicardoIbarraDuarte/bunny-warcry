@@ -1,5 +1,8 @@
 package com.example.stryker.bunny_warcray;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
@@ -16,10 +19,13 @@ public class EscenaCreditos extends EscenaBase
 {
     // *** Fondo
     private Sprite spriteFondo; //(el fondo de la escena, estático)
+    private boolean musicaGeneral;
 
     @Override
     public void crearEscena() {
-        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()){
+        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()&&musicaGeneral){
             admRecursos.actividadJuego.musicaMenu.play();
 
         }

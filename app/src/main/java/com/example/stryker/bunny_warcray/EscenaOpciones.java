@@ -23,10 +23,13 @@ public class EscenaOpciones extends EscenaBase{
     private ButtonSprite btnSonidoOff;
     private ButtonSprite btnSonidoOn;
     private ButtonSprite btnBorrarStats;
+    private boolean musicaGeneral;
 
     @Override
     public void crearEscena() {
-        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()){
+        SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences("Sonido", Context.MODE_PRIVATE);
+        musicaGeneral = preferencias.getBoolean("musicaGeneral",true);
+        if (!admRecursos.actividadJuego.musicaMenu.isPlaying()&&musicaGeneral){
             admRecursos.actividadJuego.musicaMenu.play();
 
         }
@@ -58,6 +61,17 @@ public class EscenaOpciones extends EscenaBase{
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
+                    SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                            "Sonido", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferencias.edit();
+                    editor.putBoolean("musicaGeneral", false);
+                    editor.commit();
+                    if (admRecursos.actividadJuego.musicaMenu.isPlaying()){
+                        admRecursos.actividadJuego.musicaMenu.pause();
+
+                    }
+
+
 
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
@@ -74,6 +88,15 @@ public class EscenaOpciones extends EscenaBase{
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float
                     pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionUp()) {
+                    SharedPreferences preferencias = admRecursos.actividadJuego.getSharedPreferences(
+                            "Sonido", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferencias.edit();
+                    editor.putBoolean("musicaGeneral", true);
+                    editor.commit();
+                    if (!admRecursos.actividadJuego.musicaMenu.isPlaying()){
+                        admRecursos.actividadJuego.musicaMenu.play();
+
+                    }
 
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);

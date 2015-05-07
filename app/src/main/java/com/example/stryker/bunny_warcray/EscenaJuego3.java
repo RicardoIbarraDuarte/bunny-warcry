@@ -768,9 +768,9 @@ public class EscenaJuego3 extends EscenaBase {
                 editor.putInt("ExperienciaGanada", experienciaGanada);
                 editor.commit();
             }
-            admEscenas.crearEscenaExperiencia();
-            admEscenas.setEscena(TipoEscena.ESCENA_EXPERIENCIA);
-            admEscenas.liberarEscenaJuego3();
+            admEscenas.crearEscenaNiveles();
+            admEscenas.setEscena(TipoEscena.ESCENA_NIVELES);
+            admEscenas.liberarEscenaJuego1();
             admRecursos.actividadJuego.musicaJuego.pause();
         }
     }
